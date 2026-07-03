@@ -4,8 +4,7 @@ import { getNewsList } from "@/shared/lib";
 
 const STATIC_ROUTES: readonly { path: string; priority: number }[] = [
   { path: "/", priority: 1 },
-  { path: "/about", priority: 0.8 },
-  { path: "/about/greeting", priority: 0.6 },
+  { path: "/about/greeting", priority: 0.8 },
   { path: "/about/history", priority: 0.6 },
   { path: "/about/location", priority: 0.6 },
   { path: "/business", priority: 0.8 },

@@ -70,7 +70,7 @@ export function SiteHeader() {
           {NAV_GROUPS.map((group) => (
             <Link
               key={group.href}
-              href={group.href}
+              href={group.defaultHref ?? group.href}
               className="text-sm font-medium text-white/80 transition-colors duration-fast ease-out hover:text-white"
             >
               {group.label}
@@ -126,7 +126,7 @@ export function SiteHeader() {
             {NAV_GROUPS.map((group) => (
               <Link
                 key={group.href}
-                href={group.href}
+                href={group.defaultHref ?? group.href}
                 onClick={() => setMenuOpen(false)}
                 className="py-2 text-sm font-medium text-white/80 transition-colors duration-fast ease-out hover:text-white"
               >
