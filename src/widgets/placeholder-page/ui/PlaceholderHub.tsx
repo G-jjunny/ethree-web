@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { PlaceholderHeader } from "./PlaceholderHeader";
+import { PlaceholderSubNav } from "./PlaceholderSubNav";
 
 export interface PlaceholderHubLink {
   label: string;
@@ -18,8 +18,9 @@ export interface PlaceholderHubProps {
 }
 
 /**
- * 허브 페이지(about/support) 공용 placeholder.
- * PlaceholderPage와 동일한 헤더 + 하위 링크 카드 그리드.
+ * 허브 페이지(about/business/support) 공용 placeholder.
+ * PlaceholderPage와 동일한 헤더 + `PlaceholderSubNav` 카드 그리드(activeHref 없이 호출 = 전부 비활성)를
+ * 사용해 leaf 페이지의 서브내비게이션과 완전히 동일한 링크 그리드를 렌더링한다.
  * 상호작용은 Link뿐 — 서버 컴포넌트로 사용 가능.
  */
 export function PlaceholderHub({
@@ -37,20 +38,7 @@ export function PlaceholderHub({
           description={description}
         />
 
-        <div className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="flex items-center justify-between rounded-card border border-hairline bg-surface-white px-8 py-7 text-item font-bold text-ink transition-colors duration-fast ease-out hover:border-olive-label hover:text-olive-label"
-            >
-              {link.label}
-              <span aria-hidden className="text-olive-label">
-                →
-              </span>
-            </Link>
-          ))}
-        </div>
+        <PlaceholderSubNav siblings={links} />
       </div>
     </section>
   );

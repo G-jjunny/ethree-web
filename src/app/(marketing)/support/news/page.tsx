@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { SectionLabel } from "@/shared/ui";
 import { buildMetadata, getNewsList } from "@/shared/lib";
+import { PlaceholderSubNav } from "@/widgets/placeholder-page";
+import { NAV_GROUPS } from "@/shared/constants";
 
 export const metadata = buildMetadata({
   title: "NEWS",
   description: "이쓰리의 소식을 확인하세요.",
   path: "/support/news",
 });
+
+const group = NAV_GROUPS.find((g) => g.href === "/support")!;
 
 export default function NewsListPage() {
   const newsList = getNewsList();
@@ -20,6 +24,8 @@ export default function NewsListPage() {
             NEWS
           </h1>
         </div>
+
+        <PlaceholderSubNav siblings={group.children} activeHref="/support/news" />
 
         <ul className="mt-14 flex flex-col">
           {newsList.map((item, index) => (
