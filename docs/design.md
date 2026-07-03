@@ -32,6 +32,7 @@ Manrope(영문 디스플레이/숫자/eyebrow) + Noto Sans KR(본문). 플랫 + 
 | olive-muted     | oklch(69% 0.07 130)         | #8ba873            | 라이트 카드 번호 라벨(01/02/03)  | `text-olive-muted`                     |
 | tint            | oklch(96% 0.015 120)        | #eef3e5            | 아이콘 배경(연녹)                | `bg-tint`                              |
 | hairline        | oklch(0% 0 0 / 0.1)         | rgba(0,0,0,.1)     | 라이트 배경 카드/뉴스 구분선     | `border-hairline`                      |
+| danger          | oklch(70% 0.19 25)          | (신규, 원본 없음)  | 폼 에러/실패 상태 텍스트         | `text-danger`                          |
 
 ### 투명도 기반 색상(다크 배경) — 별도 토큰 없이 기본 white/black + opacity 사용
 

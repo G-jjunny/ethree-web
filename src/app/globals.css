@@ -33,6 +33,9 @@
   /* ---- 경계선(라이트 배경 hairline) ---- */
   --color-hairline: oklch(0% 0 0 / 0.1); /* rgba(0,0,0,.1) 카드/뉴스 구분선 */
 
+  /* ---- 상태: 에러 (신규, 원본 디자인엔 없던 상태 색상 최소 추가) ---- */
+  --color-danger: oklch(70% 0.19 25); /* 폼 에러/실패 텍스트 (다크 배경 대비 확인됨) */
+
   /* ---- 폰트 패밀리 (layout.tsx next/font 변수 주입) ---- */
   --font-display: var(--font-manrope), "Manrope", sans-serif; /* 영문/숫자/eyebrow */
   --font-body: var(--font-noto-sans-kr), "Noto Sans KR", sans-serif; /* 본문 */
