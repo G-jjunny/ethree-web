@@ -14,7 +14,10 @@ export interface NavGroup {
   label: string;
   /** 푸터 컬럼 라벨(영문 대문자) */
   footerLabel: string;
+  /** 그룹 식별 키 (children lookup에 사용, 불변) */
   href: string;
+  /** 있으면 헤더 상위 링크는 이 경로로 이동 (없으면 href 사용) */
+  defaultHref?: string;
   children: NavItem[];
 }
 
@@ -44,6 +47,7 @@ export const NAV_GROUPS: readonly NavGroup[] = [
     label: "About E3",
     footerLabel: "ABOUT E3",
     href: "/about",
+    defaultHref: "/about/greeting",
     children: [
       { label: "인사말", href: "/about/greeting" },
       { label: "연혁 및 비전", href: "/about/history" },
