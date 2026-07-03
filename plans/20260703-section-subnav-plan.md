@@ -112,3 +112,7 @@ export default function Page() {
 동일 패턴을 `/business/*`(그룹 `/business`), `/support/news`, `/support/culture`, `/support/careers`(그룹 `/support`)에 적용하면 된다. 허브(`/about`, `/business`, `/support`)와 `/support/news/[slug]`는 대상에서 제외.
 
 **추가 결정(구현 중)**: `/support/news`는 뉴스 리스트라 `PlaceholderPage` 구조를 쓰지 않고 `SectionLabel`+커스텀 마크업으로 직접 작성된 페이지라, `PlaceholderSubNav`를 두 번째 소비처로 두기 위해 `PlaceholderSubNav`/`PlaceholderSubNavProps`/`PlaceholderSubNavItem`을 `src/widgets/placeholder-page/index.ts`의 공개 API로 승격했다(컴포넌트 구현 변경 없음, export만 추가). `/support/news/page.tsx`에서 `<PlaceholderSubNav siblings={group.children} activeHref="/support/news" />`처럼 직접 import해 사용하면 된다.
+
+### Polish — 허브/leaf 서브내비 스타일 통합 (2026-07-03)
+
+구현 완료 직후 `PlaceholderHub`(허브의 카드형 링크 그리드)와 `PlaceholderSubNav`(leaf의 필 탭 바)가 **서로 다른 디자인**으로 갈라져 있는 문제가 발견됐다 — 원래 지시는 "허브 내비게이션을 하위 페이지에서 그대로 재사용"이었는데 실제로는 완전히 다른 두 컴포넌트가 됐던 것. 이를 바로잡기 위해 `PlaceholderSubNav`를 `PlaceholderHub`의 카드 링크 스타일(`rounded-card border-hairline bg-surface-white px-8 py-7 text-item font-bold text-ink` + 화살표 아이콘, `grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3`)로 교체하고, `activeHref`가 일치하는 항목만 `border-olive-label text-olive-label`(호버와 동일 톤)로 강조하도록 했다. `PlaceholderHub`는 이제 자체 `<Link>` 마크업 대신 `activeHref` 없이 `PlaceholderSubNav`를 내부 호출해 동일 그리드를 렌더링한다 — 허브와 leaf가 시각적으로 완전히 같은 링크 그리드를 공유하는 단일 소스 구조가 됐다. `PlaceholderPage`, `/support/news/page.tsx`는 `PlaceholderSubNav`를 그대로 소비하고 있어 별도 수정 없이 새 스타일이 자동 반영된다. 신규 토큰 추가 없음(기존 `rounded-card`/`border-hairline`/`bg-surface-white`/`text-item`/`text-ink`/`border-olive-label`/`text-olive-label` 재사용).
