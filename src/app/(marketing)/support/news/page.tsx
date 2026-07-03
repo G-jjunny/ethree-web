@@ -1,33 +1,32 @@
 import Link from "next/link";
 import { SectionLabel } from "@/shared/ui";
-import { getNewsList } from "@/shared/lib";
+import { buildMetadata, getNewsList } from "@/shared/lib";
 
-/**
- * NEWS 데이터는 `shared/lib/news`(getNewsList)가 단일 소스다.
- * 지금은 정적 상수를 반환하고 추후 Supabase 교체 시 그 함수 내부만 바뀐다.
- */
-export function NewsSection() {
-  const newsItems = getNewsList();
+export const metadata = buildMetadata({
+  title: "NEWS",
+  description: "이쓰리의 소식을 확인하세요.",
+  path: "/support/news",
+});
+
+export default function NewsListPage() {
+  const newsList = getNewsList();
 
   return (
-    <section className="bg-surface pt-16 lg:pt-25">
+    <section className="bg-surface py-25 lg:py-30">
       <div className="content-container">
-        <div className="mb-11 flex flex-wrap items-end justify-between gap-10">
-          <SectionLabel color="olive">NEWS</SectionLabel>
-          <Link
-            href="/support/news"
-            className="text-eyebrow font-bold text-ink"
-          >
-            전체보기 →
-          </Link>
+        <div className="flex flex-col items-center text-center">
+          <SectionLabel color="olive">CUSTOMER SUPPORT</SectionLabel>
+          <h1 className="font-display mt-4 text-h1 font-extrabold text-ink">
+            NEWS
+          </h1>
         </div>
 
-        <ul className="flex flex-col">
-          {newsItems.map((item, index) => (
+        <ul className="mt-14 flex flex-col">
+          {newsList.map((item, index) => (
             <li
               key={item.id}
               className={`border-t border-hairline ${
-                index === newsItems.length - 1 ? "border-b" : ""
+                index === newsList.length - 1 ? "border-b" : ""
               }`}
             >
               <Link
