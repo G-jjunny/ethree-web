@@ -138,6 +138,39 @@ P1~P3 → CeoIntroSection, P4 → StatsSection(인트로+스탯), P5~P6 → Busi
 4. **design (polish)** — 토큰 준수 정리.
 5. **reviewer** — 의미론적 검토.
 
+## Part 3 — 전면 재디자인 (design Pre, 20260703 "감각적이고 신뢰있는" 방향)
+
+사용자가 기존 구현이 "너무 별로 / placeholder 티"라고 지적 → 콘텐츠 원문 100% 보존한 채 구성·배치·시각만 전면 재디자인.
+
+### frontend-design 4선언 (아트디렉션 확정)
+
+- **Purpose**: 환경부·공공기관을 상대하는 환경 IT 기업 이쓰리 대표 인사말 페이지. 방문자(기관 담당자/잠재 고객/구직자)가 짧은 스크롤에서 대표 철학과 회사 신뢰성·전문성을 체감하는 "매거진식 대표 서신".
+- **Tone**: editorial · institutional-modern. Stripe/Linear식 여백·타이포 위계 + 기후테크 자연 톤 컬러블록 + 매거진 대표 서신(대형 포트레이트·풀인용·서명 그래픽화). 플래시하지 않게.
+- **Constraints**: Tailwind v4 기존 토큰만(신규 색상 토큰 0), 서버 컴포넌트 유지, content-container 강제, 콘텐츠 원문 불변, 반응형(모바일 스택→lg), 접근성(figure/blockquote/nav/footer 시맨틱·aria-hidden 장식), 랜딩과 한 사이트로 보이는 일관성.
+- **Differentiation**: generic AI 산출물의 "IconCard 3열 반복 + 크림 단일 스택" 탈피 — ① 배경 밴드 리듬 ② 다크 밴드 위 프레임 포트레이트 + 대형 인사 카피 ③ 핵심가치를 IconCard 대신 대형 번호 에디토리얼 타이포 ④ 8문단 대형 다크 풀인용 ⑤ hairline 구분선 + 이름 강조 서명.
+
+### 배경 밴드 리듬 (핵심 변경)
+
+크림 → **다크(ink)** → 크림 → **올리브** → 크림 → 크림(풀인용만 다크 인셋). 푸터가 bg-ink라 마지막 섹션은 라이트로 종료.
+
+### 최종 섹션 구조 — `src/views/about-greeting/ui/`
+
+```
+GreetingHero.tsx        (신규) 크림. 좌측정렬 eyebrow "ABOUT E3" + 대형 "인사말"(text-hero) + 영문 "GREETING" 병기 + hairline 구분선 + PlaceholderSubNav. 기존 중앙정렬 PlaceholderHeader 대체.
+CeoIntroSection.tsx     다크(bg-ink). 프레임 포트레이트 카드(border-white/20 + p-2 프레임) + P1 대형 인사(text-h2) + P2·P3(white/80). 장식 원형.
+CoreValuesSection.tsx   크림. IconCard 제거 → 대형 번호(text-mega, olive-muted/40) + 워드 + 의미, divide-hairline 3구획 에디토리얼.
+StatsSection.tsx        올리브(bg-olive, 기존 ink에서 변경). P4 + 대형 숫자(text-hero) 스탯 3분할.
+BusinessAreasSection.tsx 크림. 변경 없음(IconCard 유지 — 랜딩 BusinessSection과 일관, 불릿 정보량에 카드 적합).
+ClosingSection.tsx      크림. P7 → 8문단 대형 다크 풀인용(blockquote bg-ink 인셋 카드) → P9 → hairline 서명(대표이사 {ceo} 올림, 이름 강조).
+GreetingView.tsx        위 6섹션 조립 + siblings 전달.
+```
+
+**콘텐츠 보존**: 9문단+서명 전부 원문 유지. 8문단만 풀인용으로 시각 강조(위치는 P7→P8→P9 순서 그대로, 삭제·중복 없음). 서명은 단어(대표이사/조흔우/올림) 전부 보존, 이름만 대형 강조 배치.
+
+**신규 컴포넌트**: `GreetingHero`는 이 페이지 전용(재사용 없음) → views 내부에 둠. shared/ui·widgets 신규 추출 없음. IconCard·PlaceholderSubNav·PlaceholderHeader 등 기존 공용 API 무변경(PlaceholderHeader는 이제 GreetingView에서 미사용, 다른 곳에서 계속 사용).
+
+**토큰 준수**: 신규 색상 토큰 0. 기존 예외(`lg:grid-cols-[210px_1fr]` CEO 사진 폭)만 주석 유지. 나머지 전부 기존 토큰(text-hero/h2/h3/mega/body-sm/detail/item, bg-surface/ink/olive, text-accent/olive-muted, opacity 유틸 white/80·accent/30·olive-muted/40, rounded-card/image, border-hairline/white/12, divide-hairline, content-container).
+
 ## 참조
 
 - `docs/legacy-site-reference.md` — 기존 사이트 레퍼런스(메인페이지). 이번 인사말 원문은 이 문서에 없어 위에 별도 기록.

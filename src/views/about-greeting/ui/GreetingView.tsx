@@ -12,7 +12,8 @@ import { ClosingSection } from "./ClosingSection";
 const group = NAV_GROUPS.find((g) => g.href === "/about")!;
 
 /**
- * 인사말 페이지 조합. 헤더+서브내비 + 실콘텐츠 섹션을 순서대로 조립한다.
+ * 인사말 페이지 조합. 배경 밴드 리듬(크림→다크→크림→올리브→크림)으로
+ * 신뢰감·깊이를 만드는 매거진식 대표 서신 구성.
  * SiteHeader/SiteFooter는 (marketing) 그룹 layout이 렌더한다.
  */
 export function GreetingView() {
