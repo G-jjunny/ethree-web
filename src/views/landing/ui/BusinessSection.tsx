@@ -1,11 +1,11 @@
-import { Button, SectionLabel } from "@/shared/ui";
+import { Button, IconCard, SectionLabel, type IconCardShape } from "@/shared/ui";
 
 interface BusinessCard {
   no: string;
   title: string;
   description: string;
   /** 아이콘 형태 */
-  shape: "rounded-square" | "diamond" | "circle";
+  shape: IconCardShape;
 }
 
 const BUSINESS_CARDS: readonly BusinessCard[] = [
@@ -32,12 +32,6 @@ const BUSINESS_CARDS: readonly BusinessCard[] = [
   },
 ];
 
-const SHAPE_CLASS: Record<BusinessCard["shape"], string> = {
-  "rounded-square": "h-5.5 w-5.5 rounded-card border-2 border-olive-label",
-  diamond: "h-5 w-5 rotate-45 rounded-card bg-olive-label",
-  circle: "h-5.5 w-5.5 rounded-full border-2 border-olive-label",
-};
-
 export function BusinessSection() {
   return (
     <section className="bg-surface py-16 lg:py-30">
@@ -61,19 +55,13 @@ export function BusinessSection() {
 
         <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
           {BUSINESS_CARDS.map((card) => (
-            <article
+            <IconCard
               key={card.no}
-              className="flex flex-col gap-5 rounded-card border border-hairline bg-surface-white px-8 py-10"
-            >
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-tint">
-                <div className={SHAPE_CLASS[card.shape]} />
-              </div>
-              <SectionLabel color="olive-muted" size="sm">
-                {card.no}
-              </SectionLabel>
-              <h3 className="text-xl font-bold text-ink">{card.title}</h3>
-              <p className="text-detail text-ink-soft">{card.description}</p>
-            </article>
+              shape={card.shape}
+              label={card.no}
+              title={card.title}
+              description={card.description}
+            />
           ))}
         </div>
 
