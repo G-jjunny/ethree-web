@@ -42,11 +42,23 @@ tools: Task, Bash
 
 ## 1. 작업 시작 — 이슈 & 브랜치 생성
 
+이슈 본문은 **반드시 `.github/ISSUE_TEMPLATE/` 템플릿 구조를 그대로 따른다.** 기능 작업은 `feature.md`, 버그는 `bug.md`. 임의 포맷으로 작성하지 않는다.
+
 ```bash
-# 이슈 생성
+# 이슈 생성 — --body는 feature.md / bug.md 템플릿의 섹션(## 목표, ## 작업 내용, ## 참고)을 채워 작성
 gh issue create \
-  --title "<작업 제목>" \
-  --body "<작업 설명>" \
+  --title "[Feat] <작업 제목>" \
+  --body "$(cat <<'EOF'
+## 목표
+<한 줄 요약>
+
+## 작업 내용
+- [ ] <세부 항목>
+
+## 참고
+<관련 링크 등, 없으면 생략>
+EOF
+)" \
   --label "<frontend|backend|fullstack>"
 
 # dev 기준 브랜치 생성
@@ -80,22 +92,55 @@ design          ─┤ 동시 실행
              reviewer
 ```
 
-## 3. 작업 완료 — PR 생성
+## 3. 커밋 — 작업 단위로 분리
+
+에이전트 작업이 끝나면 orchestrator가 커밋한다. **명령 하나에 커밋 하나가 아니다.** 변경 규모에 따라 나눈다.
+
+```
+작은 작업 (단일 기능·소규모 수정)   → 단일 커밋
+큰 작업 (여러 기능·섹션·레이어 걸침) → 기능/컨텐츠 단위로 논리적 분리 후 여러 커밋
+```
+
+**분리 기준**: "이 커밋 하나만 봐도 완결된 의미 단위인가?"
+
+- 좋은 분리 (기능/컨텐츠 단위): `Supabase posts 스키마` → `posts feature api` → `Hero 섹션 UI` → `Contact 섹션 UI`
+- 나쁜 분리: 파일 하나마다 커밋, 또는 무관한 변경을 한 커밋에 뭉침
+
+**커밋 메시지 컨벤션** (Conventional Commits):
+
+```
+<type>: <요약>        type ∈ feat | fix | chore | refactor | style | docs
+
+예)
+feat: posts 테이블 스키마 및 RLS 정책 추가
+feat: 히어로 섹션 UI 구현
+fix: 관리자 미들웨어 세션 검증 누락 수정
+```
+
+한 브랜치(=한 이슈) 안에서 여러 커밋이 쌓이며, 각 커밋은 위 단위 기준을 만족해야 한다.
+
+## 4. 작업 완료 — PR 생성
 
 reviewer 보고가 `complianceCheck: pass`이고 `unresolvedIssues: 없음`일 때만 PR을 생성한다.
 
+PR 본문은 **`.github/pull_request_template.md` 구조를 그대로 따른다.** Compliance 섹션은 reviewer 보고를 그대로 옮긴다.
+
 ```bash
 gh pr create \
-  --title "<작업 제목>" \
+  --title "[Feat] <작업 제목>" \
   --body "$(cat <<'EOF'
 ## Summary
 <변경 사항 요약>
 
 ## Changes
-<changedFiles 목록>
+- <주요 변경/기능 목록>
 
 ## Compliance
-<complianceCheck 결과>
+- designTokens: pass
+- fsdLayers: pass
+- apiPatterns: pass
+- supabasePolicy: pass
+- typescript: pass
 
 Closes #N
 EOF
@@ -106,7 +151,7 @@ EOF
 
 PR 생성 후 URL을 사용자에게 전달하고 승인을 기다린다.
 
-## 4. 머지 후 정리
+## 5. 머지 후 정리
 
 ```bash
 git checkout dev && git pull origin dev
@@ -122,3 +167,5 @@ git branch -d feat/#N-<간단한-설명>
 - 코드·마크업·스키마를 직접 작성하거나 수정하지 않는다.
 - plans/ 파일 없이 에이전트에게 위임하지 않는다.
 - reviewer 통과 전에 PR을 생성하지 않는다.
+- 큰 작업을 하나의 커밋으로 뭉치지 않는다. 기능/컨텐츠 단위로 분리한다.
+- 이슈·PR을 템플릿 구조 없이 임의 포맷으로 작성하지 않는다.
