@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+build
+coverage
+package-lock.json
+*.tsbuildinfo
+next-env.d.ts
+
+# 에이전트/스킬 프롬프트 문서는 수동 서식 유지 (Prettier 재포맷 제외)
+.claude
