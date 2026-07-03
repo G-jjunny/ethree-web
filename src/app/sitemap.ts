@@ -9,6 +9,7 @@ const STATIC_ROUTES: readonly { path: string; priority: number }[] = [
   { path: "/about/history", priority: 0.6 },
   { path: "/about/location", priority: 0.6 },
   { path: "/business", priority: 0.8 },
+  { path: "/business/intro", priority: 0.6 },
   { path: "/business/service", priority: 0.6 },
   { path: "/support", priority: 0.8 },
   { path: "/support/news", priority: 0.6 },
