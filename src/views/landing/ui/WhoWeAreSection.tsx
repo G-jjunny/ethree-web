@@ -27,12 +27,12 @@ const ITEMS: readonly WhoWeAreItem[] = [
 
 export function WhoWeAreSection() {
   return (
-    <section className="relative overflow-hidden bg-olive py-25">
+    <section className="relative overflow-hidden bg-olive py-16 lg:py-25">
       {/* 장식 원형 */}
       <div className="pointer-events-none absolute -top-40 -right-30 h-130 w-130 rounded-full bg-white/5" />
       <div className="pointer-events-none absolute -bottom-55 right-45 h-95 w-95 rounded-full border border-white/10" />
 
-      <div className="content-container relative grid grid-cols-2 items-start gap-20">
+      <div className="content-container relative grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-20">
         <div>
           <SectionLabel color="olive-soft">WHO WE ARE</SectionLabel>
           <h2 className="font-display mt-4.5 text-h1 font-extrabold text-white">

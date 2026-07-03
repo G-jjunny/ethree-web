@@ -6,12 +6,12 @@ import { SITE, NAV_GROUPS } from "@/shared/constants";
  */
 export function SiteFooter() {
   return (
-    <footer className="bg-ink pt-20 pb-8">
+    <footer className="bg-ink pt-14 pb-8 lg:pt-20">
       <div className="content-container">
         {/* token 없음: 구조적 레이아웃 (회사정보 넓은 첫 컬럼 + 네비 3열) */}
-        <div className="grid grid-cols-[1.3fr_1fr_1fr_1fr] gap-14 border-b border-white/12 pb-14">
+        <div className="grid grid-cols-2 gap-10 border-b border-white/12 pb-14 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-14">
           {/* 회사정보 */}
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <div className="font-display mb-4.5 text-2xl font-extrabold text-white">
               {SITE.nameEn}
             </div>
@@ -56,7 +56,7 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="text-caption flex justify-between pt-6 text-white/35">
+        <div className="text-caption flex flex-col gap-2 pt-6 text-white/35 sm:flex-row sm:justify-between">
           <span>{SITE.copyright}</span>
           <span>{SITE.tagline}</span>
         </div>

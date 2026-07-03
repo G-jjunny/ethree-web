@@ -67,7 +67,7 @@ function ServiceText({ row }: ServiceTextProps) {
 
 export function ServiceSection() {
   return (
-    <section className="bg-ink py-30">
+    <section className="bg-ink py-16 lg:py-30">
       <div className="content-container">
         <div className="mb-18 flex flex-wrap items-end justify-between gap-10 border-b border-white/12 pb-8.5">
           <div>
@@ -89,28 +89,26 @@ export function ServiceSection() {
           {SERVICE_ROWS.map((row, index) => {
             const isLast = index === SERVICE_ROWS.length - 1;
             const isReversed = index % 2 === 1;
+            // 모바일: 번호/텍스트/이미지 세로 스택. lg+에서만 짝수 행 좌우 교차.
+            const orderText = isReversed ? "lg:order-3" : "lg:order-2";
+            const orderImage = isReversed ? "lg:order-2" : "lg:order-3";
             return (
               <div
                 key={row.no}
-                /* token 없음: 로우 그리드 110px + 2열, 원본 레이아웃값 */
-                className={`grid grid-cols-[110px_1fr_1fr] items-center gap-12 py-14 ${
+                /* token 없음: 로우 그리드 110px + 2열(lg), 원본 레이아웃값 */
+                className={`grid grid-cols-1 gap-6 py-10 lg:grid-cols-[110px_1fr_1fr] lg:items-center lg:gap-12 lg:py-14 ${
                   isLast ? "" : "border-b border-white/12"
                 }`}
               >
-                <span className="font-display text-mega font-extrabold leading-none text-accent/35">
+                <span className="font-display text-mega font-extrabold leading-none text-accent/35 lg:order-1">
                   {row.no}
                 </span>
-                {isReversed ? (
-                  <>
-                    <ServiceImage />
-                    <ServiceText row={row} />
-                  </>
-                ) : (
-                  <>
-                    <ServiceText row={row} />
-                    <ServiceImage />
-                  </>
-                )}
+                <div className={orderText}>
+                  <ServiceText row={row} />
+                </div>
+                <div className={orderImage}>
+                  <ServiceImage />
+                </div>
               </div>
             );
           })}

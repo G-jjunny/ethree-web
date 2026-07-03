@@ -33,7 +33,7 @@ const NEWS_ITEMS: readonly NewsItem[] = [
 
 export function NewsSection() {
   return (
-    <section className="bg-surface pt-25">
+    <section className="bg-surface pt-16 lg:pt-25">
       <div className="content-container">
         <div className="mb-11 flex flex-wrap items-end justify-between gap-10">
           <SectionLabel color="olive">NEWS</SectionLabel>

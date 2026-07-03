@@ -40,7 +40,7 @@ const SHAPE_CLASS: Record<BusinessCard["shape"], string> = {
 
 export function BusinessSection() {
   return (
-    <section className="bg-surface py-30">
+    <section className="bg-surface py-16 lg:py-30">
       <div className="content-container">
         <div className="mb-16 flex flex-wrap items-end justify-between gap-10">
           <div>
@@ -59,7 +59,7 @@ export function BusinessSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
           {BUSINESS_CARDS.map((card) => (
             <article
               key={card.no}
