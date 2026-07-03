@@ -10,6 +10,8 @@
 
 마케팅/브랜드 사이트 + 관리자 페이지. 일반 유저는 인증 없이 브랜드 사이트를 방문하고, 관리자는 로그인 후 `/admin/*`에서 콘텐츠를 관리한다.
 
+**기존 ethree.co.kr의 재디자인**이다. 페이지 구조·콘텐츠(회사 정보, 네비게이션, 섹션 구성, 상수)는 `docs/legacy-site-reference.md`를 기준으로 참고한다. 비주얼/디자인 토큰은 재디자인이므로 `docs/design.md`가 SSOT.
+
 ```
 Frontend    Next.js 16 (App Router) · Tailwind CSS v4 · TanStack Query · Zustand · Axios
 BaaS        Supabase (PostgreSQL · Auth · Storage)
