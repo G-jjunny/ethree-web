@@ -30,8 +30,12 @@ export function BusinessServiceView() {
         </div>
       </section>
 
-      <section className="bg-ink py-16 lg:py-30">
-        <div className="content-container">
+      {/* 서비스 로우 목록 — 배경 이미지를 background-attachment: fixed로 고정해
+          로우들이 그 위로 스크롤되게 한다(모바일은 fixed 미지원 대비 bg-scroll). */}
+      <section className="relative bg-ink bg-[url(/images/ethree_service_bg.jpg)] bg-cover bg-center bg-scroll py-16 lg:bg-fixed lg:py-30">
+        {/* 고정 배경 위 흰 텍스트 가독성 확보용 다크 스크림 */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 bg-ink/80" />
+        <div className="relative content-container">
           <div className="mb-18 flex flex-wrap items-end justify-between gap-10 border-b border-white/12 pb-8.5">
             <div>
               <SectionLabel color="accent">SERVICES</SectionLabel>
