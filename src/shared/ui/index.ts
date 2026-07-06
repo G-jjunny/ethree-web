@@ -6,3 +6,6 @@ export type { SectionLabelProps } from "./SectionLabel";
 
 export { IconCard } from "./IconCard";
 export type { IconCardProps, IconCardShape } from "./IconCard";
+
+export { LogoCarousel } from "./LogoCarousel";
+export type { LogoCarouselProps } from "./LogoCarousel";
