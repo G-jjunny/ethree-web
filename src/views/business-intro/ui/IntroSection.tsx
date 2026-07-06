@@ -23,12 +23,34 @@ const ZIGZAG_LG: readonly string[] = [
  */
 export function IntroSection() {
   return (
-    <section className="bg-surface-white">
-      <div className="content-container">
-        {/* token 없음: 섹션 최소 높이 560px — 좌측 헤더 카드/우측 이미지 패널 밴드 비율 */}
+    <section className="relative overflow-hidden bg-surface-white">
+      {/* 우측 배경 이미지 — 섹션 오른쪽 절반을 뷰포트 우측 끝까지 채운다(full-bleed).
+          content-container에 갇히지 않고 섹션 레벨에 깔린다. lg+에서 좌:밝음 / 우:사진
+          으로 분할되고, 모바일에선 섹션 전체 뒤에 깔린 뒤 좌측 헤더 카드가 불투명
+          배경으로 덮는다. 실제 에셋 교체 시 src만 바꾸면 된다. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 lg:left-1/2"
+      >
+        <Image
+          src="/images/Ethree_info_bg.png"
+          alt=""
+          aria-hidden
+          fill
+          priority
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-cover object-center"
+        />
+        {/* 스크림: 이미지 위 번호 가독성 확보 */}
+        <div className="absolute inset-0 bg-ink/55" />
+      </div>
+
+      <div className="relative content-container">
+        {/* token 없음: 섹션 최소 높이 560px — 좌측 헤더 카드/우측 이미지 배경 밴드 비율 */}
         <div className="grid grid-cols-1 lg:min-h-[560px] lg:grid-cols-2">
-          {/* 좌측 — 섹션과 동일 배경(밝음)에 녹아드는 스택형 섹션 헤더(하단 정렬) */}
-          <div className="flex flex-col justify-end bg-surface-white p-8 lg:p-12">
+          {/* 좌측 — 밝은 배경에 녹아드는 스택형 섹션 헤더(하단 정렬).
+              모바일에선 뒤 배경 이미지를 덮도록 불투명 배경 유지. */}
+          <div className="relative flex flex-col justify-end bg-surface-white p-8 lg:p-12">
             <SectionLabel color="olive">BUSINESS OVERVIEW</SectionLabel>
             <h2 className="mt-4 font-display text-h2 font-extrabold text-ink">
               환경과 IT를 잇는
@@ -42,25 +64,8 @@ export function IntroSection() {
             </p>
           </div>
 
-          {/* 우측 — 이미지 배경 패널(각진 블록) 위 번호 프리뷰(모바일 세로 스택 / lg+ 지그재그) */}
-          <div className="relative flex flex-col gap-8 overflow-hidden p-8 lg:block lg:p-12">
-            {/* 우측 영역 한정 배경 이미지 — 장식용(alt="")이라 aria-hidden 처리 */}
-            <Image
-              src="/images/Ethree_info_bg.png"
-              alt=""
-              aria-hidden
-              fill
-              priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="pointer-events-none object-cover object-center"
-            />
-
-            {/* 스크림: 이미지 위 번호 가독성 확보 */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-ink/55"
-            />
-
+          {/* 우측 — 섹션 우측 배경 이미지 위 번호 프리뷰(모바일 세로 스택 / lg+ 지그재그) */}
+          <div className="relative flex flex-col gap-8 p-8 lg:block lg:p-12">
             {BUSINESS_AREAS.map((area, index) => (
               <div
                 key={area.no}
