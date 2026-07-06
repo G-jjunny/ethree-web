@@ -10,3 +10,6 @@ export type {
   HistoryEvent,
   HistoryYearGroup,
 } from "./history";
+
+export { getPartners } from "./partners";
+export type { Partner } from "./partners";

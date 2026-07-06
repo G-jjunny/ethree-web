@@ -156,3 +156,25 @@ plan 초안의 accent/brand 매핑은 라이트 배경 대비 미달로 채택�
 
 - 신규 색상·토큰 0. 전부 기존 토큰(brand, brand-ink, tint, surface-white, ink, ink-soft, olive-muted, hairline, olive-label, text-hero/h2/h3/item/detail, rounded-image/full, radius corner util). content-container 강제 유지. 서버 컴포넌트. Props `interface`, `any` 없음. 반응형(`sm:`/`lg:`). 원문 문장 무변경.
 - `rounded-tl-full rounded-br-full`, `w-2/3`, `-rotate-45`는 토큰 색상값이 아닌 형태/레이아웃 유틸 — 잎 형태 은유용 1회성 기하로, 색상/스페이싱 하드코딩 규칙 대상 아님.
+
+---
+
+## Partners 로고 카러셀 전환 (2026-07-06, implementer)
+
+기존 텍스트 그리드(인라인 PARTNERS 배열)를 21st.dev 스타일 로고 카러셀로 재구성. `motion`(framer-motion v12, `motion/react`) 사용. 관리자 CRUD 대비 데이터는 상수/getter(news/history 패턴).
+
+### 작업 1 — 데이터 (`src/shared/lib/partners.ts` 신설)
+- `Partner { id; name; logoSrc? }` 타입 + `PARTNERS` flat 상수(기존 11개 기관명 이관, 각 id 부여, logoSrc는 실물 로고 미확보로 생략) + `getPartners(): readonly Partner[]`.
+- 편집 단위 = 파트너 1건. getter 내부만 Supabase로 교체하면 호출부 무변경. `shared/lib/index.ts`에 `getPartners`/`Partner` export.
+
+### 작업 2 — LogoCarousel (`src/shared/ui/LogoCarousel.tsx` 신설, `"use client"`)
+- 순환/애니메이션 로직 유지: `LogoColumn`(cycleInterval 2000ms, columnDelay `index*200`, 100ms tick), 스프링/블러 enter·exit.
+- SVG 컴포넌트 → `Partner` 방식: `logoSrc` 있으면 `next/image`(fill, object-contain), 없으면 이름 텍스트 타일(`font-display text-ink`). 각 셀 라이트 타일(`bg-surface-white rounded-image`).
+- **결정적(deterministic) 분배**: `distributeLogos`는 Math.random(셔플·padding) 제거 → 라운드로빈(`index % columnCount`) + 인덱스 기반 padding(`col.length % logos.length`). `logoSets`는 state+effect가 아니라 `useMemo` 파생 → SSR/CSR 동일 결과(하이드레이션 안전) + eslint `react-hooks/set-state-in-effect` 해소. `currentTime` 타이머만 useEffect 유지(cleanup 포함). 빈 배열 가드 `return null`. Props interface, `any` 없음.
+- `shared/ui/index.ts`에 `LogoCarousel`/`LogoCarouselProps` export. Partner 타입은 shared/lib 재사용.
+
+### 작업 3 — PartnersSection 리팩터 (`src/views/about-history/ui/PartnersSection.tsx`)
+- 올리브 밴드 + 헤더 + 장식 원형 유지. 텍스트 `<ul>` 그리드 → `<LogoCarousel logos={getPartners()} columnCount={4} />`. 인라인 PARTNERS 배열 제거. 서버 컴포넌트 유지.
+
+### 검증
+- `npx tsc --noEmit` 통과, `npm run build`(Next 16 Turbopack + motion 클라이언트 번들) 통과.

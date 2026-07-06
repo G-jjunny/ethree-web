@@ -1,26 +1,10 @@
-import { SectionLabel } from "@/shared/ui";
+import { LogoCarousel, SectionLabel } from "@/shared/ui";
+import { getPartners } from "@/shared/lib";
 
 /**
- * 함께해온 기관. 연혁·뉴스 원문에 문서화된 협력·발주·수상 기관에서만 추린
- * 목록으로, 임의 창작 없이 근거 있는 이름만 담는다(로고 없이 텍스트).
- */
-const PARTNERS: readonly string[] = [
-  "환경부",
-  "국토교통부",
-  "조달청",
-  "한국환경연구원",
-  "유역환경청",
-  "정몽구재단",
-  "고려대학교 오정리질리언스연구원",
-  "서울대학교 보건대학원",
-  "벤처기업협회",
-  "한국산업기술진흥협회",
-  "소프트웨어산업협회",
-];
-
-/**
- * 협력 기관 그리드. 올리브 밴드로 배경 리듬을 닫고 신뢰 요소를 더한다.
- * 정적 텍스트뿐 — 서버 컴포넌트.
+ * 협력 기관 로고 카러셀. 올리브 밴드로 배경 리듬을 닫고 신뢰 요소를 더한다.
+ * 데이터는 getPartners()(shared/lib)에서 가져오며, LogoCarousel이 client 경계라
+ * 이 섹션 자체는 서버 컴포넌트로 유지된다.
  */
 export function PartnersSection() {
   return (
@@ -42,16 +26,9 @@ export function PartnersSection() {
           </p>
         </div>
 
-        <ul className="mt-14 grid grid-cols-2 gap-px border border-white/12 bg-white/12 sm:grid-cols-3 lg:grid-cols-4">
-          {PARTNERS.map((partner) => (
-            <li
-              key={partner}
-              className="flex min-h-24 items-center bg-olive px-6 py-8 text-item font-bold text-white"
-            >
-              {partner}
-            </li>
-          ))}
-        </ul>
+        <div className="mt-14">
+          <LogoCarousel logos={getPartners()} columnCount={4} />
+        </div>
       </div>
     </section>
   );
