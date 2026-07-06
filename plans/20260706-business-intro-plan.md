@@ -308,3 +308,34 @@ About Business 기본 진입 페이지인 `/business/intro`를 PlaceholderPage�
 3. 국토환경정보센터 정보시스템 컨텐츠확충 및 개선사업 | 한국환경정책평가연구원 | 2010.06~2010.12
 
 이상 16개 연도. 총 건수는 implementer가 최종 집계해 보고. 위 텍스트를 임의 교정 없이 그대로 전사할 것(오탈자 의심분도 원문 유지).
+
+---
+
+# 후속 작업 2 (2026-07-06) — 헤더 스택형 통일 + 사업실적 페이지네이션
+
+같은 브랜치 feat/#13-business-intro, PR #14. A(design)와 B(implementer)는 파일 비중첩이라 병렬.
+
+## 작업 A — 섹션 헤더 스택형(패턴 B) 통일 [design/polish]
+문제: IntroSection(BUSINESS OVERVIEW)·ProjectsSection(PROJECTS) 헤더는 좌측 레일 2단(lg:grid-cols-[180px_1fr])인데 BusinessAreasSection 및 landing/greeting은 스택형이라 불일치.
+표준 = landing BusinessSection/ServiceSection 라이트 헤더:
+  <div className="mb-16 flex flex-wrap items-end justify-between gap-10">
+    <div>
+      <SectionLabel color="olive">...</SectionLabel>
+      <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">...</h2>
+    </div>
+    <p className="max-w-md text-body-sm text-ink-soft">...</p>
+  </div>
+- IntroSection: 기존 lg:grid-cols-[180px_1fr] 제거, 라벨+h2 스택 + 설명 우측. 밴드 구분선 border-t border-hairline pt-16 lg:pt-20 유지.
+- ProjectsSection: 헤더 동일 스택형. 파생 집계 dl(총 실적/수행 기간/활동 연도) 유지하되 2단 레일 제거에 맞춰 헤더 아래 풀폭 행으로 재배치(예: border-t border-hairline pt-8로 dl 노출 후 그 아래 ProjectsExplorer). dl 수치 배열 파생 유지(하드코딩 금지).
+- 세 섹션 헤더 리듬 일관. 신규 토큰 없이 기존 토큰만. content-container 유지. 원문 무변경.
+
+## 작업 B — 사업실적 번호형 페이지네이션 [implementer] (ProjectsExplorer.tsx)
+- 페이지당 20건. useState page(기본 1). 필터된 리스트를 page 기준 slice.
+- 연도 필터 변경 시 page=1 리셋 — useEffect 대신 칩 onClick에서 setActiveYear + setPage(1) 함께 호출(set-state-in-effect lint 회피). "전체" 칩도 동일.
+- 하단 페이저: ‹ 이전  1 2 3 … N  다음 › . 페이지 多일 때 말줄임(현재 주변 + 처음/끝). 이전/다음 경계 disabled. 버튼은 FilterChip과 톤 통일(rounded-full border, 활성=ink 배경, 기존 토큰). 현재 페이지 aria-current="page".
+- 필터 결과 20건 이하면 페이저 숨김. 전체 탭(185건)=10페이지.
+- 페이지 변경 시 리스트 상단 부드럽게 스크롤(선택, ref scrollIntoView 정도. 과하면 생략).
+- 접근성/토큰 하드코딩 0, Props interface, any 금지.
+
+## 검증
+lint+tsc Hook, npm run build 통과. 전체 탭 페이지 전환·연도 필터 전환 시 page 리셋 확인.
