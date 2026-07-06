@@ -203,7 +203,7 @@ function FilterChip({ active, onClick, children }: FilterChipProps) {
       onClick={onClick}
       className={`rounded-full border px-4 py-2 text-detail font-medium transition-colors duration-fast ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-label/40 ${
         active
-          ? "border-ink bg-ink text-white"
+          ? "border-brand bg-brand text-brand-ink"
           : "border-hairline bg-surface-white text-ink-soft hover:border-olive-label hover:text-olive-label"
       }`}
     >
@@ -236,7 +236,7 @@ function PagerButton({
       {...aria}
       className={`rounded-full border px-4 py-2 text-detail font-medium transition-colors duration-fast ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-label/40 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-hairline disabled:hover:text-ink-soft ${
         active
-          ? "border-ink bg-ink text-white"
+          ? "border-brand bg-brand text-brand-ink"
           : "border-hairline bg-surface-white text-ink-soft hover:border-olive-label hover:text-olive-label"
       }`}
     >
