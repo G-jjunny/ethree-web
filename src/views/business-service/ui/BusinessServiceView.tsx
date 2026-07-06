@@ -41,7 +41,7 @@ export function BusinessServiceView() {
                 다양한 솔루션 개발
               </h2>
             </div>
-            {/* token 없음: 문단 폭 max-w-md — 밴드 헤더 리드 문단(business-intro 파생) */}
+            {/* token 없음: 문단 폭 max-w-md(448px) 근사 — ServiceSection/BusinessAreasSection 밴드 헤더 리드와 동일 */}
             <p className="max-w-md text-body-sm text-white/70">
               환경IT 전문기업으로서 기획·개발·구축·운영까지 수행해 온 이쓰리의
               대표 서비스를 소개합니다.

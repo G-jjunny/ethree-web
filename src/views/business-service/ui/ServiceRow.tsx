@@ -42,8 +42,13 @@ function ServiceText({ service }: { service: ServiceItem }) {
   return (
     <div>
       <h3 className="text-h3 font-bold text-white">{service.title}</h3>
-      {/* token 없음: 문단 폭 max-w-lg — 요약/설명 가독 폭(밴드 패턴 파생) */}
-      <p className="mt-4 max-w-lg text-body-sm text-accent">{service.summary}</p>
+      {/* summary = 레거시 그린 태그라인. text-accent(다크 위 라임) + font-medium으로
+          description(white/70)과 위계 분리. token 없음: 가독 폭 max-w-lg(512px) 근사 —
+          텍스트-메인(1.1fr) 컬럼에 맞춘 측정폭 */}
+      <p className="mt-4 max-w-lg text-body-sm font-medium text-accent">
+        {service.summary}
+      </p>
+      {/* description(optional) — summary와 동일 가독 폭(max-w-lg) 유지 */}
       {service.description && (
         <p className="mt-4 max-w-lg text-body-sm text-white/70">
           {service.description}
@@ -94,8 +99,9 @@ export function ServiceRow({ service, index, isLast }: ServiceRowProps) {
 
   return (
     <div
-      /* token 없음: 번호 88px + 텍스트 1.1fr + 이미지 0.9fr(텍스트 메인 비중),
-         BusinessAreasSection 레이아웃 파생 */
+      /* 순수 레이아웃 좌표(색·스페이싱 토큰 무관): 번호 88px + 텍스트 1.1fr +
+         이미지 0.9fr — 텍스트-메인 비중. BusinessAreasSection(이미지-메인, 0.85/1.15)의
+         대칭 변형이라 Tailwind 표준 유틸로 대체 불가한 arbitrary 트랙 템플릿 */
       className={`grid grid-cols-1 gap-6 py-10 lg:grid-cols-[88px_minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-12 lg:py-16 ${
         isLast ? "" : "border-b border-white/12"
       }`}
