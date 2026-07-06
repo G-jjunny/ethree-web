@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SectionLabel } from "@/shared/ui";
 import { BUSINESS_AREAS } from "./business-areas.data";
 
@@ -22,18 +23,16 @@ const ZIGZAG_LG: readonly string[] = [
 export function IntroSection() {
   return (
     <section className="relative overflow-hidden bg-ink">
-      {/* full-bleed 배경 이미지 교체 슬롯 — 실제 에셋 확보 시 아래 placeholder를
-          next/image로 교체:
-          <Image src="/images/business-overview.png" alt="" aria-hidden fill
-            sizes="100vw" className="pointer-events-none object-cover object-center" /> */}
-      <div
+      {/* full-bleed 배경 이미지 — 장식용(alt="")이라 aria-hidden 처리 */}
+      <Image
+        src="/images/Ethree_info_bg.png"
+        alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white/5"
-      >
-        <span className="font-display text-mini tracking-label text-white/40">
-          BUSINESS IMAGE PLACEHOLDER
-        </span>
-      </div>
+        fill
+        priority
+        sizes="100vw"
+        className="pointer-events-none object-cover object-center"
+      />
 
       {/* 스크림: 배경 이미지 위 우측 번호 가독성 확보 */}
       <div
