@@ -11,6 +11,9 @@ export type {
   HistoryYearGroup,
 } from "./history";
 
+export { getBusinessProjects, getProjectYears } from "./projects";
+export type { BusinessProject } from "./projects";
+
 export { getPartners } from "./partners";
 export type { Partner } from "./partners";
 
