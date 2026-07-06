@@ -7,9 +7,9 @@ import { SectionLabel } from "@/shared/ui";
  */
 export function IntroSection() {
   return (
-    <section className="bg-surface pb-16 lg:pb-25">
+    <section className="bg-surface pb-16 lg:pb-24">
       <div className="content-container">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[180px_1fr] lg:gap-12">
+        <div className="grid grid-cols-1 gap-6 border-t border-hairline pt-16 lg:grid-cols-[180px_1fr] lg:gap-12 lg:pt-20">
           <div className="lg:pt-1">
             <SectionLabel color="olive">BUSINESS OVERVIEW</SectionLabel>
           </div>

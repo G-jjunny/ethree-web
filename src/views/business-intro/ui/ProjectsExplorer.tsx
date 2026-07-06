@@ -55,11 +55,11 @@ export function ProjectsExplorer({ projects, years }: ProjectsExplorerProps) {
       </div>
 
       {/* 필터된 실적 리스트 */}
-      <ul className="mt-10 divide-y divide-hairline border-t border-hairline">
+      <ul className="mt-10 divide-y divide-hairline border-y border-hairline">
         {filtered.map((project) => (
           <li
             key={project.id}
-            className="grid grid-cols-1 gap-1 py-5 sm:grid-cols-[120px_160px_1fr] sm:items-baseline sm:gap-6"
+            className="grid grid-cols-1 gap-1 py-5 transition-colors duration-fast hover:bg-surface-white sm:grid-cols-[64px_180px_1fr] sm:items-baseline sm:gap-6"
           >
             <span className="font-display text-detail font-bold text-olive-muted">
               {project.year}
@@ -86,10 +86,10 @@ function FilterChip({ active, onClick, children }: FilterChipProps) {
       role="tab"
       aria-selected={active}
       onClick={onClick}
-      className={`rounded-full px-4 py-2 text-detail font-medium transition-colors ${
+      className={`rounded-full border px-4 py-2 text-detail font-medium transition-colors duration-fast ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-label/40 ${
         active
-          ? "bg-ink text-white"
-          : "border border-hairline bg-surface-white text-ink-soft hover:text-ink"
+          ? "border-ink bg-ink text-white"
+          : "border-hairline bg-surface-white text-ink-soft hover:border-olive-label hover:text-olive-label"
       }`}
     >
       {children}

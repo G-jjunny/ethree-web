@@ -33,19 +33,19 @@ export function ProjectsSection() {
             <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-8 border-t border-hairline pt-8 sm:grid-cols-3 lg:mt-12">
               <div>
                 <dt className="text-detail text-ink-soft">총 실적</dt>
-                <dd className="font-display mt-2 text-4xl font-extrabold leading-none text-ink lg:text-h1">
+                <dd className="font-display mt-2 text-h2 font-extrabold leading-none text-ink lg:text-h1">
                   {projects.length}건
                 </dd>
               </div>
               <div>
                 <dt className="text-detail text-ink-soft">수행 기간</dt>
-                <dd className="font-display mt-2 text-4xl font-extrabold leading-none text-ink lg:text-h1">
+                <dd className="font-display mt-2 text-h2 font-extrabold leading-none text-ink lg:text-h1">
                   {earliestYear}–{latestYear}
                 </dd>
               </div>
               <div>
                 <dt className="text-detail text-ink-soft">활동 연도</dt>
-                <dd className="font-display mt-2 text-4xl font-extrabold leading-none text-ink lg:text-h1">
+                <dd className="font-display mt-2 text-h2 font-extrabold leading-none text-ink lg:text-h1">
                   {years.length}개년
                 </dd>
               </div>

@@ -45,7 +45,7 @@ const BUSINESS_AREAS: readonly BusinessArea[] = [
 
 function AreaImage() {
   return (
-    <div className="flex h-60 items-center justify-center overflow-hidden rounded-image bg-white/5">
+    <div className="flex h-64 items-center justify-center overflow-hidden rounded-image bg-white/5 lg:h-80">
       {/* next/image 교체 슬롯: 사업영역 대표 이미지 */}
       <span className="font-display text-mini tracking-label text-white/40">
         BUSINESS IMAGE PLACEHOLDER
@@ -69,15 +69,15 @@ function AreaText({ area }: AreaTextProps) {
         {area.description}
       </p>
       {area.bullets && (
-        <ul className="mt-6 flex flex-col gap-2.5">
+        <ul className="mt-6 grid grid-cols-1 gap-x-8 gap-y-3 border-t border-white/12 pt-6 sm:grid-cols-2 lg:grid-cols-1">
           {area.bullets.map((bullet) => (
             <li
               key={bullet}
-              className="flex items-start gap-2.5 text-body-sm text-white/70"
+              className="flex items-start gap-2.5 text-detail text-white/70"
             >
               <span
                 aria-hidden
-                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
               />
               {bullet}
             </li>
@@ -123,8 +123,8 @@ export function BusinessAreasSection() {
             return (
               <div
                 key={area.no}
-                /* token 없음: 로우 그리드 110px + 2열(lg), ServiceSection 레이아웃값 */
-                className={`grid grid-cols-1 gap-6 py-10 lg:grid-cols-[110px_1fr_1fr] lg:items-center lg:gap-12 lg:py-14 ${
+                /* token 없음: 번호 88px + 텍스트 0.85fr + 이미지 1.15fr(이미지 메인 비중), ServiceSection 레이아웃 파생 */
+                className={`grid grid-cols-1 gap-6 py-10 lg:grid-cols-[88px_minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center lg:gap-12 lg:py-16 ${
                   isLast ? "" : "border-b border-white/12"
                 }`}
               >
