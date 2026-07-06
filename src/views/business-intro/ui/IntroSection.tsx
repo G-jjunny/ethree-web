@@ -23,7 +23,7 @@ const ZIGZAG_LG: readonly string[] = [
  */
 export function IntroSection() {
   return (
-    <section className="relative overflow-hidden bg-surface-white">
+    <section className="relative overflow-hidden bg-surface-white py-16 lg:py-25">
       {/* 우측 배경 이미지 — 섹션 오른쪽 절반을 뷰포트 우측 끝까지 채운다(full-bleed).
           content-container에 갇히지 않고 섹션 레벨에 깔린다. lg+에서 좌:밝음 / 우:사진
           으로 분할되고, 모바일에선 섹션 전체 뒤에 깔린 뒤 좌측 헤더 카드가 불투명
