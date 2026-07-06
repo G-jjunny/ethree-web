@@ -176,7 +176,7 @@ max-width: 1280px · margin-inline: auto · padding-inline: 1.25rem (≥1024px�
 
 ### SectionLabel
 
-- `color`: `accent`(다크 위 라임) / `olive`(라이트 위) / `olive-soft`(올리브 위) / `olive-muted`(카드 번호) / `muted`(다크 위 저대비)
+- `color`: `accent`(다크 위 라임) / `olive`(라이트 위) / `olive-soft`(올리브 위) / `olive-muted`(카드 번호) / `ink`(회색 muted 패널 위 고대비) / `muted`(다크 위 저대비)
 - `size`: `md`(섹션 eyebrow 13px/.2em) / `sm`(소형 라벨 12px/.14em)
 - 항상 Manrope · uppercase.
 

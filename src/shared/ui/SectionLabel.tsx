@@ -5,6 +5,7 @@ type SectionLabelColor =
   | "olive" // 라이트 배경 위 (뉴스/사업 eyebrow)
   | "olive-soft" // 올리브/다크 밴드 위 (WHO WE ARE eyebrow)
   | "olive-muted" // 라이트 카드 번호 라벨 (01/02/03)
+  | "ink" // 회색(muted) 패널 위 고대비 라벨
   | "muted"; // 다크 배경 위 저대비 라벨 (푸터 컬럼 라벨)
 
 type SectionLabelSize = "sm" | "md";
@@ -23,6 +24,7 @@ const COLOR: Record<SectionLabelColor, string> = {
   olive: "text-olive-label",
   "olive-soft": "text-olive-soft",
   "olive-muted": "text-olive-muted",
+  ink: "text-ink",
   muted: "text-white/40",
 };
 

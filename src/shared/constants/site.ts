@@ -58,6 +58,7 @@ export const NAV_GROUPS: readonly NavGroup[] = [
     label: "About Business",
     footerLabel: "ABOUT BUSINESS",
     href: "/business",
+    defaultHref: "/business/intro",
     children: [
       { label: "사업소개", href: "/business/intro" },
       { label: "서비스소개", href: "/business/service" },
