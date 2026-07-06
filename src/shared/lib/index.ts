@@ -13,3 +13,11 @@ export type {
 
 export { getPartners } from "./partners";
 export type { Partner } from "./partners";
+
+export { getDirections } from "./location";
+export type {
+  DirectionsInfo,
+  TransitGroup,
+  TransitLine,
+  DepartmentContact,
+} from "./location";
