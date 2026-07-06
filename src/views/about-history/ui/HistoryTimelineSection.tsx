@@ -42,31 +42,48 @@ export function HistoryTimelineSection() {
   return (
     <section className="bg-surface py-16 lg:py-25">
       <div className="content-container">
-        <div className="max-w-2xl">
-          <SectionLabel color="olive">HISTORY</SectionLabel>
-          <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">
-            이쓰리가 걸어온 길
-          </h2>
-          <p className="mt-6 text-body-sm text-ink-soft">
-            2010년 설립 이후 환경과 IT의 융합 현장에서 쌓아온 특허·수상·인증과
-            주요 사업의 발자취입니다.
-          </p>
+        {/*
+          리드 블록 — 타임라인 첫 행처럼 읽히도록 아래 <ol>과 동일한
+          2열 그리드([180px_1fr]) + 세로 스파인(lg:border-l)을 공유한다.
+          좌: 연도 자리에 대응하는 HISTORY 라벨 / 우: 헤딩·설명·집계 요약.
+          집계 요약은 full-width border-y dl 대신 우측 콘텐츠 컬럼 안에서
+          상단 hairline으로만 구획해 헤더와 하나의 응집 블록으로 묶는다.
+        */}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[180px_1fr] lg:gap-12">
+          <div className="lg:pt-1">
+            <SectionLabel color="olive">HISTORY</SectionLabel>
+          </div>
+
+          <div className="relative lg:border-l lg:border-hairline lg:pl-10">
+            {/* 타임라인 시작 마커(연도 마커와 동일 표현) */}
+            <span
+              aria-hidden
+              className="absolute -left-1 top-2 hidden h-2 w-2 rounded-full bg-olive-muted lg:block"
+            />
+            <h2 className="font-display text-h2 font-extrabold text-ink">
+              이쓰리가 걸어온 길
+            </h2>
+            <p className="mt-6 max-w-2xl text-body-sm text-ink-soft">
+              2010년 설립 이후 환경과 IT의 융합 현장에서 쌓아온 특허·수상·인증과
+              주요 사업의 발자취입니다.
+            </p>
+
+            {/* 배열에서 파생한 집계 요약(하드코딩 금지) */}
+            <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-8 border-t border-hairline pt-8 sm:grid-cols-4 lg:mt-12">
+              {summary.map((stat) => (
+                <div key={stat.label}>
+                  <dt className="text-detail text-ink-soft">{stat.label}</dt>
+                  <dd className="font-display mt-2 text-4xl font-extrabold leading-none text-ink lg:text-h1">
+                    {stat.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
 
-        {/* 파생 집계 요약 */}
-        <dl className="mt-12 grid grid-cols-2 gap-8 border-y border-hairline py-10 sm:grid-cols-4 lg:mt-14">
-          {summary.map((stat) => (
-            <div key={stat.label}>
-              <dt className="text-detail text-ink-soft">{stat.label}</dt>
-              <dd className="font-display mt-2 text-4xl font-extrabold leading-none text-ink lg:text-h1">
-                {stat.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
-
-        {/* 인덱스형 2열 타임라인 */}
-        <ol className="mt-16 lg:mt-20">
+        {/* 인덱스형 2열 타임라인(리드 블록과 동일 리듬으로 이어짐) */}
+        <ol className="mt-12 lg:mt-16">
           {groups.map((group) => (
             <li
               key={group.year}

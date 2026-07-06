@@ -128,3 +128,31 @@ plan 초안의 accent/brand 매핑은 라이트 배경 대비 미달로 채택�
 ## 참조
 
 - `src/shared/lib/news.ts` (동일 데이터 패턴), `src/views/about-greeting/*` (일관성 기준), `docs/design.md`(토큰), `src/widgets/placeholder-page/*`(공용 헤더/서브내비/태그 참고).
+
+---
+
+## 개선 작업 (2026-07-06, design)
+
+기존 페이지 디자인 일관성 유지 전제. 신규 색상 0, content-container 강제, 서버 컴포넌트, 원문 유지.
+
+### 작업 1 — HISTORY 섹션 헤더 재디자인 (`HistoryTimelineSection.tsx`)
+
+- **문제**: 헤더(라벨+h2+설명) + full-width `border-y` 집계 dl 이 아래 인덱스형 2열 타임라인과 겉돌았음.
+- **변경**: 리드 블록을 타임라인과 **동일한 2열 그리드**(`lg:grid-cols-[180px_1fr]` + `lg:border-l lg:border-hairline lg:pl-10` 세로 스파인)로 재구성. 좌측 = 연도 자리에 대응하는 `HISTORY` 라벨, 우측 = 헤딩·설명·집계 요약. 타임라인 시작을 알리는 `bg-olive-muted` 마커 dot(연도 마커와 동일 표현)을 리드 블록 스파인 상단에 배치 → 헤더가 타임라인 첫 행처럼 읽힘.
+- 집계 요약 dl: full-width `border-y` → 우측 콘텐츠 컬럼 안 `border-t`(상단 hairline)로만 구획, 헤더와 하나의 응집 블록으로 통합. 스파인·좌측 컬럼 폭·gap이 타임라인 행과 정렬되어 리듬 일치.
+- **집계 수치는 `buildSummary()` 배열 파생 유지**(설립 min·특허/수상/인증 count). 하드코딩 없음.
+- 타임라인 본체(연도 2열, 스파인, 태그) 미변경. `<ol>` 상단 여백만 `mt-16 lg:mt-20` → `mt-12 lg:mt-16`으로 리드 블록과 연속감.
+
+### 작업 2 — CI of E3 섹션 신설 (`CiSection.tsx`)
+
+- 기존 홈페이지 CI 섹션 누락분 복원. FSD: `views/about-history/ui/CiSection.tsx` 신설, `HistoryView`에 조립, `index.ts`는 `HistoryView`만 공개 유지.
+- **밴드/배치**: `bg-tint`(연녹) 밴드로 다크 비전(`bg-ink`) 다음에 배치. 밴드 리듬: 크림(header)→다크(vision)→**연녹(CI)**→크림(history)→올리브(partners). 다크 뒤 브랜드 마크를 깔끔히 제시하는 리빌 지점.
+- **원문 콘텐츠(변경 금지)**: "푸른 나뭇잎 안에 E와 3를 유기적으로 결합하여 환경의 미래를 만들어가는 E3의 이미지를 형상화하였습니다." — `CI_CONCEPT` 모듈 상수, `text-h3 lg:text-h2` 리드로 제시(Vision 섹션의 label+대형 리드 패턴과 동일, 슬로건 창작 회피).
+- **E3 마크(로고 실물 대체)**: 로고 raster 미확보 → 디자인 시스템 기반 표현. 브랜드 그린 잎 형태(`bg-brand` + `rounded-tl-full rounded-br-full`) 패널 안에 사이트 공용 `SITE.nameEn`("E3") 워드마크(`font-display text-hero font-extrabold text-brand-ink`) + 잎맥(`-rotate-45` hairline)으로 "푸른 나뭇잎 + E와 3" 은유. 흰 패널(`bg-surface-white rounded-image`) 위에 얹어 연녹 밴드에서 부양.
+- **로고 교체 슬롯 명확화**: `E3Mark` 소컴포넌트로 분리 + 사용부에 `{/* 실제 로고 이미지 확보 시 아래 흰 패널 내부를 next/image(/images/e3-logo.*)로 교체 */}` 주석. 추후 파일만 넣으면 마크 영역만 교체.
+- **심볼 의미**: 원문 문장에서만 도출(창작 금지) — 푸른 나뭇잎=환경 / E+3=유기적 결합 / 미래=환경의 미래를 만들어가는 이미지. `CI_MEANINGS` 상수, 우측 dl(`border-t` hairline)로 간결 제시.
+
+### 토큰/규칙 준수
+
+- 신규 색상·토큰 0. 전부 기존 토큰(brand, brand-ink, tint, surface-white, ink, ink-soft, olive-muted, hairline, olive-label, text-hero/h2/h3/item/detail, rounded-image/full, radius corner util). content-container 강제 유지. 서버 컴포넌트. Props `interface`, `any` 없음. 반응형(`sm:`/`lg:`). 원문 문장 무변경.
+- `rounded-tl-full rounded-br-full`, `w-2/3`, `-rotate-45`는 토큰 색상값이 아닌 형태/레이아웃 유틸 — 잎 형태 은유용 1회성 기하로, 색상/스페이싱 하드코딩 규칙 대상 아님.
