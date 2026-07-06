@@ -376,3 +376,24 @@ overview 배경은 크림(bg-surface) 유지 + 우측 다크 블록은 라운드
 
 ## 규칙/검증
 서버 컴포넌트 유지(정적). 토큰 하드코딩 0, content-container 강제, any 0, Props interface, 반응형. 신규 색상 만들지 말고 기존 토큰 해결(불가피하면 보고). lint+tsc Hook, npm run build 통과.
+
+---
+
+# 후속 작업 4 (2026-07-06) — Business Overview 재작업(full-bleed 배경 + 좌측 헤더 카드) [design]
+
+같은 브랜치 feat/#13-business-intro, PR #14. frontend-design 선언 후 진행. 이전 후속3 구현이 사용자 의도와 어긋나 수정.
+
+## 가장 중요한 원칙 (재강조)
+"이미지를 토큰에 맞춰 번안"이 아니라 "토큰을 도구로 써서 레퍼런스 이미지 디자인을 최대한 그대로 재현". 이미지 레이아웃·비주얼을 최우선 타겟, 색/폰트/스페이싱만 우리 토큰으로 채운다. 기존 페이지 톤 맞추려고 이미지에서 멀어지지 말 것.
+
+## 수정 사항 (5)
+1. 좌측 카드 = 기존 스택형 섹션 헤더 그대로. 이전 대형 OVERVIEW 워드 + 발음기호 태그 [ˈəʊ.və.vjuː] 삭제. 좌측 카드 내부 = SectionLabel(BUSINESS OVERVIEW) → h2("환경과 IT를 잇는 / 융합 서비스 전문기업") → 설명 문단(원문 유지). 다른 섹션 헤더와 마크업 일관. 카드 안 콘텐츠 하단 정렬(mt-auto/justify-end) 허용. 우측에 대형 제목 중복 배치 금지(제목은 좌측 카드에만).
+2. 좌우 카드 사이 gap 제거. lg:gap-8 → gap-0. 좌측 패널과 우측 flush. grid lg:grid-cols-2(또는 좌0.9/우1.1 근사) + gap-0. 좌측 패널 섹션 높이 stretch, 우측과 경계 맞닿게.
+3. 우측 = 배경이미지 + 오버레이. 우측 콘텐츠(01/02/03 지그재그)는 배경 이미지 위 오버레이. 번호 text-accent/text-white, 레이블 text-white, 하단 hairline border-white/12. 가독성 위해 이미지↔콘텐츠 사이 스크림(bg-ink/50~/60 또는 그라디언트).
+4. 배경 이미지 full-bleed — 뷰포트 폭 꽉. section full-width, 이미지 absolute inset-0, next/image fill + object-cover(placeholder + 교체 주석). 내부 콘텐츠(좌측 카드+우측 번호)만 content-container로 감쌈. 구조: <section relative full-bleed> → 배경 이미지 레이어(absolute inset-0) + 스크림 → <div relative content-container>(오버레이 콘텐츠). 좌측 카드는 full-bleed 이미지 위 불투명 패널로 좌측 덮음. 라운드 코너 제거(각진 패널) 권장.
+5. 좌측 패널 배경 = 이미지 회색 근접. bg-muted 우선 시도. 텍스트 가독성 확보 — heading text-ink, 본문도 대비 충분한 어두운 토큰(text-ink; ink-soft가 muted 위 대비 부족하면 text-ink). SectionLabel 색도 회색 패널서 대비 나는 값(design 판단). muted 위 본문 대비 WCAG 확실히 미달이면 회색 의도 유지하되 legible 대안(bg-surface 등)으로 낮추고 사유 보고.
+
+## 유지/규칙
+- 우측 번호 데이터 = business-areas.data.ts BUSINESS_AREAS 계속. 아래 BusinessAreasSection 다크 섹션 그대로 유지.
+- 원문 무변경, 신규 카피 0. 토큰 하드코딩 0(레이아웃 arbitrary는 /* token 없음 */ 주석). 서버 컴포넌트 유지. 반응형: 모바일 좌측 카드→우측 번호 세로 스택, full-bleed 이미지 배경 모바일도 섹션 채움.
+- 밴드 리듬: 이 섹션이 full-bleed 다크 사진이라 아래 BusinessAreasSection(다크)과 인접 → 사진 텍스처로 구분. 상단(헤더 크림) 경계만 자연스럽게. 과한 장치 불필요.
