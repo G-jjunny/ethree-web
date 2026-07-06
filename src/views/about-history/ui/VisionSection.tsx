@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SectionLabel } from "@/shared/ui";
 
 interface RoadmapPhase {
@@ -31,6 +32,19 @@ const ROADMAP: readonly RoadmapPhase[] = [
 export function VisionSection() {
   return (
     <section className="relative overflow-hidden bg-ink py-16 lg:py-25">
+      {/* 배경 이미지(E3 연혁) + 다크 오버레이 — 흰 텍스트 가독성 확보 */}
+      <Image
+        src="/images/E3_history.png"
+        alt=""
+        aria-hidden
+        fill
+        sizes="100vw"
+        className="pointer-events-none object-cover object-center"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 bg-ink/80"
+        aria-hidden
+      />
       {/* 장식 원형 (랜딩/인사말 다크 밴드와 일관성) */}
       <div
         className="pointer-events-none absolute -top-32 -right-24 h-96 w-96 rounded-full bg-white/5"
