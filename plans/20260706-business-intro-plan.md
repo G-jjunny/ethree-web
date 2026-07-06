@@ -339,3 +339,40 @@ About Business 기본 진입 페이지인 `/business/intro`를 PlaceholderPage�
 
 ## 검증
 lint+tsc Hook, npm run build 통과. 전체 탭 페이지 전환·연도 필터 전환 시 page 리셋 확인.
+
+---
+
+# 후속 작업 3 (2026-07-06) — Business Overview 정의카드+번호리스트 레이아웃 재구성 [design]
+
+같은 브랜치 feat/#13-business-intro, PR #14. frontend-design 스킬 선언 후 진행.
+
+## 목표
+IntroSection(src/views/business-intro/ui/IntroSection.tsx)을 레퍼런스 이미지 레이아웃(2분할: 좌 정의카드 / 우 다크 이미지 패널+번호 지그재그 리스트)으로 재구성. 색/폰트/스페이싱은 docs/design.md 기존 토큰만(하드코딩 0). 콘텐츠는 기존 데이터만(신규 카피 창작 금지, 원문 무변경).
+
+## 확정
+- 우측 번호 리스트(01/02/03) = 기존 SI/R&D/Consulting 사업영역(BUSINESS_AREAS의 no+title).
+- BusinessAreasSection(상세+이미지 다크)은 그대로 유지. overview는 요약/프리뷰.
+
+## 레이아웃 (content-container 안, lg+ 좌우, 모바일 세로 스택)
+좌측 — 정의(dictionary) 카드:
+- 하단 정렬. 큰 디스플레이 워드 OVERVIEW(font-display, text-h1~hero급, uppercase, ink) + 베이스라인 우측 발음기호풍 태그 [ˈəʊ.və.vjuː](text-muted, font-display) — 순수 장식 타이포, 과하면 생략 가능.
+- hairline 구분선(border-hairline).
+- 기존 overview 설명 문단 원문 그대로("이쓰리는 환경IT 분야의 전문가 그룹으로…"). 2문단 분할 렌더 가능하되 문구 변경 금지.
+- BUSINESS OVERVIEW eyebrow 라벨 카드 상단 소형 유지(SectionLabel).
+- 배경: bg-surface-white+border-hairline 권장(또는 bg-tint). muted/ink-soft 지양. 판단은 design.
+
+우측 — 다크 이미지 패널 + 번호 리스트:
+- bg-ink 라운드 블록(rounded-image). next/image 교체 슬롯(ServiceSection bg-white/5 placeholder + 주석). 콘텐츠 오버레이.
+- 좌상단 대형 제목 = 기존 heading "환경과 IT를 잇는 / 융합 서비스 전문기업"(text-h2~h1, font-extrabold, text-white). 원문 유지.
+- 번호 3개 지그재그(01 상단-좌, 02 중단-우, 03 하단-좌). 각 항목 = 번호(font-display 큰 크기, text-accent 또는 accent 조합, ServiceSection text-mega text-accent/35 참고) + 하단 hairline(border-white/12) + 레이블(사업영역 title, text-white/70~white).
+- lg+ absolute 지그재그, 모바일 static 세로 스택 폴백(반응형 필수).
+- 패널 높이 arbitrary(예 lg:min-h-[560px], /* token 없음 */ 주석). 레이아웃 값이라 색/스페이싱 토큰과 무관.
+
+## 데이터 중복 제거
+현재 BUSINESS_AREAS는 BusinessAreasSection.tsx 내부. IntroSection도 no+title 필요 → 단일 소스 추출: views/business-intro 슬라이스 내부 모듈(예 ui/business-areas.data.ts 또는 model/ 파일)로 BusinessArea 타입+BUSINESS_AREAS 상수 이동 후 IntroSection·BusinessAreasSection 양쪽 import(슬라이스 내부 import 허용, 외부 공개는 index.ts BusinessIntroView 유지). 값 변경 금지, 이동만.
+
+## 밴드 리듬
+overview 배경은 크림(bg-surface) 유지 + 우측 다크 블록은 라운드 카드로 담아 아래 BusinessAreasSection(전체 다크 밴드)과 뭉치지 않게(사이 크림 여백). 리듬: 크림(header)→크림(overview, 내부 다크 블록)→다크(areas)→크림(projects).
+
+## 규칙/검증
+서버 컴포넌트 유지(정적). 토큰 하드코딩 0, content-container 강제, any 0, Props interface, 반응형. 신규 색상 만들지 말고 기존 토큰 해결(불가피하면 보고). lint+tsc Hook, npm run build 통과.
