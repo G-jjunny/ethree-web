@@ -1,10 +1,15 @@
 import Link from "next/link";
-import { SITE, NAV_GROUPS } from "@/shared/constants";
+import { NAV_GROUPS } from "@/shared/constants";
+import { getCompanyInfo } from "@/features/company-info";
 
 /**
  * 전역 다크 푸터. 회사정보 1열 + 네비게이션 그룹 3열 + 카피라이트.
+ * 회사정보는 DB(getCompanyInfo)에서 읽고, 미적용/오류 시 SITE로 폴백된다(getter 내부).
+ * NAV_GROUPS는 회사정보가 아닌 사이트 구조 상수이므로 SITE(constants) 유지.
  */
-export function SiteFooter() {
+export async function SiteFooter() {
+  const company = await getCompanyInfo();
+
   return (
     <footer className="bg-ink pt-14 pb-8 lg:pt-20">
       <div className="content-container">
@@ -13,16 +18,16 @@ export function SiteFooter() {
           {/* 회사정보 */}
           <div className="col-span-2 lg:col-span-1">
             <div className="font-display mb-4.5 text-2xl font-extrabold text-white">
-              {SITE.nameEn}
+              {company.nameEn}
             </div>
             <address className="text-meta leading-loose text-white/60 not-italic">
-              {SITE.legalName}
+              {company.legalName}
               <br />
-              대표이사 {SITE.ceo}
+              대표이사 {company.ceo}
               <br />
-              {SITE.address.line1}
+              {company.address.line1}
               <br />
-              {SITE.address.line2}
+              {company.address.line2}
             </address>
           </div>
 
@@ -47,9 +52,9 @@ export function SiteFooter() {
 
               {group.footerLabel === "CUSTOMER SUPPORT" && (
                 <div className="text-meta mt-6 leading-relaxed text-white/50">
-                  Tel. {SITE.contact.tel}
+                  Tel. {company.contact.tel}
                   <br />
-                  Fax. {SITE.contact.fax}
+                  Fax. {company.contact.fax}
                 </div>
               )}
             </div>
@@ -57,8 +62,8 @@ export function SiteFooter() {
         </div>
 
         <div className="text-caption flex flex-col gap-2 pt-6 text-white/35 sm:flex-row sm:justify-between">
-          <span>{SITE.copyright}</span>
-          <span>{SITE.tagline}</span>
+          <span>{company.copyright}</span>
+          <span>{company.tagline}</span>
         </div>
       </div>
     </footer>

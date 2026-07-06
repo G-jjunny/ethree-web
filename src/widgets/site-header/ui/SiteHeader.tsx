@@ -3,15 +3,27 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/shared/ui";
-import { SITE, NAV_GROUPS } from "@/shared/constants";
+import { NAV_GROUPS } from "@/shared/constants";
+// "use client" 컴포넌트 — 서버 getter(getCompanyInfo)를 직접 호출할 수 없다.
+// 회사정보는 부모 서버 컴포넌트((marketing) layout)가 주입한다. 타입만 필요하므로
+// `import type`로 가져와 런타임 의존(서버 전용 모듈 유입)을 만들지 않는다.
+import type { CompanyInfo } from "@/features/company-info";
+
+export interface SiteHeaderProps {
+  /** 부모 서버 컴포넌트가 getCompanyInfo()로 주입하는 현재 회사정보. */
+  company: CompanyInfo;
+}
 
 /**
  * 뷰포트 고정 오버레이 네비게이션.
  * - 최상단: 배경 투명 / 스크롤(>24px): 다크 배경 + blur + hairline 페이드인.
  * - lg 미만: 데스크톱 내비/전화 숨김, 햄버거 패널 노출.
  * 다크 배경 위에 놓이므로 흰색 계열 텍스트를 사용한다.
+ *
+ * 상호작용(모바일 메뉴/스크롤 감지) 때문에 "use client"이므로 회사정보 값은
+ * props로 주입받는다(서버 getter 직접 호출 불가).
  */
-export function SiteHeader() {
+export function SiteHeader({ company }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
@@ -60,9 +72,9 @@ export function SiteHeader() {
       <div className="content-container flex items-center justify-between py-5 lg:py-7">
         <Link href="/" className="flex items-baseline gap-2.5">
           <span className="font-display text-logo font-extrabold text-white">
-            {SITE.nameEn}
+            {company.nameEn}
           </span>
-          <span className="text-eyebrow text-white/60">{SITE.name}</span>
+          <span className="text-eyebrow text-white/60">{company.name}</span>
         </Link>
 
         {/* 데스크톱 내비 (lg+) */}
@@ -81,10 +93,10 @@ export function SiteHeader() {
         {/* 데스크톱 전화/CTA (lg+) */}
         <div className="hidden items-center gap-3.5 lg:flex">
           <a
-            href={`tel:${SITE.contact.tel}`}
+            href={`tel:${company.contact.tel}`}
             className="text-eyebrow text-white/55"
           >
-            {SITE.contact.tel}
+            {company.contact.tel}
           </a>
           <Button variant="primary" size="sm">
             문의하기
@@ -134,11 +146,11 @@ export function SiteHeader() {
               </Link>
             ))}
             <a
-              href={`tel:${SITE.contact.tel}`}
+              href={`tel:${company.contact.tel}`}
               onClick={() => setMenuOpen(false)}
               className="py-2 text-eyebrow text-white/55"
             >
-              {SITE.contact.tel}
+              {company.contact.tel}
             </a>
             <Button
               variant="primary"
