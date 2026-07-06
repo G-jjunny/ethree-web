@@ -33,7 +33,7 @@ export function IntroSection() {
         className="pointer-events-none absolute inset-0 lg:left-1/2"
       >
         <Image
-          src="/images/Ethree_info_bg.png"
+          src="/images/Ethree_info_bg.jpg"
           alt=""
           aria-hidden
           fill
@@ -71,11 +71,11 @@ export function IntroSection() {
                 key={area.no}
                 className={`relative ${ZIGZAG_LG[index]} lg:w-56`}
               >
-                <span className="font-display text-mega font-extrabold leading-none text-accent">
+                <span className="font-display text-mega leading-none font-extrabold text-accent">
                   {area.no}
                 </span>
                 <div className="mt-3 border-t border-white/12 pt-3">
-                  <span className="font-display text-sm uppercase tracking-label text-white">
+                  <span className="font-display text-sm tracking-label text-white uppercase">
                     {area.title}
                   </span>
                 </div>
