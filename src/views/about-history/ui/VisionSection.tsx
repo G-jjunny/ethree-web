@@ -42,7 +42,7 @@ export function VisionSection() {
         className="pointer-events-none object-cover object-center"
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-ink/80"
+        className="pointer-events-none absolute inset-0 bg-ink/60"
         aria-hidden
       />
       {/* 장식 원형 (랜딩/인사말 다크 밴드와 일관성) */}
@@ -50,7 +50,7 @@ export function VisionSection() {
         className="pointer-events-none absolute -top-32 -right-24 h-96 w-96 rounded-full bg-white/5"
         aria-hidden
       />
-      <div className="content-container relative">
+      <div className="relative content-container">
         <div className="max-w-3xl">
           <SectionLabel color="accent">OUR VISION</SectionLabel>
           <p className="mt-6 text-h3 font-bold text-white lg:text-h2">
@@ -75,10 +75,10 @@ export function VisionSection() {
                     : ""
                 }
               >
-                <span className="font-display block text-mega font-extrabold leading-none text-accent/35">
+                <span className="block font-display text-mega leading-none font-extrabold text-accent/35">
                   {phase.no}
                 </span>
-                <span className="font-display mt-5 block text-eyebrow tracking-label text-white/40 uppercase">
+                <span className="mt-5 block font-display text-eyebrow tracking-label text-white/40 uppercase">
                   {phase.tag}
                 </span>
                 <p className="mt-2 text-item font-bold text-white">
