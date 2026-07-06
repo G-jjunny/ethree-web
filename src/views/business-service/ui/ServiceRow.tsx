@@ -38,7 +38,11 @@ function ServiceMeta({ label, value }: ServiceMetaProps) {
   );
 }
 
-function ServiceText({ service }: { service: ServiceItem }) {
+interface ServiceTextProps {
+  service: ServiceItem;
+}
+
+function ServiceText({ service }: ServiceTextProps) {
   return (
     <div>
       <h3 className="text-h3 font-bold text-white">{service.title}</h3>
