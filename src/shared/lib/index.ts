@@ -17,6 +17,9 @@ export type { BusinessProject } from "./projects";
 export { getPartners } from "./partners";
 export type { Partner } from "./partners";
 
+export { getServices } from "./services";
+export type { ServiceItem } from "./services";
+
 export { getDirections } from "./location";
 export type {
   DirectionsInfo,
