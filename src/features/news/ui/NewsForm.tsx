@@ -32,9 +32,6 @@ const INPUT_CLASS =
 const LABEL_CLASS = "text-detail font-medium text-ink-soft";
 const MESSAGE_ERROR_CLASS =
   "rounded-card border border-hairline px-4 py-3 text-detail text-danger";
-/** 라이트 카드 위 보조 버튼(취소·업로드·제거 등). Button 컴포넌트엔 라이트용 보더 variant가 없어 로컬 정의. */
-const SECONDARY_BUTTON_CLASS =
-  "inline-flex items-center justify-center rounded-pill border border-hairline px-5 py-2.5 text-eyebrow font-display font-bold text-ink-soft transition-colors duration-fast ease-out hover:border-brand disabled:opacity-50";
 
 function emptyValues(): NewsFormValues {
   return {
@@ -173,13 +170,14 @@ export function NewsForm({ mode, newsId, initialValues }: NewsFormProps) {
                 placeholder="예: 8th-climate-seminar-completed"
                 className={INPUT_CLASS}
               />
-              <button
+              <Button
                 type="button"
+                variant="outline-light"
+                size="sm"
                 onClick={handleGenerateSlug}
-                className={SECONDARY_BUTTON_CLASS}
               >
                 자동 생성
-              </button>
+              </Button>
             </div>
             <p className="text-meta text-muted">
               소문자·숫자·하이픈만. 한글 제목은 직접 입력하세요.
@@ -224,22 +222,24 @@ export function NewsForm({ mode, newsId, initialValues }: NewsFormProps) {
           ) : null}
 
           <div className="flex items-center gap-3">
-            <button
+            <Button
               type="button"
+              variant="outline-light"
+              size="sm"
               disabled={isCoverUploading}
               onClick={() => coverInputRef.current?.click()}
-              className={SECONDARY_BUTTON_CLASS}
             >
               {isCoverUploading ? "업로드 중..." : "이미지 업로드"}
-            </button>
+            </Button>
             {values.coverImageUrl ? (
-              <button
+              <Button
                 type="button"
+                variant="outline-light"
+                size="sm"
                 onClick={() => setField("coverImageUrl", "")}
-                className={SECONDARY_BUTTON_CLASS}
               >
                 제거
-              </button>
+              </Button>
             ) : null}
           </div>
           <input
@@ -315,13 +315,14 @@ export function NewsForm({ mode, newsId, initialValues }: NewsFormProps) {
               ? "수정 저장"
               : "등록"}
         </Button>
-        <button
+        <Button
           type="button"
+          variant="outline-light"
+          size="sm"
           onClick={() => router.push(`${ADMIN_BASE_PATH}/news`)}
-          className={SECONDARY_BUTTON_CLASS}
         >
           취소
-        </button>
+        </Button>
       </div>
     </form>
   );

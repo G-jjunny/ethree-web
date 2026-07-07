@@ -93,8 +93,8 @@ export function NewsAdminTable({ items }: NewsAdminTableProps) {
                   <span
                     className={
                       item.published
-                        ? "text-detail font-medium text-olive-label"
-                        : "text-detail font-medium text-muted"
+                        ? "inline-flex items-center rounded-pill bg-tint px-3 py-1 text-caption font-medium text-olive-label"
+                        : "inline-flex items-center rounded-pill border border-hairline px-3 py-1 text-caption font-medium text-muted"
                     }
                   >
                     {item.published ? "발행" : "초안"}

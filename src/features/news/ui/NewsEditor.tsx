@@ -49,7 +49,7 @@ export function NewsEditor({ initialContent, onChange }: NewsEditorProps) {
     editorProps: {
       attributes: {
         class:
-          "prose max-w-none min-h-64 rounded-card border border-hairline bg-surface px-4 py-3 text-sm text-ink outline-none focus:border-brand",
+          "prose max-w-none min-h-64 rounded-card border border-hairline bg-surface px-4 py-3 outline-none focus:border-brand",
       },
     },
     onUpdate: ({ editor: e }) => {
@@ -113,7 +113,7 @@ export function NewsEditor({ initialContent, onChange }: NewsEditorProps) {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2 rounded-card border border-hairline bg-surface-white p-2">
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}

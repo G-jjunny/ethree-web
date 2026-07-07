@@ -170,15 +170,52 @@ max-width: 1280px · margin-inline: auto · padding-inline: 1.25rem (≥1024px�
 
 ### Button
 
-- `variant`: `primary`(brand 라임 pill) / `dark`(ink pill) / `outline`(투명+white/40 보더, 다크 배경용)
+- `variant`:
+  - `primary`(brand 라임 pill)
+  - `dark`(ink pill)
+  - `outline`(투명+white/40 보더, 다크 배경용)
+  - `outline-light`(투명+hairline 보더, 라이트/카드 배경 위 보조 버튼 — 취소·업로드·자동생성·제거 등)
 - `size`: `sm`(헤더/네비, 24×10 / 13px) / `md`(CTA, 28×14 / 14px)
 - 표준 `button` 속성 확장. 하드코딩 없이 토큰 클래스만 사용.
+- 라이트 배경의 보조 액션(폼 취소·파일 업로드 등)은 로컬 클래스 대신 `variant="outline-light" size="sm"`를 쓴다.
 
 ### SectionLabel
 
 - `color`: `accent`(다크 위 라임) / `olive`(라이트 위) / `olive-soft`(올리브 위) / `olive-muted`(카드 번호) / `ink`(회색 muted 패널 위 고대비) / `muted`(다크 위 저대비)
 - `size`: `md`(섹션 eyebrow 13px/.2em) / `sm`(소형 라벨 12px/.14em)
 - 항상 Manrope · uppercase.
+
+---
+
+## prose (리치텍스트 본문)
+
+News 상세 본문(서버 새니타이즈 HTML)과 관리자 에디터 편집 영역에 쓰는 공용 타이포그래피 클래스.
+정의는 `src/app/globals.css` `@layer components .prose`. 색상/라운드/모션은 전부 위 토큰 var() 참조 — 하드코딩 없음.
+Tailwind Typography 플러그인은 쓰지 않고, 이 프로젝트 토큰에 맞춘 최소 스코프로 직접 정의한다.
+
+적용 대상 태그(TipTap StarterKit + Image + Link 산출):
+
+| 요소            | 스타일 요약                                                        |
+| --------------- | ------------------------------------------------------------------ |
+| 본문 기본        | `font-body` · `text-body-sm`(15px) · line-height 1.8 · `text-ink` |
+| `p`             | 상하 여백 1.1rem                                                    |
+| `h1/h2/h3`      | `font-display` bold · `tracking-headline` · h1=28px·h2=24px·h3=19px |
+| `a`             | `olive-label` + underline, hover `ink`                             |
+| `strong`        | 700 · `ink`                                                        |
+| `ul/ol/li`      | disc/decimal · marker `olive-muted`                               |
+| `blockquote`    | 좌측 `olive` 2px 보더 · italic · `ink-soft`                       |
+| `img`           | `rounded-image`(8px) · 상하 여백                                   |
+| `hr`            | `hairline` 1px                                                    |
+| `code` / `pre`  | `code`=tint 배경 · `pre`=ink 배경/surface 텍스트                   |
+
+사용:
+
+```html
+✅ <div class="prose max-w-2xl">…새니타이즈된 HTML…</div>   <!-- 공개 상세 -->
+✅ EditorContent attributes class="prose max-w-none …"        <!-- 관리자 에디터 -->
+```
+
+가독 폭은 소비처에서 `max-w-2xl`(공개 상세) 또는 `max-w-none`(에디터)로 제어한다.
 
 ---
 

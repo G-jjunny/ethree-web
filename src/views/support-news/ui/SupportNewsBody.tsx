@@ -14,7 +14,7 @@ export interface SupportNewsBodyProps {
 export function SupportNewsBody({ html }: SupportNewsBodyProps) {
   return (
     <div
-      className="prose mx-auto mt-14 w-full max-w-2xl text-ink"
+      className="prose mx-auto mt-12 w-full max-w-2xl border-t border-hairline pt-12"
       // html은 renderNewsBody에서 DOMPurify로 새니타이즈된 신뢰 가능한 값이다.
       dangerouslySetInnerHTML={{ __html: html }}
     />

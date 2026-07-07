@@ -26,7 +26,7 @@ export function SupportNewsList({ items }: SupportNewsListProps) {
   }
 
   return (
-    <ul className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item) => (
         <li key={item.id}>
           <Link
@@ -43,11 +43,24 @@ export function SupportNewsList({ items }: SupportNewsListProps) {
                   className="object-cover"
                   unoptimized
                 />
-              ) : null}
+              ) : (
+                <div
+                  aria-hidden
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <span className="font-display text-h3 font-extrabold tracking-headline text-olive-muted">
+                    E3
+                  </span>
+                </div>
+              )}
             </div>
             <div className="flex flex-1 flex-col gap-3 p-6">
-              <span className="text-meta text-muted">{item.date}</span>
-              <h2 className="text-list font-medium text-ink">{item.title}</h2>
+              <span className="font-display text-meta text-muted">
+                {item.date}
+              </span>
+              <h2 className="text-list font-medium text-ink transition-colors duration-fast ease-out group-hover:text-olive-label">
+                {item.title}
+              </h2>
               {item.excerpt ? (
                 <p className="line-clamp-2 text-detail text-ink-soft">
                   {item.excerpt}
