@@ -1,6 +1,6 @@
 "use client";
 
-// import Image from "next/image"; // 실제 배경 이미지 확보 후 활성화
+import Image from "next/image";
 import {
   useCallback,
   useEffect,
@@ -13,6 +13,17 @@ import { HERO_SLIDES } from "./hero-slides.data";
 
 /** autoplay 간격(ms). */
 const AUTOPLAY_INTERVAL = 5000;
+
+/**
+ * 슬라이드별 배경 구분 틴트 — 실제 히어로 이미지(3종) 미확보 시 배경 전환을
+ * 가시화하기 위한 placeholder. 슬라이드 데이터의 imageSrc를 채우면 next/image가
+ * 이 위를 덮으므로 실제 이미지로 자연스럽게 대체된다. 기존 토큰만 사용.
+ */
+const SLIDE_BG_TINT = [
+  "bg-linear-to-tr from-brand/20 via-transparent to-transparent",
+  "bg-linear-to-tl from-accent/15 via-transparent to-transparent",
+  "bg-linear-to-t from-olive/25 via-transparent to-transparent",
+];
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
@@ -89,21 +100,21 @@ export function HeroCarousel() {
             animate={{ opacity: index === activeIndex ? 1 : 0 }}
             transition={transition}
           >
-            {/* 배경 placeholder — 실제 사진 교체 자리 */}
+            {/* 다크 베이스 */}
             <div className="absolute inset-0 bg-ink" />
-            {/*
-              실제 이미지 확보 시 아래 슬롯 활성화 (next/image import도 함께 해제):
-              {slide.imageSrc && (
-                <Image
-                  src={slide.imageSrc}
-                  alt=""
-                  fill
-                  priority={index === 0}
-                  sizes="100vw"
-                  className="object-cover"
-                />
-              )}
-            */}
+            {/* 슬라이드별 구분 틴트 — 실제 이미지 미확보 시 배경 전환을 가시화.
+                imageSrc를 채우면 아래 next/image가 이 위를 덮는다. */}
+            <div className={`absolute inset-0 ${SLIDE_BG_TINT[index] ?? ""}`} />
+            {slide.imageSrc && (
+              <Image
+                src={slide.imageSrc}
+                alt=""
+                fill
+                priority={index === 0}
+                sizes="100vw"
+                className="object-cover"
+              />
+            )}
           </motion.div>
         ))}
       </div>
@@ -114,8 +125,8 @@ export function HeroCarousel() {
         aria-hidden
       />
 
-      {/* 콘텐츠 — 하단 정렬 */}
-      <div className="relative z-20 flex flex-1 flex-col justify-end pb-16 lg:pb-21">
+      {/* 콘텐츠 — 좌측·수직 중앙 정렬(y축 중앙) */}
+      <div className="relative z-20 flex flex-1 flex-col justify-center py-16">
         <div className="content-container w-full">
           {/* 슬라이드 텍스트 — active 콘텐츠만 cross-fade, 레이아웃 고정.
               min-h로 최대 줄 수 높이를 예약 → mode="wait" 언마운트 갭·슬라이드별
