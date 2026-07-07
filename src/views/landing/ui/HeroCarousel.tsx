@@ -117,8 +117,10 @@ export function HeroCarousel() {
       {/* 콘텐츠 — 하단 정렬 */}
       <div className="relative z-20 flex flex-1 flex-col justify-end pb-16 lg:pb-21">
         <div className="content-container w-full">
-          {/* 슬라이드 텍스트 — active 콘텐츠만 cross-fade, 레이아웃 고정 */}
-          <div className="max-w-4xl">
+          {/* 슬라이드 텍스트 — active 콘텐츠만 cross-fade, 레이아웃 고정.
+              min-h로 최대 줄 수 높이를 예약 → mode="wait" 언마운트 갭·슬라이드별
+              본문 줄 수 차이와 무관하게 키워드 Y 위치 고정(콘텐츠는 상단 정렬). */}
+          <div className="min-h-72 max-w-4xl sm:min-h-64">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSlide.id}
