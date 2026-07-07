@@ -163,10 +163,11 @@ max-width: 1280px · margin-inline: auto · padding-inline: 1.25rem (≥1024px�
 
 ## 공용 컴포넌트 (`src/shared/ui`)
 
-| 컴포넌트     | 용도                                   | 참고               |
-| ------------ | -------------------------------------- | ------------------ |
-| Button       | CTA (primary/dark/outline, sm/md)      | 아래 명세          |
-| SectionLabel | eyebrow/소형 라벨 (배경별 color prop)  | 아래 명세          |
+| 컴포넌트         | 용도                                    | 참고               |
+| ---------------- | --------------------------------------- | ------------------ |
+| Button           | CTA (primary/dark/outline, sm/md)       | 아래 명세          |
+| SectionLabel     | eyebrow/소형 라벨 (배경별 color prop)   | 아래 명세          |
+| FormStatusBanner | 폼 제출 상태 배너 (error/success)       | 아래 명세          |
 
 ### Button
 
@@ -184,6 +185,15 @@ max-width: 1280px · margin-inline: auto · padding-inline: 1.25rem (≥1024px�
 - `color`: `accent`(다크 위 라임) / `olive`(라이트 위) / `olive-soft`(올리브 위) / `olive-muted`(카드 번호) / `ink`(회색 muted 패널 위 고대비) / `muted`(다크 위 저대비)
 - `size`: `md`(섹션 eyebrow 13px/.2em) / `sm`(소형 라벨 12px/.14em)
 - 항상 Manrope · uppercase.
+
+### FormStatusBanner
+
+- 폼 제출 결과(검증 실패·서버 에러·성공)를 알리는 hairline 박스 배너. 관리자/공개 폼에서 반복되던 인라인 상태 마크업을 통합한다.
+- `variant`:
+  - `error` — 검증/서버 에러. `text-danger` · `role="alert"` (투명 배경 + hairline 보더).
+  - `success` — 저장/전송 성공. `bg-tint` · `text-olive-label` · `role="status"`.
+- 공통 골격: `rounded-card border border-hairline px-4 py-3 text-detail`. 색상/보더/라운드 전부 토큰.
+- `className` prop으로 여백 등 소비처 조정 허용(토큰 클래스만).
 
 ---
 
