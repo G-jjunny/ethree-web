@@ -7,7 +7,7 @@
 ## 디자인 방향성
 
 다크 포레스트 그린 + 웜 크림 배경 + 라임 그린 포인트의 환경 IT 브랜드.
-Manrope(영문 디스플레이/숫자/eyebrow) + Noto Sans KR(본문). 플랫 + 얇은 hairline 보더 중심, 그림자 없음, pill형 CTA.
+Pretendard(디스플레이·본문 공용, 가변 폰트) 단일 패밀리. 플랫 + 얇은 hairline 보더 중심, 그림자 없음, pill형 CTA.
 
 ---
 
@@ -56,8 +56,8 @@ Manrope(영문 디스플레이/숫자/eyebrow) + Noto Sans KR(본문). 플랫 + 
 
 | 토큰         | 값                          | 용도                          | 클래스         |
 | ------------ | --------------------------- | ----------------------------- | -------------- |
-| font-display | Manrope                     | 영문/숫자/eyebrow/헤드라인    | `font-display` |
-| font-body    | Noto Sans KR                | 한글 본문(body 기본)          | `font-body`    |
+| font-display | Pretendard (Variable)       | 디스플레이/숫자/eyebrow/헤드라인 | `font-display` |
+| font-body    | Pretendard (Variable)       | 한글·영문 본문(body 기본)     | `font-body`    |
 
 폰트 웨이트는 기본 유틸 사용: `font-medium`(500) `font-bold`(700) `font-extrabold`(800) `font-black`(900).
 
@@ -184,7 +184,7 @@ max-width: 1280px · margin-inline: auto · padding-inline: 1.25rem (≥1024px�
 
 - `color`: `accent`(다크 위 라임) / `olive`(라이트 위) / `olive-soft`(올리브 위) / `olive-muted`(카드 번호) / `ink`(회색 muted 패널 위 고대비) / `muted`(다크 위 저대비)
 - `size`: `md`(섹션 eyebrow 13px/.2em) / `sm`(소형 라벨 12px/.14em)
-- 항상 Manrope · uppercase.
+- 항상 `font-display`(Pretendard) · uppercase.
 
 ### FormStatusBanner
 
