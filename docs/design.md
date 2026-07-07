@@ -7,7 +7,7 @@
 ## 디자인 방향성
 
 다크 포레스트 그린 + 웜 크림 배경 + 라임 그린 포인트의 환경 IT 브랜드.
-Manrope(영문 디스플레이/숫자/eyebrow) + Noto Sans KR(본문). 플랫 + 얇은 hairline 보더 중심, 그림자 없음, pill형 CTA.
+Pretendard(디스플레이·본문 공용, 가변 폰트) 단일 패밀리. 플랫 + 얇은 hairline 보더 중심, 그림자 없음, pill형 CTA.
 
 ---
 
@@ -56,8 +56,8 @@ Manrope(영문 디스플레이/숫자/eyebrow) + Noto Sans KR(본문). 플랫 + 
 
 | 토큰         | 값                          | 용도                          | 클래스         |
 | ------------ | --------------------------- | ----------------------------- | -------------- |
-| font-display | Manrope                     | 영문/숫자/eyebrow/헤드라인    | `font-display` |
-| font-body    | Noto Sans KR                | 한글 본문(body 기본)          | `font-body`    |
+| font-display | Pretendard (Variable)       | 디스플레이/숫자/eyebrow/헤드라인 | `font-display` |
+| font-body    | Pretendard (Variable)       | 한글·영문 본문(body 기본)     | `font-body`    |
 
 폰트 웨이트는 기본 유틸 사용: `font-medium`(500) `font-bold`(700) `font-extrabold`(800) `font-black`(900).
 
@@ -184,7 +184,7 @@ max-width: 1280px · margin-inline: auto · padding-inline: 1.25rem (≥1024px�
 
 - `color`: `accent`(다크 위 라임) / `olive`(라이트 위) / `olive-soft`(올리브 위) / `olive-muted`(카드 번호) / `ink`(회색 muted 패널 위 고대비) / `muted`(다크 위 저대비)
 - `size`: `md`(섹션 eyebrow 13px/.2em) / `sm`(소형 라벨 12px/.14em)
-- 항상 Manrope · uppercase.
+- 항상 `font-display`(Pretendard) · uppercase.
 
 ### FormStatusBanner
 
@@ -226,6 +226,33 @@ Tailwind Typography 플러그인은 쓰지 않고, 이 프로젝트 토큰에 �
 ```
 
 가독 폭은 소비처에서 `max-w-2xl`(공개 상세) 또는 `max-w-none`(에디터)로 제어한다.
+
+---
+
+## 디자인 원칙 (Design Principles)
+
+> 토큰(값)이 아니라 **토큰을 어떻게 쓸지**에 대한 규칙. 모든 마크업/디자인 결정은 아래를 따른다. (design 에이전트는 이 파일을 `@import`하므로 자동 적용)
+
+### 1. 정보 위계 · 타이포그래피 (Information Hierarchy)
+
+화려한 그래픽 요소 대신 **폰트 굵기(Weight) · 자간(Letter-spacing) · 서체 크기(Scale) · 여백(Negative Space)** 만으로 정보의 경중을 확실히 구분한다.
+
+- **핵심**(타이틀·숫자): `font-bold`/`font-extrabold`/`font-black` + 큰 스케일(`text-hero`/`text-h1~h3`/`text-mega`). 대형 헤드라인엔 `tracking-headline`.
+- **보조·메타**(부연 설명·날짜·작성자·조회수): 기본/`font-medium` weight + 작은 스케일(`text-detail`/`text-meta`/`text-caption`) + 낮은 대비 컬러(`text-ink-soft`/`text-muted`).
+- 위계는 **weight·scale·여백(`gap`/`py`/`mt`)** 차이로 만든다(색 남발 아님). 시선 흐름 = 크고·굵고·진한 것 → 작고·얇고·흐린 것.
+
+### 2. 컬러 시스템 · 톤 (Color System & Tone)
+
+- 배경·기본 틀은 **무채색 계열**(웜 크림 `surface`, 화이트 `surface-white`, 정돈된 다크 `ink`)을 기본으로 한다.
+- 색을 과하게 남발하지 않는다. **key color 1~2개만 포인트로** — `brand`(라임 그린)·`accent`, 보조로 `olive` 계열. 그 외는 무채/저채도로 시각적 피로도를 낮춘다.
+- 강조는 색이 아니라 **원칙 1(위계)** 로 우선 해결. 신규 색상 추가 금지(기존 토큰만).
+
+### 3. 상태별 컴포넌트 분기 (State-driven UI)
+
+데이터의 상태(Status)에 따라 정보를 시각적으로 다르게 표현한다.
+
+- **조건부 액션 상태**(진행 중 · 완료 · 대기 · 발행/초안 등): 직관적 구분이 필요 → key color를 반영한 가독성 높은 **Badge/Tag 형태**(pill/rounded). ※ 현재 `shared/ui`에 `Badge` 미구현 — 상태 뱃지가 필요하면 shared/ui에 `Badge`(status variant)로 추가 후 사용한다.
+- **일반 정보성 상태**(등록일 · 조회수 · 작성자 등): 불필요한 테두리·배경을 넣지 않고 **텍스트 + 미니멀 폰트 컬러 분기**(`text-muted`/`text-meta`)만으로 자연스럽게 녹여낸다.
 
 ---
 

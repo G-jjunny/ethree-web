@@ -1,3 +1,5 @@
+export { pretendard } from "./fonts";
+
 export { buildMetadata } from "./metadata";
 export type { BuildMetadataOptions } from "./metadata";
 

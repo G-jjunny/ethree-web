@@ -37,9 +37,9 @@
   --color-danger: oklch(70% 0.19 25); /* 폼 에러/실패 텍스트 (다크 배경 대비 확인됨) */
 
   /* ---- 폰트 패밀리 (layout.tsx next/font 변수 주입) ---- */
-  --font-display: var(--font-manrope), "Manrope", sans-serif; /* 영문/숫자/eyebrow */
-  --font-body: var(--font-noto-sans-kr), "Noto Sans KR", sans-serif; /* 본문 */
-  --font-sans: var(--font-noto-sans-kr), "Noto Sans KR", sans-serif;
+  --font-display: var(--font-pretendard), "Pretendard", sans-serif; /* 디스플레이(영문/숫자/eyebrow/헤드라인) */
+  --font-body: var(--font-pretendard), "Pretendard", sans-serif; /* 본문 */
+  --font-sans: var(--font-pretendard), "Pretendard", sans-serif;
 
   /* ---- 타이포 스케일 (원본 px 기준 네이밍 토큰) ---- */
   --text-mini: 0.6875rem; /* 11px  이미지 placeholder 캡션 */
