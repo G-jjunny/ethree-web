@@ -1,4 +1,4 @@
-import { Button, SectionLabel } from "@/shared/ui";
+import { Button, SectionHeader, SectionLabel } from "@/shared/ui";
 
 interface ServiceRow {
   no: string;
@@ -70,14 +70,17 @@ export function ServiceSection() {
     <section className="bg-ink py-16 lg:py-30">
       <div className="content-container">
         <div className="mb-18 flex flex-wrap items-end justify-between gap-10 border-b border-white/12 pb-8.5">
-          <div>
-            <SectionLabel color="accent">ABOUT SERVICE</SectionLabel>
-            <h2 className="font-display mt-4 text-h2 font-extrabold text-white">
-              이쓰리가 만든
-              <br />
-              대표 시스템
-            </h2>
-          </div>
+          <SectionHeader
+            tone="dark"
+            eyebrow="ABOUT SERVICE"
+            title={
+              <>
+                이쓰리가 만든
+                <br />
+                대표 시스템
+              </>
+            }
+          />
           {/* token 없음: 문단 폭 420px, max-w-md(448px) 근사 */}
           <p className="max-w-md text-body-sm text-white/70">
             환경부 및 산하기관과 함께 기획부터 개발, 구축, 운영까지 책임지고 있는

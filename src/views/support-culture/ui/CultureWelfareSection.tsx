@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader } from "@/shared/ui";
 import type { CultureItem } from "@/features/culture";
 
 export interface CultureWelfareSectionProps {
@@ -29,15 +29,13 @@ export function CultureWelfareSection({
       />
       <div className="content-container relative">
         {intro && (
-          <div className="max-w-2xl">
-            <SectionLabel color="olive-soft">WORK ENVIRONMENT</SectionLabel>
-            <h2 className="font-display mt-4 text-h2 font-extrabold text-white">
-              {intro.title}
-            </h2>
-            <p className="mt-6 text-body-sm text-white/80">
-              {intro.description}
-            </p>
-          </div>
+          <SectionHeader
+            className="max-w-2xl"
+            tone="olive"
+            eyebrow="WORK ENVIRONMENT"
+            title={intro.title}
+            description={intro.description}
+          />
         )}
 
         <div className="relative mt-14 flex h-56 items-center justify-center overflow-hidden rounded-image bg-white/5 lg:h-72">

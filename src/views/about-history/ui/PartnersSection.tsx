@@ -1,4 +1,4 @@
-import { LogoCarousel, SectionLabel } from "@/shared/ui";
+import { LogoCarousel, SectionHeader } from "@/shared/ui";
 import { getPartners } from "@/shared/lib";
 
 /**
@@ -15,16 +15,13 @@ export function PartnersSection() {
         aria-hidden
       />
       <div className="content-container relative">
-        <div className="max-w-2xl">
-          <SectionLabel color="olive-soft">PARTNERS</SectionLabel>
-          <h2 className="font-display mt-4 text-h2 font-extrabold text-white">
-            함께해온 기관
-          </h2>
-          <p className="mt-6 text-body-sm text-white/80">
-            환경부를 비롯한 공공기관·연구기관·학계와 협력하며 환경 IT 융합의
-            현장을 함께 만들어 왔습니다.
-          </p>
-        </div>
+        <SectionHeader
+          className="max-w-2xl"
+          tone="olive"
+          eyebrow="PARTNERS"
+          title="함께해온 기관"
+          description="환경부를 비롯한 공공기관·연구기관·학계와 협력하며 환경 IT 융합의 현장을 함께 만들어 왔습니다."
+        />
 
         <div className="mt-14">
           <LogoCarousel logos={getPartners()} columnCount={4} />

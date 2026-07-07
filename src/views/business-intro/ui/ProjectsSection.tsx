@@ -1,4 +1,4 @@
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader } from "@/shared/ui";
 import { getBusinessProjects, getProjectYears } from "@/shared/lib";
 import { ProjectsExplorer } from "./ProjectsExplorer";
 
@@ -17,12 +17,11 @@ export function ProjectsSection() {
     <section className="bg-surface py-16 lg:py-25">
       <div className="content-container">
         <div className="mb-16 flex flex-wrap items-end justify-between gap-10">
-          <div>
-            <SectionLabel color="olive">PROJECTS</SectionLabel>
-            <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">
-              주요 사업실적
-            </h2>
-          </div>
+          <SectionHeader
+            tone="light"
+            eyebrow="PROJECTS"
+            title="주요 사업실적"
+          />
           <p className="max-w-md text-body-sm text-ink-soft">
             환경부 및 산하기관과 함께 수행해 온 시스템 구축·운영·연구
             프로젝트입니다.

@@ -1,4 +1,9 @@
-import { Button, IconCard, SectionLabel, type IconCardShape } from "@/shared/ui";
+import {
+  Button,
+  IconCard,
+  SectionHeader,
+  type IconCardShape,
+} from "@/shared/ui";
 
 interface BusinessCard {
   no: string;
@@ -37,14 +42,17 @@ export function BusinessSection() {
     <section className="bg-surface py-16 lg:py-30">
       <div className="content-container">
         <div className="mb-16 flex flex-wrap items-end justify-between gap-10">
-          <div>
-            <SectionLabel color="olive">ABOUT BUSINESS</SectionLabel>
-            <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">
-              환경과 융합된
-              <br />
-              다양한 솔루션 개발
-            </h2>
-          </div>
+          <SectionHeader
+            tone="light"
+            eyebrow="ABOUT BUSINESS"
+            title={
+              <>
+                환경과 융합된
+                <br />
+                다양한 솔루션 개발
+              </>
+            }
+          />
           {/* token 없음: 문단 폭 420px, max-w-md(448px) 근사 */}
           <p className="max-w-md text-body-sm text-ink-soft">
             대국민 서비스, 행정업무 통합관리 등 효율적인 시스템 구축과 환경

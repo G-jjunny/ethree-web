@@ -1,4 +1,4 @@
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader } from "@/shared/ui";
 import { CareersForm } from "./CareersForm";
 
 /**
@@ -11,16 +11,13 @@ export function CareersContactSection() {
     <section className="bg-surface-white py-16 lg:py-25">
       <div className="content-container">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-          <div>
-            <SectionLabel color="olive">APPLY</SectionLabel>
-            <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">
-              지원 · 문의하기
-            </h2>
-            <p className="mt-6 max-w-md text-body-sm text-ink-soft">
-              이쓰리와 함께하고 싶으신가요? 아래 폼으로 지원 의사나 궁금한 점을
-              남겨 주시면 담당자가 확인 후 회신드립니다.
-            </p>
-          </div>
+          <SectionHeader
+            tone="light"
+            eyebrow="APPLY"
+            title="지원 · 문의하기"
+            description="이쓰리와 함께하고 싶으신가요? 아래 폼으로 지원 의사나 궁금한 점을 남겨 주시면 담당자가 확인 후 회신드립니다."
+            descriptionClassName="max-w-md"
+          />
 
           <div className="rounded-card border border-hairline bg-surface p-8 lg:p-10">
             <CareersForm />
