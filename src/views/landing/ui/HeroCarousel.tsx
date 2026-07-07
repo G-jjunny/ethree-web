@@ -108,9 +108,9 @@ export function HeroCarousel() {
         ))}
       </div>
 
-      {/* 가독성용 다크 스크림 */}
+      {/* 가독성용 다크 스크림 — 상단(헤더 오버레이) 중간톤, 하단(콘텐츠) 강 */}
       <div
-        className="absolute inset-0 z-10 bg-linear-to-b from-black/70 via-black/35 to-black/80"
+        className="absolute inset-0 z-10 bg-linear-to-b from-black/50 via-black/25 to-black/85"
         aria-hidden
       />
 
@@ -127,12 +127,15 @@ export function HeroCarousel() {
                 exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -16 }}
                 transition={transition}
               >
+                {/* 키워드 — 최상위 위계: 가장 크게·굵게 */}
                 <h1 className="font-display tracking-headline text-4xl font-extrabold text-white sm:text-5xl lg:text-hero">
                   {activeSlide.keyword}
                 </h1>
-                <p className="font-display mt-4 text-h3 text-accent">
+                {/* 태그라인 — 중간 위계: accent 포인트, 중간 스케일 */}
+                <p className="font-display mt-4 text-2xl font-medium text-accent lg:text-h3">
                   {activeSlide.tagline}
                 </p>
+                {/* 본문 — 최하위 위계: 작은 스케일·저대비 */}
                 <p className="mt-6 max-w-xl text-lead text-white/80">
                   {activeSlide.body}
                 </p>
@@ -140,8 +143,8 @@ export function HeroCarousel() {
             </AnimatePresence>
           </div>
 
-          {/* 인디케이터 — 01_ 02_ 03_ (숫자 + 막대), 콘텐츠 맨 아래 */}
-          <ul className="mt-10 flex items-center gap-6">
+          {/* 인디케이터 — 01_ 02_ 03_ (숫자 + 막대), 콘텐츠 맨 아래 고정 */}
+          <ul className="mt-12 flex items-center gap-8">
             {HERO_SLIDES.map((slide, index) => {
               const isActive = index === activeIndex;
               const label = String(index + 1).padStart(2, "0");
@@ -152,20 +155,25 @@ export function HeroCarousel() {
                     onClick={() => goToSlide(index)}
                     aria-label={`슬라이드 ${index + 1}로 이동`}
                     aria-current={isActive ? "true" : undefined}
-                    className="flex items-center gap-2"
+                    className="group flex items-center gap-3 focus-visible:outline-none"
                   >
+                    {/* 숫자 — tabular-nums로 자리폭 고정(레이아웃 흔들림 방지) */}
                     <span
-                      className={`font-display text-item font-bold ${
-                        isActive ? "text-white" : "text-white/40"
+                      className={`font-display text-sm font-bold tracking-label tabular-nums transition-colors duration-fast ease-out group-focus-visible:text-white ${
+                        isActive
+                          ? "text-white"
+                          : "text-white/40 group-hover:text-white/70"
                       }`}
                     >
                       {label}
                     </span>
-                    {/* 막대(_) 요소 */}
+                    {/* 막대(_) — active는 accent로 길게 확장(절제된 진행 연출) */}
                     <span
                       aria-hidden
-                      className={`h-px w-6 ${
-                        isActive ? "bg-accent" : "bg-white/40"
+                      className={`block h-px transition-all duration-fast ease-out ${
+                        isActive
+                          ? "w-10 bg-accent"
+                          : "w-6 bg-white/40 group-hover:bg-white/70"
                       }`}
                     />
                   </button>
