@@ -1,10 +1,15 @@
-import { SectionLabel } from "@/shared/ui";
 import type { CareersSubmission } from "../model";
 
 export interface CareersSubmissionsListProps {
   /** 서버(getAdminSubmissions)에서 주입받은 제출 내역(최신순). */
   submissions: CareersSubmission[];
 }
+
+/** 발송 여부 pill 배지: 공통 골격 + 상태별 색상(SectionLabel sm 타이포와 동일 토큰). */
+const BADGE_BASE =
+  "inline-flex items-center rounded-pill px-3 py-1 font-display text-xs font-bold uppercase tracking-label";
+const BADGE_SENT = "bg-tint text-olive-label";
+const BADGE_UNSENT = "border border-hairline text-muted";
 
 /** ISO 문자열을 한국어 날짜/시간으로 표기. 서버 렌더 기준(고정 로케일). */
 function formatCreatedAt(iso: string): string {
@@ -53,13 +58,14 @@ export function CareersSubmissionsList({
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <SectionLabel
-                color={submission.emailSent ? "olive" : "olive-muted"}
-                size="sm"
+              <span
+                className={`${BADGE_BASE} ${
+                  submission.emailSent ? BADGE_SENT : BADGE_UNSENT
+                }`}
               >
                 {submission.emailSent ? "발송됨" : "미발송"}
-              </SectionLabel>
-              <span className="text-detail text-muted">
+              </span>
+              <span className="text-meta text-muted">
                 {formatCreatedAt(submission.createdAt)}
               </span>
             </div>

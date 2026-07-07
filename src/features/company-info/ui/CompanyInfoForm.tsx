@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Button, SectionLabel } from "@/shared/ui";
+import { Button, SectionLabel, FormStatusBanner } from "@/shared/ui";
 // 배럴 서버유출 방지: 이 클라이언트 컴포넌트는 features/company-info의 index.ts
 // 배럴을 import하지 않는다. 배럴은 getCompanyInfo(unstable_cache·anon 서버 클라이언트)
 // 를 함께 노출하므로, 배럴에서 무엇이든 import하면 번들러가 서버 전용 모듈을
@@ -89,10 +89,6 @@ const FIELD_GROUPS: readonly FieldGroup[] = [
 const INPUT_CLASS =
   "w-full rounded-card border border-hairline bg-surface px-4 py-3 text-sm text-ink outline-none transition-colors duration-fast ease-out placeholder:text-muted focus:border-brand";
 const LABEL_CLASS = "text-detail font-medium text-ink-soft";
-const MESSAGE_ERROR_CLASS =
-  "rounded-card border border-hairline px-4 py-3 text-detail text-danger";
-const MESSAGE_SUCCESS_CLASS =
-  "rounded-card border border-hairline bg-tint px-4 py-3 text-detail text-olive-label";
 
 /**
  * 회사 메타정보 편집 폼("use client").
@@ -193,24 +189,18 @@ export function CompanyInfoForm({ initialValues }: CompanyInfoFormProps) {
       ))}
 
       {validationError && (
-        <p role="alert" className={MESSAGE_ERROR_CLASS}>
-          {validationError}
-        </p>
+        <FormStatusBanner variant="error">{validationError}</FormStatusBanner>
       )}
       {isServerError && (
-        <p role="alert" className={MESSAGE_ERROR_CLASS}>
-          {result.message}
-        </p>
+        <FormStatusBanner variant="error">{result.message}</FormStatusBanner>
       )}
       {mutation.isError && (
-        <p role="alert" className={MESSAGE_ERROR_CLASS}>
+        <FormStatusBanner variant="error">
           저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.
-        </p>
+        </FormStatusBanner>
       )}
       {isSuccess && (
-        <p role="status" className={MESSAGE_SUCCESS_CLASS}>
-          저장되었습니다.
-        </p>
+        <FormStatusBanner variant="success">저장되었습니다.</FormStatusBanner>
       )}
 
       <div className="flex items-center gap-4 border-t border-hairline pt-6">

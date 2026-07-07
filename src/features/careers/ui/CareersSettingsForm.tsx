@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Button, SectionLabel } from "@/shared/ui";
+import { Button, SectionLabel, FormStatusBanner } from "@/shared/ui";
 // 배럴 서버유출 방지: features/careers 의 index.ts 배럴은 서버 전용 getter/Server Action 을
 // 함께 노출하므로 이 클라이언트 컴포넌트는 배럴을 import 하지 않고 필요한 것만 하위 파일에서
 // 직접 import 한다(CompanyInfoForm 주석과 동일 원리).
@@ -24,10 +24,6 @@ export interface CareersSettingsFormProps {
 const INPUT_CLASS =
   "w-full rounded-card border border-hairline bg-surface px-4 py-3 text-sm text-ink outline-none transition-colors duration-fast ease-out placeholder:text-muted focus:border-brand";
 const LABEL_CLASS = "text-detail font-medium text-ink-soft";
-const MESSAGE_ERROR_CLASS =
-  "rounded-card border border-hairline px-4 py-3 text-detail text-danger";
-const MESSAGE_SUCCESS_CLASS =
-  "rounded-card border border-hairline bg-tint px-4 py-3 text-detail text-olive-label";
 
 /**
  * 인재채용 수신 이메일 설정 폼("use client").
@@ -111,24 +107,18 @@ export function CareersSettingsForm({ initialValues }: CareersSettingsFormProps)
       </fieldset>
 
       {validationError && (
-        <p role="alert" className={MESSAGE_ERROR_CLASS}>
-          {validationError}
-        </p>
+        <FormStatusBanner variant="error">{validationError}</FormStatusBanner>
       )}
       {isServerError && (
-        <p role="alert" className={MESSAGE_ERROR_CLASS}>
-          {result.message}
-        </p>
+        <FormStatusBanner variant="error">{result.message}</FormStatusBanner>
       )}
       {mutation.isError && (
-        <p role="alert" className={MESSAGE_ERROR_CLASS}>
+        <FormStatusBanner variant="error">
           저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.
-        </p>
+        </FormStatusBanner>
       )}
       {isSuccess && (
-        <p role="status" className={MESSAGE_SUCCESS_CLASS}>
-          저장되었습니다.
-        </p>
+        <FormStatusBanner variant="success">저장되었습니다.</FormStatusBanner>
       )}
 
       <div className="flex items-center gap-4 border-t border-hairline pt-6">

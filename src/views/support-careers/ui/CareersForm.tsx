@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Button } from "@/shared/ui";
+import { Button, FormStatusBanner } from "@/shared/ui";
 // 배럴 서버유출 방지: features/careers 배럴은 서버 전용 getter/Server Action 을 함께
 // 노출하므로, 이 클라이언트 컴포넌트는 배럴이 아닌 하위 파일을 직접 import 한다.
 // - model: 순수 zod/타입 → 클라 안전
@@ -16,11 +16,6 @@ import { useSubmitCareersMutation } from "@/features/careers/api/useSubmitCareer
  */
 const FIELD_CLASS =
   "w-full rounded-card border border-hairline bg-surface-white px-4 py-3 text-body-sm text-ink placeholder:text-muted transition-colors duration-fast ease-out focus:border-olive-label focus:outline-none";
-
-const MESSAGE_ERROR_CLASS =
-  "rounded-card border border-hairline px-4 py-3 text-detail text-danger";
-const MESSAGE_SUCCESS_CLASS =
-  "rounded-card border border-hairline bg-tint px-4 py-3 text-detail text-olive-label";
 
 const EMPTY_VALUES: CareersFormValues = { name: "", email: "", message: "" };
 
@@ -120,24 +115,18 @@ export function CareersForm() {
       </div>
 
       {validationError && (
-        <p role="alert" className={MESSAGE_ERROR_CLASS}>
-          {validationError}
-        </p>
+        <FormStatusBanner variant="error">{validationError}</FormStatusBanner>
       )}
       {isServerError && (
-        <p role="alert" className={MESSAGE_ERROR_CLASS}>
-          {result.message}
-        </p>
+        <FormStatusBanner variant="error">{result.message}</FormStatusBanner>
       )}
       {mutation.isError && (
-        <p role="alert" className={MESSAGE_ERROR_CLASS}>
+        <FormStatusBanner variant="error">
           전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.
-        </p>
+        </FormStatusBanner>
       )}
       {isSuccess && (
-        <p role="status" className={MESSAGE_SUCCESS_CLASS}>
-          {result.message}
-        </p>
+        <FormStatusBanner variant="success">{result.message}</FormStatusBanner>
       )}
 
       <div>
