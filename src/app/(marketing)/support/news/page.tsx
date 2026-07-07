@@ -1,6 +1,7 @@
-import Link from "next/link";
 import { SectionLabel } from "@/shared/ui";
-import { buildMetadata, getNewsList } from "@/shared/lib";
+import { buildMetadata } from "@/shared/lib";
+import { getNewsList } from "@/features/news";
+import { SupportNewsList } from "@/views/support-news";
 import { PlaceholderSubNav } from "@/widgets/placeholder-page";
 import { NAV_GROUPS } from "@/shared/constants";
 
@@ -12,8 +13,8 @@ export const metadata = buildMetadata({
 
 const group = NAV_GROUPS.find((g) => g.href === "/support")!;
 
-export default function NewsListPage() {
-  const newsList = getNewsList();
+export default async function NewsListPage() {
+  const newsList = await getNewsList();
 
   return (
     <section className="bg-surface py-25 lg:py-30">
@@ -27,28 +28,7 @@ export default function NewsListPage() {
 
         <PlaceholderSubNav siblings={group.children} activeHref="/support/news" />
 
-        <ul className="mt-14 flex flex-col">
-          {newsList.map((item, index) => (
-            <li
-              key={item.id}
-              className={`border-t border-hairline ${
-                index === newsList.length - 1 ? "border-b" : ""
-              }`}
-            >
-              <Link
-                href={`/support/news/${item.slug}`}
-                className="flex items-baseline justify-between py-5.5 transition-colors duration-fast ease-out hover:text-olive-label"
-              >
-                <span className="text-list font-medium text-ink">
-                  {item.title}
-                </span>
-                <span className="text-meta ml-8 flex-none text-muted">
-                  {item.date}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <SupportNewsList items={newsList} />
       </div>
     </section>
   );

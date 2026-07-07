@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SectionLabel } from "@/shared/ui";
-import { buildMetadata, getNewsBySlug } from "@/shared/lib";
+import { buildMetadata } from "@/shared/lib";
+import { getNewsBySlug, renderNewsBody } from "@/features/news";
+import { SupportNewsBody } from "@/views/support-news";
 
 interface NewsDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -11,7 +13,7 @@ export async function generateMetadata({
   params,
 }: NewsDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const news = getNewsBySlug(slug);
+  const news = await getNewsBySlug(slug);
 
   if (!news) {
     return buildMetadata({
@@ -23,18 +25,21 @@ export async function generateMetadata({
 
   return buildMetadata({
     title: news.title,
-    description: news.title,
+    description: news.excerpt ?? news.title,
     path: `/support/news/${news.slug}`,
   });
 }
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   const { slug } = await params;
-  const news = getNewsBySlug(slug);
+  const news = await getNewsBySlug(slug);
 
   if (!news) {
     notFound();
   }
+
+  // 본문은 서버에서 generateHTML → DOMPurify 새니타이즈(XSS 방지) 후 렌더.
+  const bodyHtml = renderNewsBody(news.body);
 
   return (
     <section className="bg-surface py-25 lg:py-30">
@@ -47,14 +52,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           <span className="text-meta mt-4 text-muted">{news.date}</span>
         </div>
 
-        <div className="mx-auto mt-14 flex w-full max-w-2xl flex-col items-center gap-3 rounded-card border border-dashed border-hairline bg-surface-white px-8 py-14">
-          <span className="text-detail font-medium text-ink-soft">
-            콘텐츠 준비 중입니다.
-          </span>
-          <span className="text-meta text-muted">
-            빠른 시일 내에 업데이트하겠습니다.
-          </span>
-        </div>
+        <SupportNewsBody html={bodyHtml} />
       </div>
     </section>
   );

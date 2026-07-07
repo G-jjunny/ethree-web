@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { SectionLabel } from "@/shared/ui";
-import { getNewsList } from "@/shared/lib";
+import { getNewsList } from "@/features/news";
 
 /**
- * NEWS 데이터는 `shared/lib/news`(getNewsList)가 단일 소스다.
- * 지금은 정적 상수를 반환하고 추후 Supabase 교체 시 그 함수 내부만 바뀐다.
+ * NEWS 데이터는 features/news(getNewsList) 서버 getter가 단일 소스다.
+ * Supabase에서 published=true만 조회하며, 미연결/빈 DB 시 빈 배열 fallback.
  */
-export function NewsSection() {
-  const newsItems = getNewsList();
+export async function NewsSection() {
+  const newsItems = await getNewsList();
 
   return (
     <section className="bg-surface pt-16 lg:pt-25">
