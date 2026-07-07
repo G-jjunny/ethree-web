@@ -1,11 +1,15 @@
 /**
- * 기업문화 페이지 콘텐츠 단일 소스(뷰-로컬 상수).
- * Phase 3에서 Supabase 동적 편집 대상이 되므로 블록/배열 단위로 구조화한다.
+ * 기업문화 정적 fallback 데이터(슬라이스 내부 전용).
+ *
+ * 마이그레이션 미적용/키 미연결/쿼리 에러/빈 결과 시 getCultureItems 가
+ * 이 상수로 CultureContent 동일 shape 를 구성해 공개 페이지가 항상 정상 렌더되게 한다.
+ * (구 `views/support-culture/ui/support-culture.data.ts` 이관 — FSD 정방향 확보.)
+ *
  * 텍스트는 일반적·수정 가능한 회사문화 카피(허위 구체 수치 배제, 편집 전제).
- * 외부 공개는 슬라이스 index.ts의 SupportCultureView만 유지한다.
+ * 슬라이스 외부(views)는 CultureItem/CultureContent 만 소비하므로 이 파일은 배럴에 노출하지 않는다.
  */
 
-/** 인재상 — 이쓰리가 지향하는 인재의 특성. */
+/** 인재상 — 이쓰리가 지향하는 인재의 특성. group='talent' fallback 원본. */
 export interface TalentTrait {
   no: string;
   title: string;
@@ -33,7 +37,7 @@ export const TALENT_TRAITS: readonly TalentTrait[] = [
   },
 ];
 
-/** 핵심가치 — 조직이 일하는 방식의 기준. IconCard 그리드로 렌더. */
+/** 핵심가치 — 조직이 일하는 방식의 기준. group='value' fallback 원본. */
 export interface CultureValue {
   label: string;
   title: string;
@@ -61,12 +65,13 @@ export const CULTURE_VALUES: readonly CultureValue[] = [
   },
 ];
 
-/** 복지·근무환경 — 구성원이 몰입할 수 있는 환경. */
+/** 복지·근무환경 benefit 단건. group='welfare' fallback 원본. */
 export interface WelfareBenefit {
   title: string;
   description: string;
 }
 
+/** 복지 섹션 인트로(헤더) + benefit 목록. title/description → group='welfare_intro'. */
 export interface WelfareContent {
   title: string;
   description: string;
