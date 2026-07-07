@@ -325,7 +325,8 @@ export function CultureItemForm({
             취소
           </Button>
         )}
-        {mode === "update" && item && (
+        {/* welfare_intro 는 단건 항목이라 삭제 불가(서버 가드와 대칭) — 버튼 숨김. */}
+        {mode === "update" && item && group !== "welfare_intro" && (
           <button
             type="button"
             onClick={handleDelete}
