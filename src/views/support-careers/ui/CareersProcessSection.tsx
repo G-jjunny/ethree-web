@@ -1,4 +1,4 @@
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader } from "@/shared/ui";
 import { RECRUIT_STEPS } from "./support-careers.data";
 
 /**
@@ -13,15 +13,13 @@ export function CareersProcessSection() {
   return (
     <section className="bg-surface py-16 lg:py-25">
       <div className="content-container">
-        <div className="mb-14 max-w-2xl lg:mb-16">
-          <SectionLabel color="olive">RECRUIT PROCESS</SectionLabel>
-          <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">
-            채용 절차
-          </h2>
-          <p className="mt-6 text-body-sm text-ink-soft">
-            지원부터 최종 합격까지, 이쓰리의 채용은 다음 단계로 진행됩니다.
-          </p>
-        </div>
+        <SectionHeader
+          className="mb-14 max-w-2xl lg:mb-16"
+          tone="light"
+          eyebrow="RECRUIT PROCESS"
+          title="채용 절차"
+          description="지원부터 최종 합격까지, 이쓰리의 채용은 다음 단계로 진행됩니다."
+        />
 
         <ol className="flex flex-col lg:flex-row">
           {RECRUIT_STEPS.map((step, index) => {

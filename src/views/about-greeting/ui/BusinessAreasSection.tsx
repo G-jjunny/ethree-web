@@ -1,4 +1,4 @@
-import { IconCard, SectionLabel } from "@/shared/ui";
+import { IconCard, SectionHeader } from "@/shared/ui";
 import type { IconCardShape } from "@/shared/ui";
 
 interface BusinessArea {
@@ -53,21 +53,19 @@ export function BusinessAreasSection() {
   return (
     <section className="bg-surface py-16 lg:py-25">
       <div className="content-container">
-        <div className="mb-16 max-w-2xl">
-          <SectionLabel color="olive">OUR BUSINESS</SectionLabel>
-          <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">
-            환경과 IT를 잇는
-            <br />
-            세 가지 사업분야
-          </h2>
-          <p className="mt-6 text-body-sm text-ink-soft">
-            특히 저희는 기후위기 적응 전략을 기반으로, 환경 데이터 기반 정책
-            지원, 실내외 공기질 개선, 환경플랫폼 구축, 탄소중립 기술 실현 등
-            다양한 활동을 전개하고 있습니다. 이쓰리의 환경 IT 기술력은 특히
-            환경영향평가 시스템 구축 사례를 통해 입증되었으며, 이는 지금도
-            환경부 대표 플랫폼으로서 안정적으로 운영되고 있습니다.
-          </p>
-        </div>
+        <SectionHeader
+          className="mb-16 max-w-2xl"
+          tone="light"
+          eyebrow="OUR BUSINESS"
+          title={
+            <>
+              환경과 IT를 잇는
+              <br />
+              세 가지 사업분야
+            </>
+          }
+          description="특히 저희는 기후위기 적응 전략을 기반으로, 환경 데이터 기반 정책 지원, 실내외 공기질 개선, 환경플랫폼 구축, 탄소중립 기술 실현 등 다양한 활동을 전개하고 있습니다. 이쓰리의 환경 IT 기술력은 특히 환경영향평가 시스템 구축 사례를 통해 입증되었으며, 이는 지금도 환경부 대표 플랫폼으로서 안정적으로 운영되고 있습니다."
+        />
 
         <div className="grid grid-cols-1 gap-7 lg:grid-cols-3">
           {BUSINESS_AREAS.map((area) => (

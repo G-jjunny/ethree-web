@@ -167,6 +167,8 @@ max-width: 1280px · margin-inline: auto · padding-inline: 1.25rem (≥1024px�
 | ---------------- | --------------------------------------- | ------------------ |
 | Button           | CTA (primary/dark/outline, sm/md)       | 아래 명세          |
 | SectionLabel     | eyebrow/소형 라벨 (배경별 color prop)   | 아래 명세          |
+| SectionHeader    | 섹션 헤더(eyebrow + 헤딩 + 설명)        | 아래 명세          |
+| Badge            | 조건부 상태 pill (원칙3)                | 아래 명세          |
 | FormStatusBanner | 폼 제출 상태 배너 (error/success)       | 아래 명세          |
 
 ### Button
@@ -185,6 +187,22 @@ max-width: 1280px · margin-inline: auto · padding-inline: 1.25rem (≥1024px�
 - `color`: `accent`(다크 위 라임) / `olive`(라이트 위) / `olive-soft`(올리브 위) / `olive-muted`(카드 번호) / `ink`(회색 muted 패널 위 고대비) / `muted`(다크 위 저대비)
 - `size`: `md`(섹션 eyebrow 13px/.2em) / `sm`(소형 라벨 12px/.14em)
 - 항상 `font-display`(Pretendard) · uppercase.
+
+### SectionHeader
+
+- 전 뷰에서 반복되던 `SectionLabel + h2(font-display mt-4 text-h2 font-extrabold)` 섹션 헤더 패턴을 통합해 정보 위계(원칙 1)를 전 페이지 일관 적용한다.
+- `eyebrow`(라벨) · `title`(헤딩, 다행은 `<br />` 포함 ReactNode) · `description`(선택, stacked 헤더 전용).
+- `tone`: `light`(크림/화이트: olive 라벨·ink 헤딩) / `dark`(다크 ink: accent 라벨·white 헤딩) / `olive`(올리브 밴드: olive-soft 라벨·white 헤딩).
+- `as`: `h2`(기본) / `h1`(페이지 최상위 밴드 헤딩).
+- `className`(루트 래퍼: `max-w-*`/`mb-*`/`border-b`/flex 등 소비처 레이아웃) · `descriptionClassName`(설명 폭 등).
+- split 레이아웃(헤딩 좌 · 설명 우)에서는 `description` 없이 헤딩만 렌더하고 설명 `<p>`는 형제로 둔다.
+
+### Badge
+
+- 조건부 상태(발행/초안, 진행/완료 등)를 key color pill로 직관 구분하는 컴포넌트(원칙 3).
+- `variant`: `active`(활성·발행: `bg-tint text-olive-label`) / `muted`(비활성·초안: hairline 보더 + `text-muted`).
+- 공통 골격: `inline-flex items-center rounded-pill px-3 py-1 text-caption font-medium`. 색상/보더/라운드 전부 토큰.
+- **일반 정보성 값**(등록일·조회수·작성자·연도·발주처 등)은 Badge가 아니라 텍스트 + `text-muted`/`text-meta` 컬러 분기로 표현한다(테두리·배경 금지).
 
 ### FormStatusBanner
 

@@ -1,4 +1,4 @@
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader } from "@/shared/ui";
 
 interface CoreValue {
   no: string;
@@ -23,14 +23,18 @@ export function CoreValuesSection() {
   return (
     <section className="bg-surface py-16 lg:py-25">
       <div className="content-container">
-        <div className="mb-14 max-w-2xl lg:mb-16">
-          <SectionLabel color="olive">CORE VALUES</SectionLabel>
-          <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">
-            이쓰리를 만드는
-            <br />
-            세 가지 핵심가치
-          </h2>
-        </div>
+        <SectionHeader
+          className="mb-14 max-w-2xl lg:mb-16"
+          tone="light"
+          eyebrow="CORE VALUES"
+          title={
+            <>
+              이쓰리를 만드는
+              <br />
+              세 가지 핵심가치
+            </>
+          }
+        />
 
         <div className="grid grid-cols-1 divide-y divide-hairline border-y border-hairline sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {CORE_VALUES.map((value) => (

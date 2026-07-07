@@ -1,4 +1,4 @@
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader, SectionLabel } from "@/shared/ui";
 import { BUSINESS_AREAS, type BusinessArea } from "./business-areas.data";
 
 function AreaImage() {
@@ -56,14 +56,17 @@ export function BusinessAreasSection() {
     <section className="bg-ink py-16 lg:py-30">
       <div className="content-container">
         <div className="mb-18 flex flex-wrap items-end justify-between gap-10 border-b border-white/12 pb-8.5">
-          <div>
-            <SectionLabel color="accent">BUSINESS AREAS</SectionLabel>
-            <h2 className="font-display mt-4 text-h2 font-extrabold text-white">
-              환경과 융합된
-              <br />
-              다양한 솔루션 개발
-            </h2>
-          </div>
+          <SectionHeader
+            tone="dark"
+            eyebrow="BUSINESS AREAS"
+            title={
+              <>
+                환경과 융합된
+                <br />
+                다양한 솔루션 개발
+              </>
+            }
+          />
           {/* token 없음: 문단 폭 420px, max-w-md(448px) 근사 (ServiceSection과 동일) */}
           <p className="max-w-md text-body-sm text-white/70">
             시스템 구축(SI), 연구개발(R&D), 컨설팅 세 축으로 환경 분야의 문제를

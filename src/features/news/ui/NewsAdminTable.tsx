@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ADMIN_BASE_PATH } from "@/shared/constants";
+import { Badge } from "@/shared/ui";
 // 배럴 서버유출 방지: 클라 컴포넌트이므로 하위 파일에서 직접 import.
 import type { NewsAdminItem } from "../model/types";
 import { deleteNews } from "../api/deleteNews";
@@ -90,15 +91,9 @@ export function NewsAdminTable({ items }: NewsAdminTableProps) {
                   </span>
                 </td>
                 <td className={CELL_CLASS}>
-                  <span
-                    className={
-                      item.published
-                        ? "inline-flex items-center rounded-pill bg-tint px-3 py-1 text-caption font-medium text-olive-label"
-                        : "inline-flex items-center rounded-pill border border-hairline px-3 py-1 text-caption font-medium text-muted"
-                    }
-                  >
+                  <Badge variant={item.published ? "active" : "muted"}>
                     {item.published ? "발행" : "초안"}
-                  </span>
+                  </Badge>
                 </td>
                 <td className={`${CELL_CLASS} text-muted`}>{item.date}</td>
                 <td className={`${CELL_CLASS} text-right`}>

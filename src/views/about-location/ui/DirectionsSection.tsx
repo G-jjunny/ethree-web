@@ -1,4 +1,4 @@
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader, SectionLabel } from "@/shared/ui";
 import { getDirections } from "@/shared/lib";
 
 /**
@@ -18,16 +18,13 @@ export function DirectionsSection() {
         aria-hidden
       />
       <div className="content-container relative">
-        <div className="max-w-2xl">
-          <SectionLabel color="olive-soft">DIRECTIONS</SectionLabel>
-          <h2 className="font-display mt-4 text-h2 font-extrabold text-white">
-            오는 길
-          </h2>
-          <p className="mt-6 text-body-sm text-white/80">
-            지하철·버스 등 대중교통으로 편리하게 방문하실 수 있습니다.
-            문의 사항은 담당 부서로 연락 주시기 바랍니다.
-          </p>
-        </div>
+        <SectionHeader
+          className="max-w-2xl"
+          tone="olive"
+          eyebrow="DIRECTIONS"
+          title="오는 길"
+          description="지하철·버스 등 대중교통으로 편리하게 방문하실 수 있습니다. 문의 사항은 담당 부서로 연락 주시기 바랍니다."
+        />
 
         <div className="mt-14 grid grid-cols-1 gap-12 border-t border-white/12 pt-14 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
           {/* 대중교통 (지하철/버스) */}

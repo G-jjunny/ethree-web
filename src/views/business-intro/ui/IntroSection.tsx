@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader } from "@/shared/ui";
 import { BUSINESS_AREAS } from "./business-areas.data";
 
 /**
@@ -50,19 +50,20 @@ export function IntroSection() {
         <div className="grid grid-cols-1 lg:min-h-[560px] lg:grid-cols-2">
           {/* 좌측 — 밝은 배경에 녹아드는 스택형 섹션 헤더(하단 정렬).
               모바일에선 뒤 배경 이미지를 덮도록 불투명 배경 유지. */}
-          <div className="relative flex flex-col justify-end bg-surface-white p-8 lg:p-12">
-            <SectionLabel color="olive">BUSINESS OVERVIEW</SectionLabel>
-            <h2 className="mt-4 font-display text-h2 font-extrabold text-ink">
-              환경과 IT를 잇는
-              <br />
-              융합 서비스 전문기업
-            </h2>
-            <p className="mt-6 max-w-md text-body-sm text-ink-soft">
-              이쓰리는 환경IT 분야의 전문가 그룹으로, 대국민 서비스와 행정업무
-              통합관리를 위한 시스템 구축부터 환경 정보시스템의 기획·개발·운영,
-              그리고 환경 분야 연구개발과 컨설팅까지 아우르는 사업을 수행합니다.
-            </p>
-          </div>
+          <SectionHeader
+            className="relative flex flex-col justify-end bg-surface-white p-8 lg:p-12"
+            tone="light"
+            eyebrow="BUSINESS OVERVIEW"
+            title={
+              <>
+                환경과 IT를 잇는
+                <br />
+                융합 서비스 전문기업
+              </>
+            }
+            description="이쓰리는 환경IT 분야의 전문가 그룹으로, 대국민 서비스와 행정업무 통합관리를 위한 시스템 구축부터 환경 정보시스템의 기획·개발·운영, 그리고 환경 분야 연구개발과 컨설팅까지 아우르는 사업을 수행합니다."
+            descriptionClassName="max-w-md"
+          />
 
           {/* 우측 — 섹션 우측 배경 이미지 위 번호 프리뷰(모바일 세로 스택 / lg+ 지그재그) */}
           <div className="relative flex flex-col gap-8 p-8 lg:block lg:p-12">

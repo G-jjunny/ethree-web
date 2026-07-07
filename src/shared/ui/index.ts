@@ -4,6 +4,12 @@ export type { ButtonProps } from "./Button";
 export { SectionLabel } from "./SectionLabel";
 export type { SectionLabelProps } from "./SectionLabel";
 
+export { SectionHeader } from "./SectionHeader";
+export type { SectionHeaderProps } from "./SectionHeader";
+
+export { Badge } from "./Badge";
+export type { BadgeProps } from "./Badge";
+
 export { IconCard } from "./IconCard";
 export type { IconCardProps, IconCardShape } from "./IconCard";
 

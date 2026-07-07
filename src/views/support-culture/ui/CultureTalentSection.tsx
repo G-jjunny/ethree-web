@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader } from "@/shared/ui";
 import type { CultureItem } from "@/features/culture";
 
 export interface CultureTalentSectionProps {
@@ -38,16 +38,19 @@ export function CultureTalentSection({ items }: CultureTalentSectionProps) {
           </div>
 
           <div>
-            <SectionLabel color="olive">OUR PEOPLE</SectionLabel>
-            <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">
-              이쓰리가 함께하고
-              <br />
-              싶은 사람
-            </h2>
-            <p className="mt-6 max-w-xl text-body-sm text-ink-soft">
-              환경과 기술에 대한 진심으로 함께 성장하며 더 나은 내일을 만들어 갈
-              동료를 찾습니다.
-            </p>
+            <SectionHeader
+              tone="light"
+              eyebrow="OUR PEOPLE"
+              title={
+                <>
+                  이쓰리가 함께하고
+                  <br />
+                  싶은 사람
+                </>
+              }
+              description="환경과 기술에 대한 진심으로 함께 성장하며 더 나은 내일을 만들어 갈 동료를 찾습니다."
+              descriptionClassName="max-w-xl"
+            />
 
             <ul className="mt-10 flex flex-col divide-y divide-hairline border-y border-hairline">
               {items.map((trait) => (

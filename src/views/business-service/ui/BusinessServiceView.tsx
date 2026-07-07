@@ -2,7 +2,7 @@ import {
   PlaceholderHeader,
   PlaceholderSubNav,
 } from "@/widgets/placeholder-page";
-import { SectionLabel } from "@/shared/ui";
+import { SectionHeader } from "@/shared/ui";
 import { getServices } from "@/shared/lib";
 import { NAV_GROUPS } from "@/shared/constants";
 import { ServiceRow } from "./ServiceRow";
@@ -37,14 +37,17 @@ export function BusinessServiceView() {
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-ink/80" />
         <div className="relative content-container">
           <div className="mb-18 flex flex-wrap items-end justify-between gap-10 border-b border-white/12 pb-8.5">
-            <div>
-              <SectionLabel color="accent">SERVICES</SectionLabel>
-              <h2 className="font-display mt-4 text-h2 font-extrabold text-white">
-                환경과 융합된
-                <br />
-                다양한 솔루션 개발
-              </h2>
-            </div>
+            <SectionHeader
+              tone="dark"
+              eyebrow="SERVICES"
+              title={
+                <>
+                  환경과 융합된
+                  <br />
+                  다양한 솔루션 개발
+                </>
+              }
+            />
             {/* token 없음: 문단 폭 max-w-md(448px) 근사 — ServiceSection/BusinessAreasSection 밴드 헤더 리드와 동일 */}
             <p className="max-w-md text-body-sm text-white/70">
               환경IT 전문기업으로서 기획·개발·구축·운영까지 수행해 온 이쓰리의

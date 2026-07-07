@@ -1,4 +1,4 @@
-import { SectionLabel, IconCard } from "@/shared/ui";
+import { SectionHeader, IconCard } from "@/shared/ui";
 import type { CultureItem } from "@/features/culture";
 
 export interface CultureValuesSectionProps {
@@ -15,14 +15,18 @@ export function CultureValuesSection({ items }: CultureValuesSectionProps) {
   return (
     <section className="bg-surface py-16 lg:py-25">
       <div className="content-container">
-        <div className="mb-14 max-w-2xl lg:mb-16">
-          <SectionLabel color="olive">CORE VALUES</SectionLabel>
-          <h2 className="font-display mt-4 text-h2 font-extrabold text-ink">
-            우리가 일하는
-            <br />
-            방식의 기준
-          </h2>
-        </div>
+        <SectionHeader
+          className="mb-14 max-w-2xl lg:mb-16"
+          tone="light"
+          eyebrow="CORE VALUES"
+          title={
+            <>
+              우리가 일하는
+              <br />
+              방식의 기준
+            </>
+          }
+        />
 
         <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((value) => (
