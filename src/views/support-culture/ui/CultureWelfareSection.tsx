@@ -11,7 +11,7 @@ export function CultureWelfareSection() {
   return (
     <section className="relative overflow-hidden bg-olive py-16 lg:py-25">
       <div
-        className="pointer-events-none absolute -top-40 -right-24 h-96 w-96 rounded-full border border-white/10"
+        className="pointer-events-none absolute -top-40 -right-24 h-96 w-96 rounded-full border border-white/12"
         aria-hidden
       />
       <div className="content-container relative">

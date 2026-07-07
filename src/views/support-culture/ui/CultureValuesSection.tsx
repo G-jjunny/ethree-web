@@ -8,7 +8,7 @@ import { CULTURE_VALUES } from "./support-culture.data";
  */
 export function CultureValuesSection() {
   return (
-    <section className="bg-surface-white py-16 lg:py-25">
+    <section className="bg-surface py-16 lg:py-25">
       <div className="content-container">
         <div className="mb-14 max-w-2xl lg:mb-16">
           <SectionLabel color="olive">CORE VALUES</SectionLabel>

@@ -97,7 +97,7 @@ const MANAGE_GROUPS: readonly ManageGroup[] = [
 
 export default function AdminDashboardPage() {
   return (
-    <section className="flex flex-col gap-14">
+    <section className="flex flex-col gap-10">
       <div className="flex flex-col gap-3">
         <SectionLabel color="olive">Console</SectionLabel>
         <h1 className="font-display text-h2 font-extrabold text-ink">
@@ -109,7 +109,10 @@ export default function AdminDashboardPage() {
       </div>
 
       {MANAGE_GROUPS.map((group) => (
-        <div key={group.heading} className="flex flex-col gap-6">
+        <div
+          key={group.heading}
+          className="flex flex-col gap-6 border-t border-hairline pt-10"
+        >
           <SectionLabel color="olive" size="sm">
             {group.heading}
           </SectionLabel>

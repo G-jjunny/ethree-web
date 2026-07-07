@@ -8,7 +8,7 @@ import { TALENT_TRAITS } from "./support-culture.data";
  */
 export function CultureTalentSection() {
   return (
-    <section className="bg-surface py-16 lg:py-25">
+    <section className="bg-surface-white py-16 lg:py-25">
       <div className="content-container">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
           {/* next/image 교체 슬롯: 인재상 대표 이미지(관리자 업로드 대상, Phase 3).
