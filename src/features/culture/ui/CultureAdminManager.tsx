@@ -61,18 +61,23 @@ export function CultureAdminManager({ items }: CultureAdminManagerProps) {
       .sort((a, b) => a.sortOrder - b.sortOrder);
 
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-12">
       {GROUP_META.map((meta) => {
         const groupItems = itemsByGroup(meta.group);
         const isAdding = addingGroup === meta.group;
 
         return (
           <section key={meta.group} className="flex flex-col gap-6">
-            <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="flex flex-wrap items-end justify-between gap-4 border-b border-hairline pb-4">
               <div className="flex flex-col gap-2">
-                <SectionLabel color="olive" size="sm">
-                  {meta.title}
-                </SectionLabel>
+                <div className="flex items-center gap-3">
+                  <SectionLabel color="olive" size="sm">
+                    {meta.title}
+                  </SectionLabel>
+                  <span className="inline-flex items-center rounded-pill border border-hairline px-3 py-1 text-caption font-medium text-muted">
+                    {meta.allowAdd ? `${groupItems.length}개 항목` : "단건 항목"}
+                  </span>
+                </div>
                 <p className="text-body-sm text-ink-soft">{meta.description}</p>
               </div>
               {meta.allowAdd && !isAdding && (

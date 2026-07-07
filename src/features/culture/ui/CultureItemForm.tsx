@@ -179,7 +179,7 @@ export function CultureItemForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 rounded-card border border-hairline bg-surface-white p-6"
+      className="flex flex-col gap-5 rounded-card border border-hairline bg-surface-white p-6"
     >
       <div className="flex flex-col gap-2">
         <label htmlFor={`culture-title-${item?.id ?? "new"}`} className={LABEL_CLASS}>
