@@ -17,6 +17,9 @@ interface ConsoleDashboardLayoutProps {
 const CONSOLE_NAV = [
   { label: "대시보드", href: ADMIN_BASE_PATH },
   { label: "회사 정보", href: `${ADMIN_BASE_PATH}/company` },
+  { label: "NEWS", href: `${ADMIN_BASE_PATH}/news` },
+  { label: "기업문화", href: `${ADMIN_BASE_PATH}/culture` },
+  { label: "인재채용", href: `${ADMIN_BASE_PATH}/careers` },
 ] as const;
 
 export default function ConsoleDashboardLayout({
