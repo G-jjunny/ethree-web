@@ -2,12 +2,16 @@ import Link from "next/link";
 import { SectionLabel } from "@/shared/ui";
 import { getNewsList } from "@/features/news";
 
+/** 랜딩 NEWS 섹션은 최신 N건만 간략히 노출한다(전체는 /support/news). */
+const LANDING_NEWS_COUNT = 3;
+
 /**
  * NEWS 데이터는 features/news(getNewsList) 서버 getter가 단일 소스다.
- * Supabase에서 published=true만 조회하며, 미연결/빈 DB 시 빈 배열 fallback.
+ * Supabase에서 published=true만 조회하며(published_at 내림차순), 미연결/빈 DB 시 빈 배열 fallback.
+ * 랜딩에서는 최신 LANDING_NEWS_COUNT건만 잘라 간략히 보여준다.
  */
 export async function NewsSection() {
-  const newsItems = await getNewsList();
+  const newsItems = (await getNewsList()).slice(0, LANDING_NEWS_COUNT);
 
   return (
     <section className="bg-surface pt-16 lg:pt-25">
