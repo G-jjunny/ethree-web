@@ -1,22 +1,40 @@
+import Image from "next/image";
 import { SectionLabel } from "@/shared/ui";
-import { TALENT_TRAITS } from "./support-culture.data";
+import type { CultureItem } from "@/features/culture";
+
+export interface CultureTalentSectionProps {
+  /** group='talent' 항목(sortOrder asc). getCultureItems 파생. */
+  items: readonly CultureItem[];
+}
 
 /**
- * 인재상 섹션 — 이미지 + 텍스트(3가지 인재 특성) 블록.
+ * 인재상 섹션 — 이미지 + 텍스트(인재 특성 목록) 블록.
  * 좌측 이미지 슬롯 + 우측 특성 목록의 에디토리얼 2열 레이아웃(모바일 세로 스택).
- * 이미지는 placeholder이며 next/image 교체 슬롯 주석을 둔다. 서버 컴포넌트.
+ * 항목은 DB(getCultureItems)에서 props로 주입받는다. 섹션 대표 이미지는 이미지가 있는
+ * 첫 항목의 image_url을 사용하고, 없으면 기존 placeholder를 유지한다. 서버 컴포넌트.
  */
-export function CultureTalentSection() {
+export function CultureTalentSection({ items }: CultureTalentSectionProps) {
+  const image = items.find((it) => it.imageUrl)?.imageUrl ?? null;
+
   return (
     <section className="bg-surface-white py-16 lg:py-25">
       <div className="content-container">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
-          {/* next/image 교체 슬롯: 인재상 대표 이미지(관리자 업로드 대상, Phase 3).
-              지금은 placeholder 회색 박스로 대체한다. */}
-          <div className="flex h-64 items-center justify-center overflow-hidden rounded-image bg-tint lg:h-96">
-            <span className="font-display text-mini tracking-label text-olive-muted">
-              CULTURE IMAGE PLACEHOLDER
-            </span>
+          <div className="relative flex h-64 items-center justify-center overflow-hidden rounded-image bg-tint lg:h-96">
+            {image ? (
+              <Image
+                src={image}
+                alt="인재상 대표 이미지"
+                fill
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+                unoptimized
+              />
+            ) : (
+              <span className="font-display text-mini tracking-label text-olive-muted">
+                CULTURE IMAGE PLACEHOLDER
+              </span>
+            )}
           </div>
 
           <div>
@@ -32,11 +50,13 @@ export function CultureTalentSection() {
             </p>
 
             <ul className="mt-10 flex flex-col divide-y divide-hairline border-y border-hairline">
-              {TALENT_TRAITS.map((trait) => (
-                <li key={trait.no} className="flex gap-6 py-6">
-                  <span className="font-display text-item font-extrabold text-olive-muted">
-                    {trait.no}
-                  </span>
+              {items.map((trait) => (
+                <li key={trait.id} className="flex gap-6 py-6">
+                  {trait.label && (
+                    <span className="font-display text-item font-extrabold text-olive-muted">
+                      {trait.label}
+                    </span>
+                  )}
                   <div>
                     <h3 className="text-item font-bold text-ink">
                       {trait.title}
