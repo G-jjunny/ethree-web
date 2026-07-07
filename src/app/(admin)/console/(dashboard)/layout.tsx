@@ -17,6 +17,9 @@ interface ConsoleDashboardLayoutProps {
 const CONSOLE_NAV = [
   { label: "대시보드", href: ADMIN_BASE_PATH },
   { label: "회사 정보", href: `${ADMIN_BASE_PATH}/company` },
+  { label: "NEWS", href: `${ADMIN_BASE_PATH}/news` },
+  { label: "기업문화", href: `${ADMIN_BASE_PATH}/culture` },
+  { label: "인재채용", href: `${ADMIN_BASE_PATH}/careers` },
 ] as const;
 
 export default function ConsoleDashboardLayout({
@@ -36,7 +39,7 @@ export default function ConsoleDashboardLayout({
           <LogoutButton />
         </div>
         <nav className="border-t border-white/12">
-          <div className="content-container flex gap-6 py-2">
+          <div className="content-container flex flex-wrap gap-x-6 gap-y-1 py-2">
             {CONSOLE_NAV.map((item) => (
               <Link
                 key={item.href}
