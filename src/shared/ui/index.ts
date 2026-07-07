@@ -9,3 +9,6 @@ export type { IconCardProps, IconCardShape } from "./IconCard";
 
 export { LogoCarousel } from "./LogoCarousel";
 export type { LogoCarouselProps } from "./LogoCarousel";
+
+export { FormStatusBanner } from "./FormStatusBanner";
+export type { FormStatusBannerProps } from "./FormStatusBanner";
