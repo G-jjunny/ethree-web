@@ -77,10 +77,12 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
     ? { duration: 0 }
     : { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const };
 
+  const activeSolution = solutions[activeIndex];
+
   return (
-    <div>
-      {/* 카드 무대 — overflow-hidden으로 좌우 peek 카드를 부분 노출(clip) */}
-      <div className="relative h-104 overflow-hidden sm:h-112">
+    <div className="relative mx-auto max-w-5xl">
+      {/* 카드 무대 — overflow-hidden으로 좌우 peek 카드를 부분 노출(clip). 화살표는 무대 세로 중앙 양옆 */}
+      <div className="relative h-60 overflow-hidden sm:h-72 lg:h-[22rem]">
         {solutions.map((solution, index) => {
           const offset = getRelativeOffset(index, activeIndex, len);
           const isActive = offset === 0;
@@ -88,14 +90,14 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
           return (
             <motion.article
               key={solution.no}
-              className="group absolute top-1/2 left-1/2 w-64 origin-center sm:w-72 lg:w-80"
+              className="group absolute top-1/2 left-1/2 w-72 origin-center sm:w-80 lg:w-96"
               style={{ zIndex: len - Math.abs(offset) }}
               initial={false}
               animate={{
-                x: `${-50 + offset * 62}%`,
+                x: `${-50 + offset * 58}%`,
                 y: "-50%",
-                scale: isActive ? 1 : 0.8,
-                opacity: isActive ? 1 : 0.4,
+                scale: isActive ? 1 : 0.82,
+                opacity: isActive ? 1 : 0.35,
               }}
               transition={transition}
             >
@@ -107,7 +109,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
                     src={solution.imageSrc}
                     alt=""
                     fill
-                    sizes="(min-width: 1024px) 20rem, (min-width: 640px) 18rem, 16rem"
+                    sizes="(min-width: 1024px) 24rem, (min-width: 640px) 20rem, 18rem"
                     className="object-cover"
                   />
                 )}
@@ -125,28 +127,16 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
                   </p>
                 </div>
               </div>
-
-              {/* 솔루션 이름 — 항상 노출 */}
-              <div className="mt-5 text-center">
-                <span className="block font-display text-xs font-bold tracking-label text-olive-muted">
-                  {solution.no}
-                </span>
-                <h3 className="mt-1.5 font-display text-xl font-bold tracking-headline text-ink">
-                  {solution.title}
-                </h3>
-              </div>
             </motion.article>
           );
         })}
-      </div>
 
-      {/* 이전/다음 원형 화살표 — 무한 루프, aria-label 부여 */}
-      <div className="mt-10 flex items-center justify-center gap-4">
+        {/* 이전/다음 원형 화살표 — 무대(이미지) 세로 중앙 양옆. 다음은 brand 채움(레퍼런스) */}
         <button
           type="button"
           onClick={goPrev}
           aria-label="이전 솔루션"
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface-white text-ink transition-colors duration-fast ease-out hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+          className="absolute top-1/2 left-0 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-hairline bg-surface-white text-ink shadow-sm transition-colors duration-fast ease-out hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 sm:left-3"
         >
           <ChevronIcon direction="left" />
         </button>
@@ -154,10 +144,20 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
           type="button"
           onClick={goNext}
           aria-label="다음 솔루션"
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface-white text-ink transition-colors duration-fast ease-out hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+          className="absolute top-1/2 right-0 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-brand text-brand-ink shadow-sm transition-colors duration-fast ease-out hover:bg-brand-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface sm:right-3"
         >
           <ChevronIcon direction="right" />
         </button>
+      </div>
+
+      {/* 활성 솔루션 이름 — 무대 아래 중앙(활성 카드만) */}
+      <div className="mt-8 text-center">
+        <span className="block font-display text-xs font-bold tracking-label text-olive-muted">
+          {activeSolution.no}
+        </span>
+        <h3 className="mt-1.5 font-display text-xl font-bold tracking-headline text-ink">
+          {activeSolution.title}
+        </h3>
       </div>
     </div>
   );
