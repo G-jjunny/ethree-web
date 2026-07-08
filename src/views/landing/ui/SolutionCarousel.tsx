@@ -82,7 +82,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
   return (
     <div className="relative mx-auto max-w-5xl">
       {/* 카드 무대 — overflow-hidden으로 좌우 peek 카드를 부분 노출(clip). 화살표는 무대 세로 중앙 양옆 */}
-      <div className="relative h-60 overflow-hidden sm:h-72 lg:h-[22rem]">
+      <div className="relative h-60 overflow-hidden sm:h-72 lg:h-88">
         {solutions.map((solution, index) => {
           const offset = getRelativeOffset(index, activeIndex, len);
           const isActive = offset === 0;
@@ -102,7 +102,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
               transition={transition}
             >
               {/* 이미지 영역 — placeholder 배경 + imageSrc 있으면 next/image로 덮음 */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-image bg-ink">
+              <div className="relative aspect-4/3 overflow-hidden rounded-image bg-ink">
                 <div className={`absolute inset-0 ${tint}`} aria-hidden />
                 {solution.imageSrc && (
                   <Image
