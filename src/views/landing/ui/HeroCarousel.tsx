@@ -159,8 +159,8 @@ export function HeroCarousel() {
             </AnimatePresence>
           </div>
 
-          {/* 인디케이터 — 01_ 02_ 03_ (숫자 + 막대), 콘텐츠 맨 아래 고정 */}
-          <ul className="mt-12 flex items-center gap-8">
+          {/* 인디케이터 — 숫자 위 / 밑줄 막대 아래(레퍼런스 스타일). active 밑줄은 기존 accent 유지 */}
+          <ul className="mt-12 flex items-end gap-5">
             {HERO_SLIDES.map((slide, index) => {
               const isActive = index === activeIndex;
               const label = String(index + 1).padStart(2, "0");
@@ -171,9 +171,9 @@ export function HeroCarousel() {
                     onClick={() => goToSlide(index)}
                     aria-label={`슬라이드 ${index + 1}로 이동`}
                     aria-current={isActive ? "true" : undefined}
-                    className="group flex items-center gap-3 focus-visible:outline-none"
+                    className="group flex w-16 flex-col gap-2.5 text-left focus-visible:outline-none sm:w-20"
                   >
-                    {/* 숫자 — tabular-nums로 자리폭 고정(레이아웃 흔들림 방지) */}
+                    {/* 숫자 — tabular-nums로 자리폭 고정 */}
                     <span
                       className={`font-display text-sm font-bold tracking-label tabular-nums transition-colors duration-fast ease-out group-focus-visible:text-white ${
                         isActive
@@ -183,13 +183,13 @@ export function HeroCarousel() {
                     >
                       {label}
                     </span>
-                    {/* 막대(_) — active는 accent로 길게 확장(절제된 진행 연출) */}
+                    {/* 밑줄 막대 — active는 기존 accent, 비활성은 저대비 */}
                     <span
                       aria-hidden
-                      className={`block h-px transition-all duration-fast ease-out ${
+                      className={`block h-0.5 w-full transition-colors duration-fast ease-out ${
                         isActive
-                          ? "w-10 bg-accent"
-                          : "w-6 bg-white/40 group-hover:bg-white/70"
+                          ? "bg-accent"
+                          : "bg-white/25 group-hover:bg-white/50"
                       }`}
                     />
                   </button>
