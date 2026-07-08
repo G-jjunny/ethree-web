@@ -1,0 +1,204 @@
+"use client";
+
+import Image from "next/image";
+import {
+  useCallback,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import { AnimatePresence, motion } from "motion/react";
+
+import { HERO_SLIDES } from "./hero-slides.data";
+
+/** autoplay 간격(ms). */
+const AUTOPLAY_INTERVAL = 5000;
+
+/**
+ * 슬라이드별 배경 구분 틴트 — 실제 히어로 이미지(3종) 미확보 시 배경 전환을
+ * 가시화하기 위한 placeholder. 슬라이드 데이터의 imageSrc를 채우면 next/image가
+ * 이 위를 덮으므로 실제 이미지로 자연스럽게 대체된다. 기존 토큰만 사용.
+ */
+const SLIDE_BG_TINT = [
+  "bg-linear-to-tr from-brand/20 via-transparent to-transparent",
+  "bg-linear-to-tl from-accent/15 via-transparent to-transparent",
+  "bg-linear-to-t from-olive/25 via-transparent to-transparent",
+];
+
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+/** matchMedia 구독 — reduced-motion 변경 시 리렌더 트리거. */
+function subscribeReducedMotion(onChange: () => void) {
+  const mql = window.matchMedia(REDUCED_MOTION_QUERY);
+  mql.addEventListener("change", onChange);
+  return () => mql.removeEventListener("change", onChange);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
+}
+
+/** SSR 스냅샷 — 서버에서는 모션 허용을 기본값으로. */
+function getReducedMotionServerSnapshot() {
+  return false;
+}
+
+/**
+ * 히어로 3슬라이드 자동 캐러셀.
+ * - autoplay 5초, hover 시 일시정지, 인디케이터 클릭 시 이동 + 타이머 리셋.
+ * - prefers-reduced-motion 감지 시 autoplay/전환 애니메이션 정지.
+ * - 레이아웃 고정, 배경·텍스트만 cross-fade 전환.
+ */
+export function HeroCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  // 수동 이동 시 autoplay 타이머를 리셋하기 위한 nonce (effect 재실행 트리거).
+  const [timerNonce, setTimerNonce] = useState(0);
+
+  // prefers-reduced-motion 구독 (setState-in-effect 없이 안전하게 구독).
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot,
+  );
+
+  // autoplay 타이머. pause/reduced-motion 시 정지, timerNonce 변경 시 재시작.
+  useEffect(() => {
+    if (isPaused || prefersReducedMotion) {
+      return;
+    }
+    const intervalId = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, AUTOPLAY_INTERVAL);
+    return () => clearInterval(intervalId);
+  }, [isPaused, prefersReducedMotion, timerNonce]);
+
+  const goToSlide = useCallback((index: number) => {
+    setActiveIndex(index);
+    setTimerNonce((prev) => prev + 1); // 타이머 리셋
+  }, []);
+
+  const activeSlide = HERO_SLIDES[activeIndex];
+  // reduced-motion 시 전환 애니메이션을 즉시(무모션)로 처리.
+  const transition = prefersReducedMotion
+    ? { duration: 0 }
+    : { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const };
+
+  return (
+    <div
+      className="relative flex min-h-160 w-full flex-col lg:min-h-190"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* 배경 레이어 — 슬라이드별 placeholder를 stack, active만 cross-fade */}
+      <div className="absolute inset-0 z-0" aria-hidden>
+        {HERO_SLIDES.map((slide, index) => (
+          <motion.div
+            key={slide.id}
+            className="absolute inset-0"
+            initial={false}
+            animate={{ opacity: index === activeIndex ? 1 : 0 }}
+            transition={transition}
+          >
+            {/* 다크 베이스 */}
+            <div className="absolute inset-0 bg-ink" />
+            {/* 슬라이드별 구분 틴트 — 실제 이미지 미확보 시 배경 전환을 가시화.
+                imageSrc를 채우면 아래 next/image가 이 위를 덮는다. */}
+            <div className={`absolute inset-0 ${SLIDE_BG_TINT[index] ?? ""}`} />
+            {slide.imageSrc && (
+              <Image
+                src={slide.imageSrc}
+                alt=""
+                fill
+                priority={index === 0}
+                sizes="100vw"
+                className="object-cover"
+              />
+            )}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* 가독성용 다크 스크림 — 상단(헤더 오버레이) 중간톤, 하단(콘텐츠) 강 */}
+      <div
+        className="absolute inset-0 z-10 bg-linear-to-b from-black/50 via-black/25 to-black/85"
+        aria-hidden
+      />
+
+      {/* 콘텐츠 — 좌측·수직 중앙 정렬(y축 중앙) */}
+      <div className="relative z-20 flex flex-1 flex-col justify-center py-16">
+        <div className="content-container w-full">
+          {/* 슬라이드 텍스트 — active 콘텐츠만 cross-fade, 레이아웃 고정.
+              min-h로 최대 줄 수 높이를 예약 → mode="wait" 언마운트 갭·슬라이드별
+              본문 줄 수 차이와 무관하게 키워드 Y 위치 고정(콘텐츠는 상단 정렬). */}
+          <div className="min-h-72 max-w-4xl sm:min-h-64">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSlide.id}
+                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -16 }}
+                transition={transition}
+              >
+                {/* 키워드 — 최상위 위계: 대문자, 첫 글자 E를 브랜드 색으로 강조(E3 컨셉) */}
+                <h1 className="font-display tracking-headline text-4xl font-extrabold uppercase text-white sm:text-5xl lg:text-hero">
+                  <span className="text-brand">
+                    {activeSlide.keyword.charAt(0)}
+                  </span>
+                  {activeSlide.keyword.slice(1)}
+                </h1>
+                {/* 태그라인 — 중간 위계: 대문자, accent 포인트, 중간 스케일 */}
+                <p className="font-display mt-4 text-2xl font-medium uppercase text-accent lg:text-h3">
+                  {activeSlide.tagline}
+                </p>
+                {/* 본문 — 최하위 위계: 작은 스케일·저대비 */}
+                <p className="mt-6 max-w-xl text-lead text-white/80">
+                  {activeSlide.body}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* 인디케이터 — 숫자 위 / 밑줄 막대 아래(레퍼런스 스타일). active 밑줄은 기존 accent 유지 */}
+          <ul className="mt-12 flex items-end gap-5">
+            {HERO_SLIDES.map((slide, index) => {
+              const isActive = index === activeIndex;
+              const label = String(index + 1).padStart(2, "0");
+              return (
+                <li key={slide.id}>
+                  <button
+                    type="button"
+                    onClick={() => goToSlide(index)}
+                    aria-label={`슬라이드 ${index + 1}로 이동`}
+                    aria-current={isActive ? "true" : undefined}
+                    className="group flex w-16 flex-col gap-2.5 text-left focus-visible:outline-none sm:w-20"
+                  >
+                    {/* 숫자 — tabular-nums로 자리폭 고정 */}
+                    <span
+                      className={`font-display text-sm font-bold tracking-label tabular-nums transition-colors duration-fast ease-out group-focus-visible:text-white ${
+                        isActive
+                          ? "text-white"
+                          : "text-white/40 group-hover:text-white/70"
+                      }`}
+                    >
+                      {label}
+                    </span>
+                    {/* 밑줄 막대 — active는 기존 accent, 비활성은 저대비 */}
+                    <span
+                      aria-hidden
+                      className={`block h-0.5 w-full transition-colors duration-fast ease-out ${
+                        isActive
+                          ? "bg-accent"
+                          : "bg-white/25 group-hover:bg-white/50"
+                      }`}
+                    />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
