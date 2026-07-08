@@ -140,12 +140,15 @@ export function HeroCarousel() {
                 exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -16 }}
                 transition={transition}
               >
-                {/* 키워드 — 최상위 위계: 가장 크게·굵게 */}
-                <h1 className="font-display tracking-headline text-4xl font-extrabold text-white sm:text-5xl lg:text-hero">
-                  {activeSlide.keyword}
+                {/* 키워드 — 최상위 위계: 대문자, 첫 글자 E를 브랜드 색으로 강조(E3 컨셉) */}
+                <h1 className="font-display tracking-headline text-4xl font-extrabold uppercase text-white sm:text-5xl lg:text-hero">
+                  <span className="text-brand">
+                    {activeSlide.keyword.charAt(0)}
+                  </span>
+                  {activeSlide.keyword.slice(1)}
                 </h1>
-                {/* 태그라인 — 중간 위계: accent 포인트, 중간 스케일 */}
-                <p className="font-display mt-4 text-2xl font-medium text-accent lg:text-h3">
+                {/* 태그라인 — 중간 위계: 대문자, accent 포인트, 중간 스케일 */}
+                <p className="font-display mt-4 text-2xl font-medium uppercase text-accent lg:text-h3">
                   {activeSlide.tagline}
                 </p>
                 {/* 본문 — 최하위 위계: 작은 스케일·저대비 */}
