@@ -60,10 +60,6 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const len = solutions.length;
 
-  if (len === 0) {
-    return null;
-  }
-
   const prefersReducedMotion = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotionSnapshot,
@@ -81,6 +77,10 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
   const transition = prefersReducedMotion
     ? { duration: 0 }
     : { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const };
+
+  if (len === 0) {
+    return null;
+  }
 
   const activeSolution = solutions[activeIndex];
 
