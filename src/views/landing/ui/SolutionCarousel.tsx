@@ -60,6 +60,10 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const len = solutions.length;
 
+  if (len === 0) {
+    return null;
+  }
+
   const prefersReducedMotion = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotionSnapshot,
@@ -112,6 +116,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
                     fill
                     sizes="(min-width: 1024px) 24rem, (min-width: 640px) 20rem, 18rem"
                     className="object-cover"
+                    unoptimized
                   />
                 )}
 
