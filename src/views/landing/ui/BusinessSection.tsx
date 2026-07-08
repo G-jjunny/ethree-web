@@ -20,7 +20,7 @@ export function BusinessSection() {
               </>
             }
           />
-          <p className="mt-6 text-body-sm text-ink-soft">
+          <p className="mx-auto mt-6 max-w-xl text-body-sm text-ink-soft">
             대국민 서비스, 행정업무 통합관리 등 효율적인 시스템 구축과 환경
             정보시스템에 관한 기획부터 개발, 구축, 운영까지 — 이쓰리가 모든
             과정을 책임집니다.

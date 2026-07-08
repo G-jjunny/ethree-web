@@ -80,7 +80,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
   return (
     <div>
       {/* 카드 무대 — overflow-hidden으로 좌우 peek 카드를 부분 노출(clip) */}
-      <div className="relative h-96 overflow-hidden sm:h-100">
+      <div className="relative h-104 overflow-hidden sm:h-112">
         {solutions.map((solution, index) => {
           const offset = getRelativeOffset(index, activeIndex, len);
           const isActive = offset === 0;
@@ -92,10 +92,10 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
               style={{ zIndex: len - Math.abs(offset) }}
               initial={false}
               animate={{
-                x: `${-50 + offset * 64}%`,
+                x: `${-50 + offset * 62}%`,
                 y: "-50%",
-                scale: isActive ? 1 : 0.82,
-                opacity: isActive ? 1 : 0.55,
+                scale: isActive ? 1 : 0.8,
+                opacity: isActive ? 1 : 0.4,
               }}
               transition={transition}
             >
@@ -114,7 +114,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
 
                 {/* 설명 오버레이 — desktop: group-hover fade / active: 모바일 항상 노출(터치 폴백) */}
                 <div
-                  className={`absolute inset-0 flex items-center justify-center bg-ink/80 p-6 text-center transition-opacity duration-fast ease-out ${
+                  className={`absolute inset-0 flex items-center justify-center bg-ink/85 p-6 text-center transition-opacity duration-fast ease-out sm:p-8 ${
                     isActive
                       ? "opacity-100 lg:opacity-0 lg:group-hover:opacity-100"
                       : "opacity-0 group-hover:opacity-100"
@@ -127,11 +127,11 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
               </div>
 
               {/* 솔루션 이름 — 항상 노출 */}
-              <div className="mt-4 text-center">
-                <span className="font-display text-xs tracking-label text-olive-muted">
+              <div className="mt-5 text-center">
+                <span className="block font-display text-xs font-bold tracking-label text-olive-muted">
                   {solution.no}
                 </span>
-                <h3 className="mt-1 font-display text-xl font-bold text-ink">
+                <h3 className="mt-1.5 font-display text-xl font-bold tracking-headline text-ink">
                   {solution.title}
                 </h3>
               </div>
@@ -141,12 +141,12 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
       </div>
 
       {/* 이전/다음 원형 화살표 — 무한 루프, aria-label 부여 */}
-      <div className="mt-8 flex items-center justify-center gap-4">
+      <div className="mt-10 flex items-center justify-center gap-4">
         <button
           type="button"
           onClick={goPrev}
           aria-label="이전 솔루션"
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface-white text-ink transition-colors duration-fast ease-out hover:border-brand"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface-white text-ink transition-colors duration-fast ease-out hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
         >
           <ChevronIcon direction="left" />
         </button>
@@ -154,7 +154,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
           type="button"
           onClick={goNext}
           aria-label="다음 솔루션"
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface-white text-ink transition-colors duration-fast ease-out hover:border-brand"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface-white text-ink transition-colors duration-fast ease-out hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
         >
           <ChevronIcon direction="right" />
         </button>
