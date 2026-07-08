@@ -1,5 +1,7 @@
 import type { SolutionFormValues } from "./schema";
 
+export type { SolutionFormValues };
+
 /**
  * 공개 솔루션 슬라이드 shape (snake_case row → camelCase).
  */
