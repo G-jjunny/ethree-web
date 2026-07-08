@@ -115,7 +115,7 @@ export function SolutionAdminTable({ items }: SolutionAdminTableProps) {
                     <button
                       type="button"
                       aria-label="위로 이동"
-                      disabled={index === 0 || (isPending && busyId === item.id)}
+                      disabled={index === 0 || isPending}
                       onClick={() => handleMove(index, -1)}
                       className={ORDER_BUTTON_CLASS}
                     >
@@ -124,10 +124,7 @@ export function SolutionAdminTable({ items }: SolutionAdminTableProps) {
                     <button
                       type="button"
                       aria-label="아래로 이동"
-                      disabled={
-                        index === sorted.length - 1 ||
-                        (isPending && busyId === item.id)
-                      }
+                      disabled={index === sorted.length - 1 || isPending}
                       onClick={() => handleMove(index, 1)}
                       className={ORDER_BUTTON_CLASS}
                     >
@@ -157,7 +154,7 @@ export function SolutionAdminTable({ items }: SolutionAdminTableProps) {
                     <button
                       type="button"
                       onClick={() => handleDelete(item)}
-                      disabled={isPending && busyId === item.id}
+                      disabled={isPending}
                       className="text-detail font-medium text-danger transition-colors duration-fast ease-out hover:opacity-80 disabled:opacity-50"
                     >
                       {isPending && busyId === item.id ? "처리 중..." : "삭제"}
