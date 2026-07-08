@@ -4,15 +4,15 @@ import Image from "next/image";
 import { useCallback, useState, useSyncExternalStore } from "react";
 import { motion } from "motion/react";
 
-import type { BusinessSolution } from "./business-solutions.data";
+import type { SolutionSlide } from "@/features/solution/model/types";
 
 export interface SolutionCarouselProps {
-  solutions: readonly BusinessSolution[];
+  solutions: readonly SolutionSlide[];
 }
 
 /**
- * 솔루션별 배경 구분 틴트 — 실제 이미지(imageSrc) 미확보 시 카드 이미지 영역을
- * 가시화하기 위한 placeholder. imageSrc를 채우면 next/image가 이 위를 덮으므로
+ * 솔루션별 배경 구분 틴트 — 실제 이미지(imageUrl) 미확보 시 카드 이미지 영역을
+ * 가시화하기 위한 placeholder. imageUrl을 채우면 next/image가 이 위를 덮으므로
  * 실제 이미지로 자연스럽게 대체된다. 기존 토큰만 사용.
  */
 const SOLUTION_BG_TINT = [
@@ -52,8 +52,9 @@ function getRelativeOffset(index: number, active: number, len: number) {
  * 솔루션 3단 중앙 강조 캐러셀 (수동 화살표 전용, autoplay 없음).
  * - activeIndex state + prev/next 무한 루프((i + len) % len).
  * - active 카드 중앙 크게, 좌우 인접 카드는 축소·저대비·부분 노출(peek).
+ * - active 카드에만 이미지 좌측 하단 title 오버레이(강조 텍스트 titleAccent는 브랜드 색상).
+ * - 설명(description)은 무대 아래 활성 슬라이드 기준으로 중앙 노출.
  * - prefers-reduced-motion 시 전환 애니메이션 무모션 처리.
- * - 설명은 desktop hover 오버레이 + active 카드는 모바일에서 항상 노출(터치 폴백).
  */
 export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -77,6 +78,10 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
     ? { duration: 0 }
     : { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const };
 
+  if (len === 0) {
+    return null;
+  }
+
   const activeSolution = solutions[activeIndex];
 
   return (
@@ -89,8 +94,8 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
           const tint = SOLUTION_BG_TINT[index % SOLUTION_BG_TINT.length] ?? "";
           return (
             <motion.article
-              key={solution.no}
-              className="group absolute top-1/2 left-1/2 w-72 origin-center sm:w-80 lg:w-96"
+              key={solution.id}
+              className="absolute top-1/2 left-1/2 w-72 origin-center sm:w-80 lg:w-96"
               style={{ zIndex: len - Math.abs(offset) }}
               initial={false}
               animate={{
@@ -101,31 +106,31 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
               }}
               transition={transition}
             >
-              {/* 이미지 영역 — placeholder 배경 + imageSrc 있으면 next/image로 덮음 */}
+              {/* 이미지 영역 — placeholder 배경 + imageUrl 있으면 next/image로 덮음 */}
               <div className="relative aspect-4/3 overflow-hidden rounded-image bg-ink">
                 <div className={`absolute inset-0 ${tint}`} aria-hidden />
-                {solution.imageSrc && (
+                {solution.imageUrl && (
                   <Image
-                    src={solution.imageSrc}
+                    src={solution.imageUrl}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 24rem, (min-width: 640px) 20rem, 18rem"
                     className="object-cover"
+                    unoptimized
                   />
                 )}
 
-                {/* 설명 오버레이 — desktop: group-hover fade / active: 모바일 항상 노출(터치 폴백) */}
-                <div
-                  className={`absolute inset-0 flex items-center justify-center bg-ink/85 p-6 text-center transition-opacity duration-fast ease-out sm:p-8 ${
-                    isActive
-                      ? "opacity-100 lg:opacity-0 lg:group-hover:opacity-100"
-                      : "opacity-0 group-hover:opacity-100"
-                  }`}
-                >
-                  <p className="text-detail text-white/80">
-                    {solution.description}
-                  </p>
-                </div>
+                {/* 타이틀 오버레이 — active 카드에만 노출, 좌측 하단, 가독성 스크림 */}
+                {isActive && (
+                  <div className="absolute inset-0 flex items-end bg-linear-to-t from-ink/90 via-ink/40 to-transparent p-5 sm:p-6">
+                    <h3 className="font-display text-lg font-bold tracking-headline text-white sm:text-xl">
+                      {solution.title}{" "}
+                      <span className="text-brand">
+                        {solution.titleAccent}
+                      </span>
+                    </h3>
+                  </div>
+                )}
               </div>
             </motion.article>
           );
@@ -150,14 +155,11 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
         </button>
       </div>
 
-      {/* 활성 솔루션 이름 — 무대 아래 중앙(활성 카드만) */}
+      {/* 활성 솔루션 설명 — 무대 아래 중앙(기존 title/no 자리를 description이 대체) */}
       <div className="mt-8 text-center">
-        <span className="block font-display text-xs font-bold tracking-label text-olive-muted">
-          {activeSolution.no}
-        </span>
-        <h3 className="mt-1.5 font-display text-xl font-bold tracking-headline text-ink">
-          {activeSolution.title}
-        </h3>
+        <p className="mx-auto max-w-xl text-body-sm text-ink-soft">
+          {activeSolution.description}
+        </p>
       </div>
     </div>
   );

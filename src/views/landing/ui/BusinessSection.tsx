@@ -1,9 +1,18 @@
 import { Button, SectionHeader } from "@/shared/ui";
+import { getSolutionSlides } from "@/features/solution";
 
 import { BUSINESS_SOLUTIONS } from "./business-solutions.data";
 import { SolutionCarousel } from "./SolutionCarousel";
 
-export function BusinessSection() {
+/**
+ * About Business 섹션(서버).
+ * Supabase `solution_slides`(getSolutionSlides)에서 활성 슬라이드를 가져오고,
+ * 비어있으면(마이그레이션 미적용/데이터 없음) 로컬 fallback 상수를 사용한다.
+ */
+export async function BusinessSection() {
+  const slides = await getSolutionSlides();
+  const solutions = slides.length > 0 ? slides : BUSINESS_SOLUTIONS;
+
   return (
     <section className="bg-surface py-16 lg:py-30">
       <div className="content-container">
@@ -28,7 +37,7 @@ export function BusinessSection() {
         </div>
 
         {/* 상호작용(캐러셀)만 클라이언트 경계로 분리 */}
-        <SolutionCarousel solutions={BUSINESS_SOLUTIONS} />
+        <SolutionCarousel solutions={solutions} />
 
         <div className="mt-14 flex justify-center">
           <Button variant="dark">E3 BUSINESS 자세히보기</Button>
