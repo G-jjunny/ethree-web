@@ -107,7 +107,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
               transition={transition}
             >
               {/* 이미지 영역 — placeholder 배경 + imageUrl 있으면 next/image로 덮음 */}
-              <div className="relative aspect-4/3 overflow-hidden rounded-image bg-ink">
+              <div className="relative aspect-4/3 overflow-hidden rounded-image">
                 <div className={`absolute inset-0 ${tint}`} aria-hidden />
                 {solution.imageUrl && (
                   <Image
@@ -121,17 +121,16 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
                 )}
 
                 {/* 타이틀 오버레이 — active 카드에만 노출, 좌측 하단, 가독성 스크림 */}
-                {isActive && (
-                  <div className="absolute inset-0 flex items-end bg-linear-to-t from-ink/90 via-ink/40 to-transparent p-5 sm:p-6">
-                    <h3 className="font-display text-lg font-bold tracking-headline text-white sm:text-xl">
-                      {solution.title}{" "}
-                      <span className="text-brand">
-                        {solution.titleAccent}
-                      </span>
-                    </h3>
-                  </div>
-                )}
+                {/* {isActive && (
+                  <div className="absolute inset-0 flex items-end bg-linear-to-t from-ink/90 via-ink/40 to-transparent p-5 sm:p-6"></div>
+                )} */}
               </div>
+              {isActive && (
+                <h3 className="font-display text-lg font-bold tracking-headline sm:text-xl">
+                  {solution.title}{" "}
+                  <span className="text-brand">{solution.titleAccent}</span>
+                </h3>
+              )}
             </motion.article>
           );
         })}
@@ -141,7 +140,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
           type="button"
           onClick={goPrev}
           aria-label="이전 솔루션"
-          className="absolute top-1/2 left-0 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-hairline bg-surface-white text-ink shadow-sm transition-colors duration-fast ease-out hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 sm:left-3"
+          className="duration-fast absolute top-1/2 left-0 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-hairline bg-surface-white text-ink shadow-sm transition-colors ease-out hover:border-brand hover:text-brand focus-visible:border-brand focus-visible:text-brand focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:outline-none sm:left-3"
         >
           <ChevronIcon direction="left" />
         </button>
@@ -149,7 +148,7 @@ export function SolutionCarousel({ solutions }: SolutionCarouselProps) {
           type="button"
           onClick={goNext}
           aria-label="다음 솔루션"
-          className="absolute top-1/2 right-0 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-brand text-brand-ink shadow-sm transition-colors duration-fast ease-out hover:bg-brand-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface sm:right-3"
+          className="duration-fast absolute top-1/2 right-0 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-brand text-brand-ink shadow-sm transition-colors ease-out hover:bg-brand-hover focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none sm:right-3"
         >
           <ChevronIcon direction="right" />
         </button>
