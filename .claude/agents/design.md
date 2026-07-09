@@ -179,9 +179,11 @@ orchestrator가 신규 공용 컴포넌트 생성을 요청할 때. implementer�
 
 시각적·미적 방향성을 결정하는 작업은 아래 순서를 따른다.
 
-**Step 1 — frontend-design 스킬: 미적 방향성 확정**
+**Step 1 — 미적 방향성 확정 (design-taste-frontend + frontend-design 스킬)**
 
-`.claude/skills/frontend-design/SKILL.md`를 읽고 4가지를 먼저 선언한다.
+먼저 `.claude/skills/design-taste-frontend/SKILL.md`를 읽는다. 랜딩페이지·포트폴리오·리디자인 성격의 작업(이 프로젝트의 마케팅 사이트 페이지·섹션 대부분이 해당)에서는 이 스킬을 **주 기준**으로 삼는다. 브리프를 먼저 읽고 방향을 추론하며, 리디자인일 때는 audit-first(기존 결과물 진단 후 개선)로 접근하고, pre-flight 체크를 거쳐 템플릿처럼 보이지 않게 만든다.
+
+이어서 `.claude/skills/frontend-design/SKILL.md`를 읽고 아래 4가지를 선언한다.
 
 ```
 Purpose         누가 왜 쓰는 UI인가
@@ -189,6 +191,8 @@ Tone            brutalist / editorial / organic / luxury 등 하나 선택 후 �
 Constraints     Tailwind v4, 접근성, 퍼포먼스
 Differentiation 이 UI를 generic AI 결과물과 다르게 만드는 요소
 ```
+
+단, 대시보드·데이터 테이블·다단계 제품 UI 등 design-taste-frontend 적용 대상이 아닌 작업에서는 이 스킬을 강제하지 않고 frontend-design 기준만 사용한다.
 
 **Step 2 — ux-ui pro 플러그인: 사용성 검토**
 
