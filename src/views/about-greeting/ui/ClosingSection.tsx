@@ -1,53 +1,61 @@
 import Link from "next/link";
 import { SITE } from "@/shared/constants";
+import { Reveal } from "./Reveal";
 
 /**
- * 맺음말 + 서명 + 마무리 CTA. 핵심 메시지를 대형 다크 풀인용으로
- * 하이라이트하고(도입 문단 → 풀인용 → 문단 → 서명 읽기 순서 유지),
- * 서명은 hairline 구분선 + 이름 강조로 서신 마무리답게 정제한다.
- * 서명 이후 절제된 안내 한 줄과 사업소개 CTA를 더해 다음 여정으로 잇는다.
- * 정적 텍스트/링크뿐 — 서버 컴포넌트.
+ * 맺음말 + 서명 + 마무리 CTA. 도입 문단 → 대형 다크 풀인용 → 맺음 문단 →
+ * 서명 → 다음 여정 CTA 순으로 서신을 닫는다. 크림 후반부에서 다크 인용 카드가
+ * 톤 대비의 감정적 피크가 되도록 두고, 서명은 hairline 구분선으로 정제한다.
+ * 정적 텍스트/링크 — 스크롤 등장 모션만 Reveal(client) 아일랜드로 처리.
  */
 export function ClosingSection() {
   return (
-    <section className="bg-surface py-16 lg:py-25">
+    <section className="bg-surface py-20 lg:py-28">
       <div className="content-container">
         <div className="mx-auto max-w-3xl">
-          <p className="text-body-sm text-ink-soft">
-            앞으로 이쓰리는 다양한 환경 데이터를 통합하고 활용하여, 기후위기
-            시대에 대응하는 탄소중립형 환경 플랫폼 기업으로 성장해 나갈
-            것입니다.
-          </p>
-
-          {/* 핵심 메시지 대형 풀인용 — 다크 인셋 카드 */}
-          <blockquote className="my-12 rounded-card bg-ink px-8 py-11 lg:my-16 lg:px-14 lg:py-14">
-            <span
-              aria-hidden
-              className="font-display block text-mega font-black leading-none text-accent/30"
-            >
-              &ldquo;
-            </span>
-            <p className="mt-1 text-h3 font-bold text-white lg:text-h2">
-              저는 직원의 정신적·물질적 행복을 최우선으로 여기며, 고객 한 분
-              한 분을 평생 보호해야 할 소중한 존재로 생각합니다.
+          <Reveal>
+            <p className="text-body-sm text-ink-soft">
+              앞으로 이쓰리는 다양한 환경 데이터를 통합하고 활용하여, 기후위기
+              시대에 대응하는 탄소중립형 환경 플랫폼 기업으로 성장해 나갈
+              것입니다.
             </p>
-          </blockquote>
+          </Reveal>
 
-          <p className="text-body-sm text-ink-soft">
-            매일의 작은 실천이 큰 변화를 만들어낸다는 믿음으로, 오늘도 고객,
-            직원, 그리고 사회를 위한 발걸음을 멈추지 않겠습니다.
-          </p>
+          {/* 핵심 메시지 대형 풀인용 — 다크 인셋 카드(후반부 톤 대비 피크) */}
+          <Reveal>
+            <blockquote className="my-14 rounded-card bg-ink px-8 py-12 lg:my-20 lg:px-14 lg:py-16">
+              <span
+                aria-hidden
+                className="font-display block text-mega font-black leading-none text-accent/30"
+              >
+                &ldquo;
+              </span>
+              <p className="mt-2 text-h3 font-bold leading-snug text-white lg:text-h2">
+                직원의 정신적·물질적 행복을 최우선으로 여기며, 고객 한 분 한 분을
+                평생 지켜야 할 소중한 존재로 생각합니다.
+              </p>
+            </blockquote>
+          </Reveal>
 
-          <footer className="mt-14 flex items-baseline justify-end gap-3 border-t border-hairline pt-10">
-            <span className="text-detail text-ink-soft">대표이사</span>
-            <span className="font-display text-h3 font-extrabold tracking-headline text-ink">
-              {SITE.ceo}
-            </span>
-            <span className="text-detail text-ink-soft">올림</span>
-          </footer>
+          <Reveal>
+            <p className="text-body-sm text-ink-soft">
+              매일의 작은 실천이 큰 변화를 만들어낸다는 믿음으로, 오늘도 고객과
+              직원, 그리고 사회를 위한 발걸음을 멈추지 않겠습니다.
+            </p>
 
-          {/* 마무리 CTA — 서신 톤을 해치지 않는 절제된 안내 + 사업소개 링크 */}
-          <div className="mt-14 flex flex-col items-center gap-5 text-center lg:mt-16">
+            <footer className="mt-14 flex items-baseline justify-end gap-3 border-t border-hairline pt-10">
+              <span className="text-detail text-ink-soft">대표이사</span>
+              <span className="font-display text-h3 font-extrabold tracking-headline text-ink">
+                {SITE.ceo}
+              </span>
+              <span className="text-detail text-ink-soft">올림</span>
+            </footer>
+          </Reveal>
+        </div>
+
+        {/* 마무리 CTA — 서신 톤을 해치지 않는 절제된 안내 + 사업소개 링크 */}
+        <Reveal>
+          <div className="mt-16 flex flex-col items-center gap-5 text-center lg:mt-20">
             <p className="text-detail text-ink-soft">
               이쓰리가 만들어온 환경 솔루션을 확인해 보세요
             </p>
@@ -58,7 +66,7 @@ export function ClosingSection() {
               E3의 사업 살펴보기
             </Link>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
