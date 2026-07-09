@@ -3,18 +3,36 @@ import { SectionLabel } from "@/shared/ui";
 interface Stat {
   value: string;
   label: string;
+  descriptor: string;
 }
 
-/** 인사말 4문단(연혁)에서 도출한 스탯 3종. */
+/**
+ * 연혁 마일스톤 3종(리드 문단에서 파생 — 신규 사실 창작 없음).
+ * 창립 → 축적된 성과 → 비전 수립의 여정 노드로 배치한다.
+ */
 const STATS: readonly Stat[] = [
-  { value: "2011", label: "창립" },
-  { value: "160+", label: "환경 공공기관 프로젝트" },
-  { value: "2018", label: "비전 수립" },
+  {
+    value: "2011",
+    label: "창립",
+    descriptor: "환경 IT 전문기업으로 출발",
+  },
+  {
+    value: "160+",
+    label: "환경 공공기관 프로젝트",
+    descriptor: "지금까지 성공적으로 수행",
+  },
+  {
+    value: "2018",
+    label: "비전 수립",
+    descriptor: "대한민국 환경 IT 융합 으뜸기업",
+  },
 ];
 
 /**
- * 연혁 스탯(4문단). 올리브 밴드로 배경 리듬을 만들고, 대형 숫자 타이포로
- * 신뢰 지표답게 임팩트를 준다.
+ * 연혁(OUR HISTORY). 올리브 밴드 위에 3개 마일스톤을 연결선으로 잇는
+ * 여정 타임라인으로 표현한다. 모바일은 좌측 세로선, lg 이상은 상단 수평선에
+ * 도트를 얹어 창립→성과→비전의 흐름을 대형 흰색 숫자로 강조한다.
+ * 연결선/도트는 기존 흰색 투명도 유틸만 사용 — 신규 토큰 없음. 서버 컴포넌트.
  */
 export function StatsSection() {
   return (
@@ -34,23 +52,29 @@ export function StatsSection() {
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-10 border-t border-white/12 pt-14 sm:grid-cols-3">
-          {STATS.map((stat, index) => (
-            <div
+        <ol className="mt-14 grid grid-cols-1 sm:mt-16 sm:grid-cols-3">
+          {STATS.map((stat) => (
+            <li
               key={stat.label}
-              className={
-                index < STATS.length - 1
-                  ? "sm:border-r sm:border-white/12 sm:pr-8"
-                  : ""
-              }
+              className="relative border-l border-white/12 pb-10 pl-8 last:pb-0 sm:border-l-0 sm:border-t sm:pb-0 sm:pl-0 sm:pr-8 sm:pt-8"
             >
-              <span className="font-display text-5xl font-extrabold leading-none text-white lg:text-hero">
+              {/* 여정 도트 (연결선 위) */}
+              <span
+                aria-hidden
+                className="absolute -left-1.5 top-1 h-3 w-3 rounded-full border border-white/40 bg-white/20 sm:left-0 sm:-top-1.5"
+              />
+              <span className="font-display block text-5xl font-extrabold leading-none text-white lg:text-hero">
                 {stat.value}
               </span>
-              <p className="mt-4 text-detail text-white/70">{stat.label}</p>
-            </div>
+              <p className="mt-4 text-item font-bold text-white">
+                {stat.label}
+              </p>
+              <p className="mt-2 text-detail text-white/70">
+                {stat.descriptor}
+              </p>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

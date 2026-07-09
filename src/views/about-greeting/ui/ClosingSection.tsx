@@ -1,9 +1,12 @@
+import Link from "next/link";
 import { SITE } from "@/shared/constants";
 
 /**
- * 맺음말(7~9문단) + 서명. 신뢰감을 주는 8문단을 대형 다크 풀인용으로
- * 하이라이트하고(P7→P8→P9 읽기 순서 유지), 서명은 hairline 구분선 +
- * 이름 강조로 서신 마무리답게 정제한다.
+ * 맺음말 + 서명 + 마무리 CTA. 핵심 메시지를 대형 다크 풀인용으로
+ * 하이라이트하고(도입 문단 → 풀인용 → 문단 → 서명 읽기 순서 유지),
+ * 서명은 hairline 구분선 + 이름 강조로 서신 마무리답게 정제한다.
+ * 서명 이후 절제된 안내 한 줄과 사업소개 CTA를 더해 다음 여정으로 잇는다.
+ * 정적 텍스트/링크뿐 — 서버 컴포넌트.
  */
 export function ClosingSection() {
   return (
@@ -16,7 +19,7 @@ export function ClosingSection() {
             것입니다.
           </p>
 
-          {/* 핵심 메시지 대형 풀인용 (8문단) — 다크 인셋 카드 */}
+          {/* 핵심 메시지 대형 풀인용 — 다크 인셋 카드 */}
           <blockquote className="my-12 rounded-card bg-ink px-8 py-11 lg:my-16 lg:px-14 lg:py-14">
             <span
               aria-hidden
@@ -42,6 +45,19 @@ export function ClosingSection() {
             </span>
             <span className="text-detail text-ink-soft">올림</span>
           </footer>
+
+          {/* 마무리 CTA — 서신 톤을 해치지 않는 절제된 안내 + 사업소개 링크 */}
+          <div className="mt-14 flex flex-col items-center gap-5 text-center lg:mt-16">
+            <p className="text-detail text-ink-soft">
+              이쓰리가 만들어온 환경 솔루션을 확인해 보세요
+            </p>
+            <Link
+              href="/business/intro"
+              className="inline-flex items-center justify-center rounded-pill bg-ink px-7 py-3.5 font-display text-sm font-bold text-white transition-colors duration-fast ease-out hover:opacity-90"
+            >
+              E3의 사업 살펴보기
+            </Link>
+          </div>
         </div>
       </div>
     </section>
