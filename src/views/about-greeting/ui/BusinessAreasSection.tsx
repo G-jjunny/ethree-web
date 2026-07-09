@@ -40,20 +40,19 @@ export function BusinessAreasSection() {
     <section className="bg-surface py-16 lg:py-25">
       <div className="content-container">
         <SectionHeader
-          className="mb-16 max-w-2xl"
+          className="mb-12 max-w-2xl"
           tone="light"
           eyebrow="OUR BUSINESS"
           title={
             <>
               환경과 IT를 잇는
-              <br />
-              세 가지 사업분야
+              <br />세 가지 사업분야
             </>
           }
           description="특히 저희는 기후위기 적응 전략을 기반으로, 환경 데이터 기반 정책 지원, 실내외 공기질 개선, 환경플랫폼 구축, 탄소중립 기술 실현 등 다양한 활동을 전개하고 있습니다. 이쓰리의 환경 IT 기술력은 특히 환경영향평가 시스템 구축 사례를 통해 입증되었으며, 이는 지금도 환경부 대표 플랫폼으로서 안정적으로 운영되고 있습니다."
         />
 
-        <div className="grid grid-cols-1 divide-y divide-hairline border-y border-hairline sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        <div className="grid grid-cols-1 divide-y divide-hairline border-hairline sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:border-x">
           {BUSINESS_AREAS.map((area) => (
             <BusinessAreaCard
               key={area.no}

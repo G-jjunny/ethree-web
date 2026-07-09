@@ -41,10 +41,11 @@ export function BusinessAreaCard({
   description,
   imageSrc,
 }: BusinessAreaCardProps) {
-  const tintIndex = (Number(no) - 1 + AREA_BG_TINT.length) % AREA_BG_TINT.length;
+  const tintIndex =
+    (Number(no) - 1 + AREA_BG_TINT.length) % AREA_BG_TINT.length;
 
   return (
-    <article className="flex flex-col gap-6 py-10 sm:px-10 sm:py-12 sm:first:pl-0 sm:last:pr-0 lg:py-14">
+    <article className="flex flex-col gap-6 py-10 sm:px-4 sm:py-0 lg:py-0">
       <div className="h-px w-10 bg-hairline" aria-hidden />
 
       <SectionLabel color="olive-muted" size="sm">
@@ -56,7 +57,7 @@ export function BusinessAreaCard({
         <p className="text-body-sm text-ink-soft">{description}</p>
       </div>
 
-      <div className="relative mt-auto aspect-square overflow-hidden rounded-tl-[10px] rounded-bl-[10px] rounded-tr-[30px] rounded-br-[30px] bg-ink">
+      <div className="relative mt-auto aspect-2/1 overflow-hidden rounded-tl-[60px] rounded-tr-[10px] rounded-br-[60px] rounded-bl-[10px] bg-ink">
         {imageSrc ? (
           <Image
             src={imageSrc}

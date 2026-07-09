@@ -122,7 +122,7 @@ Tailwind v4 기본 4px 그리드(`--spacing` 0.25rem)를 그대로 사용한다.
 | -------------- | ------------ | ------------------ | -------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | card           | 0.25rem      | 4px                | 카드                                                                  | `rounded-card`                                                             |
 | image          | 0.5rem       | 8px                | 이미지 박스                                                           | `rounded-image`                                                            |
-| image-organic  | 10px / 30px  | (신규, 원본 없음)  | OUR BUSINESS 카드 이미지 비대칭 라운드(좌측 각짐/우측 둥긂)           | `rounded-tl-[10px] rounded-bl-[10px] rounded-tr-[30px] rounded-br-[30px]`  |
+| image-organic  | 10px / 60px  | (신규, 원본 없음)  | OUR BUSINESS 카드 이미지 비대칭 라운드(좌상·우하 크게, 우상·좌하 각짐) | `rounded-tl-[60px] rounded-tr-[10px] rounded-br-[60px] rounded-bl-[10px]`  |
 | pill           | 1.75rem      | 28px               | CTA 버튼                                                              | `rounded-pill`                                                             |
 | full           | 9999px       | 50%                | 아이콘 원                                                             | `rounded-full`                                                             |
 
