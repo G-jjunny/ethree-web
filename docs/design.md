@@ -118,12 +118,15 @@ Tailwind v4 기본 4px 그리드(`--spacing` 0.25rem)를 그대로 사용한다.
 
 ## 보더 라운드
 
-| 토큰   | 값       | 원본  | 용도          | 클래스          |
-| ------ | -------- | ----- | ------------- | --------------- |
-| card   | 0.25rem  | 4px   | 카드          | `rounded-card`  |
-| image  | 0.5rem   | 8px   | 이미지 박스   | `rounded-image` |
-| pill   | 1.75rem  | 28px  | CTA 버튼      | `rounded-pill`  |
-| full   | 9999px   | 50%   | 아이콘 원     | `rounded-full`  |
+| 토큰           | 값           | 원본               | 용도                                                                 | 클래스                                                                     |
+| -------------- | ------------ | ------------------ | -------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| card           | 0.25rem      | 4px                | 카드                                                                  | `rounded-card`                                                             |
+| image          | 0.5rem       | 8px                | 이미지 박스                                                           | `rounded-image`                                                            |
+| image-organic  | 10px / 60px  | (신규, 원본 없음)  | OUR BUSINESS 카드 이미지 비대칭 라운드(좌상·우하 크게, 우상·좌하 각짐) | `rounded-tl-[60px] rounded-tr-[10px] rounded-br-[60px] rounded-bl-[10px]`  |
+| pill           | 1.75rem      | 28px               | CTA 버튼                                                              | `rounded-pill`                                                             |
+| full           | 9999px       | 50%                | 아이콘 원                                                             | `rounded-full`                                                             |
+
+> `image-organic`은 **OUR BUSINESS 카드(`BusinessAreaCard`) 전용 예외 값**이다. 재사용 패턴(3곳 이상 반복)이 아니라 이 카드 하나만을 위한 1회성 신규 토큰이므로, 다른 화면에서 그대로 복제하지 말고 필요 시 디자인 논의를 거쳐 재검토한다.
 
 border-width는 기본 `border`(1px)만 사용.
 
