@@ -3,9 +3,11 @@ import { SITE } from "@/shared/constants";
 import { Reveal } from "./Reveal";
 
 /**
- * 맺음말 + 서명 + 마무리 CTA. 도입 문단 → 대형 다크 풀인용 → 맺음 문단 →
- * 서명 → 다음 여정 CTA 순으로 서신을 닫는다. 크림 후반부에서 다크 인용 카드가
- * 톤 대비의 감정적 피크가 되도록 두고, 서명은 hairline 구분선으로 정제한다.
+ * 맺음말 + 서명 + 마무리 CTA. 도입 문단 → 대형 풀인용 → 맺음 문단 →
+ * 서명 → 다음 여정 CTA 순으로 서신을 닫는다. 인용은 배경/박스 없이 크림 위
+ * 대형 ink 타이포그래피로 두고, 위아래 hairline 구분선과 넉넉한 여백으로
+ * 이 섹션의 시각적 피크를 만든다(CoreValues 리듬과 정합). 큰 따옴표는 다크 대비
+ * 대신 olive-muted ghost 포인트로 절제한다. 서명도 hairline 구분선으로 정제한다.
  * 정적 텍스트/링크 — 스크롤 등장 모션만 Reveal(client) 아일랜드로 처리.
  */
 export function ClosingSection() {
@@ -21,16 +23,16 @@ export function ClosingSection() {
             </p>
           </Reveal>
 
-          {/* 핵심 메시지 대형 풀인용 — 다크 인셋 카드(후반부 톤 대비 피크) */}
+          {/* 핵심 메시지 대형 풀인용 — 크림 위 대형 ink 타이포(hairline로 프레이밍한 시각적 피크) */}
           <Reveal>
-            <blockquote className="my-14 rounded-card bg-ink px-8 py-12 lg:my-20 lg:px-14 lg:py-16">
+            <blockquote className="my-14 border-y border-hairline py-12 lg:my-20 lg:py-16">
               <span
                 aria-hidden
-                className="font-display block text-mega font-black leading-none text-accent/30"
+                className="font-display block text-mega font-black leading-none text-olive-muted/40"
               >
                 &ldquo;
               </span>
-              <p className="mt-2 text-h3 font-bold leading-snug text-white lg:text-h2">
+              <p className="mt-4 font-display text-h3 font-bold leading-snug tracking-headline text-ink lg:text-h2">
                 직원의 정신적·물질적 행복을 최우선으로 여기며, 고객 한 분 한 분을
                 평생 지켜야 할 소중한 존재로 생각합니다.
               </p>
