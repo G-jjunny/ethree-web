@@ -4,6 +4,7 @@ import { BusinessAreaCard } from "./BusinessAreaCard";
 
 interface BusinessArea {
   no: string;
+  titleEn: string;
   title: string;
   description: string;
   imageSrc?: string;
@@ -13,19 +14,22 @@ interface BusinessArea {
 const BUSINESS_AREAS: readonly BusinessArea[] = [
   {
     no: "01",
-    title: "CLIMATE & ENVIRONMENT",
+    titleEn: "CLIMATE & ENVIRONMENT",
+    title: "기후 환경 분야",
     description:
       "폭염 대응 연구, 영유아 건강지수 개발, 기후위기 적응대책 수립부터 기후재난 대응, 기후·에너지 관리, 자연자산 가치평가, 환경자원 총량관리, 훼손지 생태복원까지 — 기후위기 시대에 필요한 환경 정책·연구 전 영역을 다룹니다.",
   },
   {
     no: "02",
-    title: "ENVIRONMENT IT",
+    titleEn: "ENVIRONMENT IT",
+    title: "환경 IT 분야",
     description:
       "환경부 및 산하기관 대상 시스템 개발·유지보수, 오픈소스 기반 GIS 플랫폼 구축, 환경영향평가 시스템 구축·운영까지 — 환경 데이터를 다루는 공공 IT 인프라를 설계하고 운영합니다.",
   },
   {
     no: "03",
-    title: "ENVIRONMENT IoT",
+    titleEn: "ENVIRONMENT IoT",
+    title: "환경 IoT 분야",
     description:
       "실내공기 측정·모니터링, 공기질 진단 컨설팅, 대기오염 감시 시스템, 오염물질 방지 운영 시스템부터 탄소중립 실현을 위한 환경 IoT 솔루션 개발까지 — 센서 기반 환경 모니터링 기술을 제공합니다.",
   },
@@ -54,6 +58,7 @@ export function BusinessAreasSection() {
             <BusinessAreaCard
               key={area.no}
               no={area.no}
+              titleEn={area.titleEn}
               title={area.title}
               description={area.description}
               imageSrc={area.imageSrc}

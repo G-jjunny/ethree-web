@@ -15,8 +15,11 @@ const AREA_BG_TINT = [
 ];
 
 export interface BusinessAreaCardProps {
-  /** 순번 ("01" 등) — 라벨 표기는 컴포넌트 내부에서 "E3 {no}" 형태로 조립 */
+  /** 순번 ("01" 등) — 라벨 표기는 컴포넌트 내부에서 "{no} {titleEn}" 형태로 조립 */
   no: string;
+  /** 라벨에 쓰일 영문명 (예: "CLIMATE & ENVIRONMENT") */
+  titleEn: string;
+  /** 큰 볼드 타이틀, 한글 (예: "기후 환경 분야") */
   title: string;
   description: string;
   /** 선택. 없으면 placeholder(틴트 배경 등 기존 톤)로 표시 */
@@ -33,6 +36,7 @@ export interface BusinessAreaCardProps {
  */
 export function BusinessAreaCard({
   no,
+  titleEn,
   title,
   description,
   imageSrc,
@@ -44,7 +48,7 @@ export function BusinessAreaCard({
       <div className="h-px w-10 bg-hairline" aria-hidden />
 
       <SectionLabel color="olive-muted" size="sm">
-        {`E3 ${no}`}
+        {`${no} ${titleEn}`}
       </SectionLabel>
 
       <div className="flex flex-col gap-3">
@@ -52,7 +56,7 @@ export function BusinessAreaCard({
         <p className="text-body-sm text-ink-soft">{description}</p>
       </div>
 
-      <div className="relative aspect-square overflow-hidden rounded-image bg-ink">
+      <div className="relative mt-auto aspect-square overflow-hidden rounded-tl-[10px] rounded-bl-[10px] rounded-tr-[30px] rounded-br-[30px] bg-ink">
         {imageSrc ? (
           <Image
             src={imageSrc}
