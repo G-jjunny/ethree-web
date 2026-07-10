@@ -20,7 +20,7 @@ export function LocationSection() {
         {/* 헤더 — OFFICE + 법인명 + 방문/문의 안내 */}
         <Reveal>
           <SectionLabel color="olive">OFFICE</SectionLabel>
-          <h2 className="font-display mt-4 text-h3 font-extrabold tracking-headline text-ink lg:text-h2">
+          <h2 className="mt-4 font-display text-h3 font-extrabold tracking-headline text-ink lg:text-h2">
             {SITE.legalName}
           </h2>
           <p className="mt-5 max-w-2xl text-body-sm text-ink-soft">
@@ -28,20 +28,6 @@ export function LocationSection() {
             사항은 담당 부서로 연락 주시기 바랍니다.
           </p>
         </Reveal>
-
-        {/* 풀와이드 구글맵 — 시각 앵커. hairline 프레임 + 넓은 aspect. */}
-        <Reveal className="mt-10 lg:mt-14" delay={0.06}>
-          <div className="aspect-[4/3] overflow-hidden rounded-image border border-hairline sm:aspect-[16/9] lg:aspect-[21/9]">
-            <iframe
-              src={mapSrc}
-              title="이쓰리 오시는 길 지도"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="h-full w-full"
-            />
-          </div>
-        </Reveal>
-
         {/* 주소·전화·팩스 인포 스트립 — hairline 3열(모바일 세로 스택). */}
         <Reveal delay={0.12}>
           <dl className="mt-10 grid grid-cols-1 divide-y divide-hairline border-y border-hairline sm:grid-cols-3 sm:divide-x sm:divide-y-0">
@@ -58,7 +44,7 @@ export function LocationSection() {
               <dd className="mt-3 text-body-sm text-ink-soft">
                 <a
                   href={`tel:${SITE.contact.tel}`}
-                  className="transition-colors duration-fast ease-out hover:text-olive-label"
+                  className="duration-fast transition-colors ease-out hover:text-olive-label"
                 >
                   {SITE.contact.tel}
                 </a>
@@ -71,6 +57,19 @@ export function LocationSection() {
               </dd>
             </div>
           </dl>
+        </Reveal>
+
+        {/* 풀와이드 구글맵 — 시각 앵커. hairline 프레임 + 넓은 aspect. */}
+        <Reveal className="mt-10 lg:mt-14" delay={0.06}>
+          <div className="aspect-[4/3] overflow-hidden rounded-image border border-hairline sm:aspect-[16/9] lg:aspect-[21/9]">
+            <iframe
+              src={mapSrc}
+              title="이쓰리 오시는 길 지도"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-full w-full"
+            />
+          </div>
         </Reveal>
 
         {/* 대중교통 + 부서 문의 — 별도 서브헤더 없이 스트립 아래로 바로 이어붙임. */}
@@ -102,7 +101,10 @@ export function LocationSection() {
           </div>
 
           {/* 부서 문의 */}
-          <Reveal delay={0.16} className="lg:border-l lg:border-hairline lg:pl-16">
+          <Reveal
+            delay={0.16}
+            className="lg:border-l lg:border-hairline lg:pl-16"
+          >
             <SectionLabel color="olive" size="sm">
               CONTACT
             </SectionLabel>
@@ -115,7 +117,7 @@ export function LocationSection() {
                   <p className="text-detail text-ink-soft">{dept.name}</p>
                   <a
                     href={`mailto:${dept.email}`}
-                    className="font-display mt-1 block text-item font-bold text-ink transition-colors duration-fast ease-out hover:text-olive-label"
+                    className="duration-fast mt-1 block font-display text-item font-bold text-ink transition-colors ease-out hover:text-olive-label"
                   >
                     {dept.email}
                   </a>
