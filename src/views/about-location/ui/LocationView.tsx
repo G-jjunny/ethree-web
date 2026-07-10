@@ -3,8 +3,7 @@ import {
   PlaceholderSubNav,
 } from "@/widgets/placeholder-page";
 import { NAV_GROUPS } from "@/shared/constants";
-import { LocationMapSection } from "./LocationMapSection";
-import { DirectionsSection } from "./DirectionsSection";
+import { LocationSection } from "./LocationSection";
 
 const group = NAV_GROUPS.find((g) => g.href === "/about")!;
 
@@ -27,8 +26,7 @@ export function LocationView() {
           />
         </div>
       </section>
-      <LocationMapSection />
-      <DirectionsSection />
+      <LocationSection />
     </>
   );
 }
