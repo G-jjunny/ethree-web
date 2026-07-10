@@ -7,8 +7,8 @@ interface PlaceholderHeaderProps {
 }
 
 /**
- * PlaceholderPage/PlaceholderHub 공용 헤더 블록.
- * views/about-greeting(GreetingView)에서도 직접 재사용하므로 index.ts로 공개한다.
+ * 섹션 진입/leaf 페이지 공용 헤더 블록(eyebrow + 제목 + 선택 설명).
+ * 각 뷰(GreetingView 등)에서 직접 재사용하므로 index.ts로 공개한다.
  */
 export function PlaceholderHeader({
   eyebrow,

@@ -68,6 +68,7 @@ export const NAV_GROUPS: readonly NavGroup[] = [
     label: "Customer Support",
     footerLabel: "CUSTOMER SUPPORT",
     href: "/support",
+    defaultHref: "/support/news",
     children: [
       { label: "NEWS", href: "/support/news" },
       { label: "기업문화", href: "/support/culture" },

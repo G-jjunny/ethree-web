@@ -13,11 +13,9 @@ export interface PlaceholderSubNavProps {
 }
 
 /**
- * 허브/leaf 페이지 공용 링크 카드 그리드.
- * `PlaceholderHub`(activeHref 없음)와 `PlaceholderPage`의 형제 페이지 탭(activeHref 있음)이
- * 동일한 카드 그리드를 공유하도록 단일 소스로 통합한 컴포넌트.
- * `PlaceholderPage` 구조에 맞지 않는 커스텀 마크업 페이지(예: /support/news 리스트 페이지)에서도
- * 독립적으로 사용할 수 있도록 공개 API로 노출한다.
+ * 형제 페이지 탭(링크 카드 그리드). 현재 페이지를 activeHref로 강조한다.
+ * 각 섹션 leaf 페이지(예: /support/news 리스트 페이지)에서 헤더 아래에
+ * 독립적으로 사용하도록 공개 API로 노출한다.
  * 상호작용은 Link뿐 — 서버 컴포넌트로 사용 가능.
  */
 export function PlaceholderSubNav({
