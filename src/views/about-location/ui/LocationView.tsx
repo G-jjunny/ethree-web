@@ -3,15 +3,15 @@ import {
   PlaceholderSubNav,
 } from "@/widgets/placeholder-page";
 import { NAV_GROUPS } from "@/shared/constants";
-import { LocationMapSection } from "./LocationMapSection";
-import { DirectionsSection } from "./DirectionsSection";
+import { LocationSection } from "./LocationSection";
 
 const group = NAV_GROUPS.find((g) => g.href === "/about")!;
 
 /**
  * 오시는 길 페이지 조합. 인사말/연혁과 동일한 공용 헤더 패턴 +
- * 배경 밴드 리듬(크림 헤더 → 크림 지도/주소 → 올리브 오는 길)으로
- * 한 사이트 톤을 유지한다. 올리브 밴드로 마무리해 연혁 페이지와 리듬을 맞춘다.
+ * cream 중심 에디토리얼(크림 헤더 → 크림 지도/주소 → 크림 오는 길)로
+ * 최근 인사말 톤과 정합한다. 대형 풀와이드 지도가 시각 앵커 역할을 하고,
+ * 섹션은 hairline 프레이밍 + Reveal 스크롤 등장으로 정제된다.
  * SiteHeader/SiteFooter는 (marketing) 그룹 layout이 렌더한다.
  */
 export function LocationView() {
@@ -26,8 +26,7 @@ export function LocationView() {
           />
         </div>
       </section>
-      <LocationMapSection />
-      <DirectionsSection />
+      <LocationSection />
     </>
   );
 }

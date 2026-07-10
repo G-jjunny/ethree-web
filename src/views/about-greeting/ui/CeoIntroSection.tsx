@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { SectionLabel } from "@/shared/ui";
+import { SectionLabel, Reveal } from "@/shared/ui";
 import { SITE } from "@/shared/constants";
-import { Reveal } from "./Reveal";
 
 interface Milestone {
   value: string;

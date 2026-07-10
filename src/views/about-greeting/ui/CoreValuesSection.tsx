@@ -1,5 +1,4 @@
-import { SectionHeader } from "@/shared/ui";
-import { Reveal } from "./Reveal";
+import { SectionHeader, Reveal } from "@/shared/ui";
 
 interface CoreValue {
   no: string;

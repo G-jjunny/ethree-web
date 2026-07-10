@@ -1,7 +1,6 @@
-import { SectionHeader } from "@/shared/ui";
+import { SectionHeader, Reveal } from "@/shared/ui";
 
 import { BusinessAreaCard } from "./BusinessAreaCard";
-import { Reveal } from "./Reveal";
 
 interface BusinessArea {
   no: string;
