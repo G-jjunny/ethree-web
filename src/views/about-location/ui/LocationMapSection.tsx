@@ -1,11 +1,12 @@
-import { SectionLabel } from "@/shared/ui";
+import { SectionLabel, Reveal } from "@/shared/ui";
 import { SITE } from "@/shared/constants";
 import { getDirections } from "@/shared/lib";
 
 /**
- * 지도 + 주소 섹션. 크림(surface) 밴드 위에 대형 구글맵 임베드(hairline 프레임)와
- * 회사 주소·연락처 인포 패널을 2열로 배치한다. 지도 임베드는 API 키가 필요 없어
- * 서버 컴포넌트로 렌더된다("use client" 불필요).
+ * 지도 + 주소 섹션(크림 에디토리얼). 인사말 톤에 맞춰 넉넉한 여백(py-20 lg:py-28)과
+ * hairline 프레이밍으로 정제했다. 상단 OFFICE eyebrow + 대형 legalName 헤딩,
+ * 그 아래 풀와이드 구글맵(시각 앵커), 하단 주소·전화·팩스 hairline 인포 행.
+ * 지도 임베드는 API 키가 필요 없어 서버 컴포넌트로 렌더된다(Reveal client 아일랜드만 상호작용).
  * 주소/tel/fax는 SITE(단일 소스)에서 소비하고, mapQuery만 getDirections()에서 받는다.
  */
 export function LocationMapSection() {
@@ -13,12 +14,18 @@ export function LocationMapSection() {
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=17&output=embed`;
 
   return (
-    <section className="bg-surface py-16 lg:py-25">
+    <section className="bg-surface py-20 lg:py-28">
       <div className="content-container">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.6fr_1fr] lg:items-stretch lg:gap-10">
-          {/* 구글맵 임베드 — hairline 프레임 + 반응형 aspect 컨테이너.
-              lg에서는 items-stretch로 주소 패널이 지도 높이에 맞춰 늘어난다. */}
-          <div className="aspect-[4/3] overflow-hidden rounded-image border border-hairline lg:aspect-[16/10]">
+        <Reveal>
+          <SectionLabel color="olive">OFFICE</SectionLabel>
+          <h2 className="font-display mt-4 max-w-2xl text-h3 font-extrabold tracking-headline text-ink lg:text-h2">
+            {SITE.legalName}
+          </h2>
+        </Reveal>
+
+        {/* 풀와이드 구글맵 — 시각 앵커. hairline 프레임 + 넓은 aspect 컨테이너. */}
+        <Reveal className="mt-12 lg:mt-16" delay={0.06}>
+          <div className="aspect-[4/3] overflow-hidden rounded-image border border-hairline sm:aspect-[16/9] lg:aspect-[21/9]">
             <iframe
               src={mapSrc}
               title="이쓰리 오시는 길 지도"
@@ -27,43 +34,38 @@ export function LocationMapSection() {
               className="h-full w-full"
             />
           </div>
+        </Reveal>
 
-          {/* 주소 인포 패널 — SITE 소비 */}
-          <div className="flex flex-col justify-center rounded-image border border-hairline bg-surface-white p-8 lg:p-10">
-            <SectionLabel color="olive">OFFICE</SectionLabel>
-            <p className="font-display mt-4 text-h3 font-extrabold text-ink">
-              {SITE.legalName}
-            </p>
-
-            <dl className="mt-8 space-y-6 border-t border-hairline pt-8">
-              <div>
-                <dt className="text-meta font-bold text-olive-label">주소</dt>
-                <dd className="mt-2 text-body-sm text-ink-soft">
-                  {SITE.address.line1}
-                  <br />
-                  {SITE.address.line2}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-meta font-bold text-olive-label">전화</dt>
-                <dd className="mt-2 text-body-sm text-ink-soft">
-                  <a
-                    href={`tel:${SITE.contact.tel}`}
-                    className="transition-colors duration-fast ease-out hover:text-olive-label"
-                  >
-                    {SITE.contact.tel}
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-meta font-bold text-olive-label">팩스</dt>
-                <dd className="mt-2 text-body-sm text-ink-soft">
-                  {SITE.contact.fax}
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
+        {/* 하단 인포 행 — 주소·전화·팩스. hairline 3열(모바일 세로 스택). */}
+        <Reveal delay={0.12}>
+          <dl className="mt-10 grid grid-cols-1 divide-y divide-hairline border-y border-hairline sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            <div className="py-6 sm:pr-8">
+              <dt className="text-meta font-bold text-olive-label">주소</dt>
+              <dd className="mt-3 text-body-sm text-ink-soft">
+                {SITE.address.line1}
+                <br />
+                {SITE.address.line2}
+              </dd>
+            </div>
+            <div className="py-6 sm:px-8">
+              <dt className="text-meta font-bold text-olive-label">전화</dt>
+              <dd className="mt-3 text-body-sm text-ink-soft">
+                <a
+                  href={`tel:${SITE.contact.tel}`}
+                  className="transition-colors duration-fast ease-out hover:text-olive-label"
+                >
+                  {SITE.contact.tel}
+                </a>
+              </dd>
+            </div>
+            <div className="py-6 sm:pl-8">
+              <dt className="text-meta font-bold text-olive-label">팩스</dt>
+              <dd className="mt-3 text-body-sm text-ink-soft">
+                {SITE.contact.fax}
+              </dd>
+            </div>
+          </dl>
+        </Reveal>
       </div>
     </section>
   );

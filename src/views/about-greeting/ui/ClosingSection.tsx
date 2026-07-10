@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/shared/constants";
-import { Reveal } from "./Reveal";
+import { Reveal } from "@/shared/ui";
 
 /**
  * 맺음말 + 서명 + 마무리 CTA. 도입 문단 → 대형 풀인용 → 맺음 문단 →
